@@ -1,0 +1,275 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+
+interface Props {
+	title?: string;
+}
+
+const { title = "Strakon Digital | Digital Architects" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+		<meta name="theme-color" content="#0A0A0A" />
+		<link rel="icon" type="image/png" href="/images/favicon-strakon.png" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+
+		<!-- Preload Critical Slide 1 & 2 Assets -->
+		<link rel="preload" href="/images/Background/1.avif" as="image" crossorigin="anonymous" />
+		<link rel="preload" href="/images/11.avif" as="image" />
+		<link rel="preload" href="/images/capa/1.avif" as="image" />
+		<link rel="preload" href="/images/Background/2.avif" as="image" crossorigin="anonymous" />
+		<link rel="preload" href="/images/22.avif" as="image" />
+	</head>
+	<body class="bg-[#0A0A0A] text-white antialiased overflow-x-hidden min-h-screen">
+		<!-- Slow-moving blurred spheres -->
+		<div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+			<div class="absolute -top-[10%] -left-[10%] w-[50vw] h-[50vh] bg-[#00F5FF]/6 blur-[100px] rounded-full sphere-anim sphere-anim-1"></div>
+			<div class="absolute top-[40%] -right-[10%] w-[60vw] h-[60vh] bg-[#7C3AED]/6 blur-[100px] rounded-full sphere-anim sphere-anim-2"></div>
+		</div>
+
+		<Header />
+		<slot />
+
+		<!-- i18n Diagnostics Panel -->
+		<div id="i18n-debug-panel" class="fixed bottom-4 left-4 z-[9999] bg-[#0A0A0A]/95 border border-white/10 rounded-2xl p-4 text-[0.65rem] font-mono backdrop-blur-md shadow-2xl flex flex-col gap-1.5 w-72 pointer-events-auto transition-all duration-300">
+			<div class="flex justify-between items-center border-b border-white/10 pb-2 mb-1.5">
+				<span class="text-[#00F5FF] font-bold tracking-wider">i18n DIAGNOSTICS</span>
+				<button onclick="document.getElementById('i18n-debug-panel').style.display='none'" class="text-zinc-500 hover:text-white font-bold cursor-pointer">✕</button>
+			</div>
+			<div>Active Language: <span id="debug-lang" class="text-white font-bold uppercase">EN</span></div>
+			<div>DOM Elements Found: <span id="debug-count" class="text-white font-bold">0</span></div>
+			<div class="text-zinc-500 border-t border-white/10 pt-2 mt-1 font-bold">Activity Log:</div>
+			<div id="debug-logs" class="text-zinc-400 max-h-24 overflow-y-auto space-y-1 scrollbar-thin"></div>
+		</div>
+
+		<script>
+			import gsap from 'gsap';
+			import { ScrollTrigger } from 'gsap/ScrollTrigger';
+			import Lenis from 'lenis';
+			import { translations } from '../utils/translations.js';
+
+			// ==========================================
+			// i18n TRANSLATION ENGINE
+			// ==========================================
+			const getPreferredLanguage = () => {
+				const saved = localStorage.getItem('lang');
+				if (saved && ['en', 'es', 'pt', 'de'].includes(saved)) return saved;
+				
+				const browser = navigator.language.slice(0, 2).toLowerCase();
+				if (['en', 'es', 'pt', 'de'].includes(browser)) return browser;
+				
+				return 'en';
+			};
+
+			let currentLang = getPreferredLanguage();
+
+			const translateDOM = (lang) => {
+				document.documentElement.lang = lang;
+				localStorage.setItem('lang', lang);
+				currentLang = lang;
+
+				// 1. Standard text translations
+				const elements = document.querySelectorAll('[data-i18n]');
+				console.log(`[i18n] Translating to ${lang}. Found ${elements.length} data-i18n elements.`);
+				
+				// Update debug diagnostics
+				const debugLang = document.getElementById('debug-lang');
+				const debugCount = document.getElementById('debug-count');
+				const debugLogs = document.getElementById('debug-logs');
+				if (debugLang) debugLang.innerText = lang.toUpperCase();
+				if (debugCount) debugCount.innerText = elements.length.toString();
+				if (debugLogs) {
+					const time = new Date().toLocaleTimeString();
+					debugLogs.innerHTML = `<div>[${time}] Switched: <b>${lang.toUpperCase()}</b> (${elements.length} elements found)</div>` + debugLogs.innerHTML;
+				}
+
+				elements.forEach(el => {
+					try {
+						const key = el.getAttribute('data-i18n');
+						const translation = translations[lang]?.[key];
+						if (translation) {
+							if (translation.includes('<')) {
+								el.innerHTML = translation;
+							} else {
+								el.textContent = translation;
+							}
+						} else {
+							console.warn(`[i18n] Missing translation for key: "${key}" in language: "${lang}"`);
+							if (debugLogs) {
+								debugLogs.innerHTML = `<div class="text-yellow-500">⚠ Missing key: "${key}"</div>` + debugLogs.innerHTML;
+							}
+						}
+					} catch (err) {
+						console.error(`[i18n] Error translating element:`, el, err);
+						if (debugLogs) {
+							debugLogs.innerHTML = `<div class="text-red-500">❌ Err translating: ${el.tagName}</div>` + debugLogs.innerHTML;
+						}
+					}
+				});
+
+				// 2. Input and Textarea placeholders
+				const placeholders = document.querySelectorAll('[data-i18n-placeholder]');
+				placeholders.forEach(el => {
+					try {
+						const key = el.getAttribute('data-i18n-placeholder');
+						const translation = translations[lang]?.[key];
+						if (translation && (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement)) {
+							el.placeholder = translation;
+						}
+					} catch (err) {
+						console.error(`[i18n] Error translating placeholder:`, el, err);
+					}
+				});
+
+				// 3. Toggle language-specific sections (for long text pages)
+				const langSections = document.querySelectorAll('[data-lang-section]');
+				langSections.forEach(el => {
+					if (el.getAttribute('data-lang-section') === lang) {
+						el.classList.remove('hidden');
+					} else {
+						el.classList.add('hidden');
+					}
+				});
+
+				// Dispatch global event for custom component reactions
+				window.dispatchEvent(new CustomEvent('languageChanged', { detail: { lang } }));
+			};
+
+			// Expose translate functions globally early
+			(window as any).translateDOM = translateDOM;
+			(window as any).getCurrentLang = () => currentLang;
+			(window as any).translations = translations;
+
+			// Execute translations immediately and on DOM loaded states
+			translateDOM(currentLang);
+			if (document.readyState === 'loading') {
+				document.addEventListener('DOMContentLoaded', () => translateDOM(currentLang));
+			} else {
+				translateDOM(currentLang);
+			}
+			window.addEventListener('load', () => translateDOM(currentLang));
+
+			// Register ScrollTrigger
+			gsap.registerPlugin(ScrollTrigger);
+
+			// Initialize Lenis Smooth Scroll
+			const lenis = new Lenis({
+				autoRaf: true,
+			});
+
+			// Expose Lenis globally for slider control
+			(window as any).lenis = lenis;
+
+			// Connect ScrollTrigger to Lenis scroll event
+			lenis.on('scroll', ScrollTrigger.update);
+
+			// Scoped GSAP Animations Context
+			let ctx = gsap.context(() => {
+				// Slow Sphere Animation
+				gsap.to(".sphere-anim-1", {
+					x: "20vw",
+					y: "10vh",
+					duration: 20,
+					yoyo: true,
+					repeat: -1,
+					ease: "sine.inOut"
+				});
+				gsap.to(".sphere-anim-2", {
+					x: "-20vw",
+					y: "-15vh",
+					duration: 25,
+					yoyo: true,
+					repeat: -1,
+					ease: "sine.inOut"
+				});
+
+				// Typography Fade-In-Up Animations
+				const texts = document.querySelectorAll('.gsap-reveal-text');
+				texts.forEach((text) => {
+					gsap.fromTo(text,
+						{ opacity: 0, y: 40 },
+						{
+							opacity: 1,
+							y: 0,
+							duration: 1.2,
+							ease: "power3.out",
+							scrollTrigger: {
+								trigger: text,
+								start: "top 85%",
+								toggleActions: "play none none none"
+							}
+						}
+					);
+				});
+
+				// Card Staggered Glassmorphism Reveals
+				const containers = document.querySelectorAll('.gsap-reveal-container');
+				containers.forEach((container) => {
+					const cards = container.querySelectorAll('.gsap-reveal-card');
+					if (cards.length > 0) {
+						gsap.fromTo(cards,
+							{ opacity: 0, y: 60, scale: 0.95 },
+							{
+								opacity: 1,
+								y: 0,
+								scale: 1,
+								duration: 1.5,
+								ease: "expo.out",
+								stagger: 0.2,
+								scrollTrigger: {
+									trigger: container,
+									start: "top 85%",
+									toggleActions: "play none none none"
+								}
+							}
+						);
+					}
+				});
+			});
+
+			// Revert animations context to prevent memory leaks
+			window.addEventListener('beforeunload', () => {
+				ctx.revert();
+			});
+
+			// ==========================================
+			// TACTICAL SECURITY LAYER
+			// ==========================================
+			// 1. Disable Context Menu (Right Click)
+			document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+			// 2. Disable DevTools Shortcuts
+			document.addEventListener('keydown', (e) => {
+				// F12
+				if (e.key === 'F12') e.preventDefault();
+				// Ctrl+Shift+I (Inspect)
+				if (e.ctrlKey && e.shiftKey && e.key === 'I') e.preventDefault();
+				// Ctrl+Shift+J (Console)
+				if (e.ctrlKey && e.shiftKey && e.key === 'J') e.preventDefault();
+				// Ctrl+U (View Source)
+				if (e.ctrlKey && e.key === 'u') e.preventDefault();
+				// Ctrl+S (Save)
+				if (e.ctrlKey && e.key === 's') e.preventDefault();
+			});
+
+			// 3. Disable Image Dragging
+			document.addEventListener('dragstart', (e) => {
+				if (e.target instanceof HTMLImageElement) e.preventDefault();
+			});
+
+			// 4. Tactical Console Warning
+			console.log(
+				"%c STRAKON DIGITAL %c SECURITY DETECTED %c ACCESS DENIED ",
+				"background: #00F5FF; color: #0A0A0A; font-weight: bold; border-radius: 3px 0 0 3px; padding: 3px 6px;",
+				"background: #0A0A0A; color: #00F5FF; border: 1px solid #00F5FF; padding: 2px 6px;",
+				"background: transparent; color: #7C3AED; font-style: italic; padding: 3px 6px;"
+			);
+		</script>
+	</body>
+</html>

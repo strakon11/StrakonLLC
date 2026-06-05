@@ -1,0 +1,62 @@
+---
+const items = [
+    {
+        title: "Architectural Precision",
+        category: "Visual Design",
+        size: "md:col-span-2 md:row-span-2",
+        bg: "bg-gradient-to-br from-[#00F5FF]/20 to-[#7C3AED]/10",
+        image: "🛰️" // Placeholder, will use styling
+    },
+    {
+        title: "Global Scalability",
+        category: "Infrastructure",
+        size: "md:col-span-1 md:row-span-1",
+        bg: "bg-white/[0.03]",
+        image: "🌐"
+    },
+    {
+        title: "Market Capture",
+        category: "Strategy",
+        size: "md:col-span-1 md:row-span-2",
+        bg: "bg-[#7C3AED]/10",
+        image: "📈"
+    },
+    {
+        title: "Real-time Metrics",
+        category: "Analytics",
+        size: "md:col-span-1 md:row-span-1",
+        bg: "bg-white/[0.05]",
+        image: "⚡"
+    }
+];
+---
+
+<section id="showcase" class="relative min-h-screen flex items-center py-32 px-6 overflow-hidden bg-[#0A0A0A]">
+    <div class="max-w-7xl mx-auto w-full relative z-10">
+        <div class="mb-24">
+            <p class="text-6xl md:text-8xl font-medium text-white leading-[0.95] tracking-tighter">
+                The <span class="text-[#7C3AED]">Showcase.</span>
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[220px]">
+            {items.map(item => (
+                <div class={`group relative rounded-[40px] overflow-hidden border border-white/10 backdrop-blur-3xl transition-all duration-700 hover:border-[#00F5FF]/40 ${item.size} ${item.bg}`}>
+                    <!-- Hover Shine -->
+                    <div class="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                    
+                    <div class="absolute inset-0 p-10 flex flex-col justify-between z-10">
+                        <div>
+                            <span class="text-[#00F5FF] text-[10px] uppercase tracking-[0.4em] font-bold opacity-60 group-hover:opacity-100 transition-opacity">{item.category}</span>
+                            <h3 class="text-3xl font-bold text-white mt-4 tracking-tight leading-none group-hover:translate-x-2 transition-transform duration-500">{item.title}</h3>
+                        </div>
+                        
+                        <div class="text-5xl opacity-20 group-hover:opacity-100 group-hover:scale-125 transition-all duration-700 self-end">
+                            {item.image}
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>

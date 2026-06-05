@@ -1,0 +1,226 @@
+---
+const services = [
+    {
+        title: "Ultra-Premium Web Design",
+        desc: "Bespoke digital architecture tailored to luxury standards. We blend elite aesthetics with flawless UX to build platforms that elevate your brand.",
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10 md:w-12 md:h-12 text-[#00F5FF] drop-shadow-[0_0_8px_rgba(0,245,255,0.5)]"><path d="m12 2 1.2 3.2 3.2 1.2-3.2 1.2L12 10l-1.2-3.2-3.2-1.2 3.2-1.2L12 2Z"/><path d="M18 10l.75 2.25 2.25.75-2.25.75L18 16l-.75-2.25-2.25-.75 2.25-.75L18 10Z"/><path d="M6 14l.5 1.5 1.5.5-.5.5L6 18l-.5-1.5-1.5-.5.5-.5L6 14Z"/><path d="M2 22l5-5"/><path d="M17 5l2 2"/></svg>`,
+        gradient: "from-[#00F5FF]/20 to-transparent"
+    },
+    {
+        title: "Custom Brand Systems",
+        desc: "Unique identities, guidelines, and visual language that command market authority and set you apart in a crowded marketplace.",
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10 md:w-12 md:h-12 text-[#00F5FF] drop-shadow-[0_0_8px_rgba(0,245,255,0.5)]"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>`,
+        gradient: "from-[#7C3AED]/20 to-transparent"
+    },
+    {
+        title: "Performance Marketing",
+        desc: "Precision-targeted campaigns engineered to drive high-intent customer acquisition. Designed specifically for ambitious businesses.",
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10 md:w-12 md:h-12 text-[#00F5FF] drop-shadow-[0_0_8px_rgba(0,245,255,0.5)]"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>`,
+        gradient: "from-white/10 to-transparent"
+    },
+    {
+        title: "Interactive 3D Experiences",
+        desc: "Immersive, browser-based WebGL environments that captivate your audience and tell your brand story in a three-dimensional landscape.",
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10 md:w-12 md:h-12 text-[#00F5FF] drop-shadow-[0_0_8px_rgba(0,245,255,0.5)]"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"/><path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>`,
+        gradient: "from-[#00F5FF]/20 to-transparent"
+    },
+    {
+        title: "Conversion Rate Optimization",
+        desc: "Data-backed conversion architectures and interactive funnels designed to turn visitor traffic into predictable, high-value client pipeline.",
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10 md:w-12 md:h-12 text-[#00F5FF] drop-shadow-[0_0_8px_rgba(0,245,255,0.5)]"><path d="m13 2-2 10h9L9 22l2-10H3L13 2z"/></svg>`,
+        gradient: "from-[#7C3AED]/20 to-transparent"
+    },
+    {
+        title: "Enterprise Cloud Architecture",
+        desc: "Robust, globally-distributed cloud infrastructure built with cutting-edge technologies to guarantee unmatched performance, speed, and safety.",
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10 md:w-12 md:h-12 text-[#00F5FF] drop-shadow-[0_0_8px_rgba(0,245,255,0.5)]"><path d="M3 3v18h18"/><path d="m18.7 8-5.1 5.2-2.8-2.7L7 14.3"/></svg>`,
+        gradient: "from-white/10 to-transparent"
+    }
+];
+---
+
+<section id="services" class="relative min-h-screen flex flex-col justify-center items-center py-20 md:py-28 px-6 overflow-hidden bg-[#0A0A0A]">
+    <!-- Ambient Light -->
+    <div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-[#00F5FF]/5 rounded-full blur-[150px] pointer-events-none"></div>
+    <div class="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-[#7C3AED]/5 rounded-full blur-[150px] pointer-events-none"></div>
+
+    <!-- Decorative Refraction Glow behind cards -->
+    <div class="absolute top-[60%] left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#7C3AED] w-96 h-96 opacity-20 blur-[150px] rounded-full pointer-events-none -z-10"></div>
+
+    <div class="max-w-7xl mx-auto w-full relative z-10 flex flex-col h-full justify-center">
+        <!-- Section Header - Compacted for Mobile Balance -->
+        <div class="mb-12 md:mb-16">
+            <h2 class="text-3xl md:text-5xl lg:text-6xl font-black text-white tracking-tighter mb-4 gsap-reveal-text will-change-[transform,opacity] opacity-0" data-i18n="services.section_title">
+                What We <span class="text-[#00F5FF]">Build For You.</span>
+            </h2>
+            <p class="text-zinc-400 max-w-2xl text-[0.9rem] md:text-base lg:text-lg font-light leading-relaxed gsap-reveal-text will-change-[transform,opacity] opacity-0" data-i18n="services.section_desc">
+                Every project is a growth opportunity. We engineer digital experiences that attract, convert, and retain.
+            </p>
+        </div>
+
+        <!-- Services UI Grid - Responsive 6 Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 w-full gsap-reveal-container">
+            {services.map((service, index) => (
+                <div class="services-card-wrapper group relative h-full rounded-2xl gsap-reveal-card will-change-[transform,opacity] opacity-0 transition-all duration-300 ease-out border border-white/10 bg-white/5 hover:-translate-y-2 hover:border-[#00F5FF]/50 hover:shadow-[0_10px_30px_rgba(0,245,255,0.15)]">
+                    <!-- Glass Container -->
+                    <div class="services-card relative z-10 h-full p-6 md:p-8 rounded-[15px] bg-[#0A0A0A]/90 backdrop-blur-md flex flex-col items-start overflow-hidden">
+                        <!-- Card Inner Spotlight -->
+                        <div class="card-spotlight absolute w-72 h-72 bg-gradient-to-tr from-[#00F5FF]/10 to-[#7C3AED]/10 rounded-full blur-3xl opacity-0 pointer-events-none -translate-x-1/2 -translate-y-1/2"></div>
+
+                        <!-- Physical Icon Wrapper (No solid white background/shadow) -->
+                        <div class="mb-6 relative z-20 transition-transform duration-300 group-hover:scale-110">
+                            <Fragment set:html={service.icon} />
+                        </div>
+
+                        <!-- Content -->
+                        <h3 class="text-lg md:text-lg lg:text-xl font-bold text-white mb-3 leading-tight relative z-20" data-i18n={`services.service_${index + 1}_title`}>
+                            {service.title}
+                        </h3>
+                        <p class="text-zinc-400 text-xs md:text-sm font-light leading-relaxed relative z-20" data-i18n={`services.service_${index + 1}_desc`}>
+                            {service.desc}
+                        </p>
+                    </div>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>
+
+<script>
+    import gsap from 'gsap';
+
+    const wrappers = document.querySelectorAll('.services-card-wrapper');
+
+    if (wrappers.length > 0) {
+        wrappers.forEach(wrapper => {
+            const card = wrapper.querySelector('.services-card') as HTMLElement;
+            const spotlight = wrapper.querySelector('.card-spotlight') as HTMLElement;
+            
+            wrapper.addEventListener('mousemove', (e) => {
+                const rect = wrapper.getBoundingClientRect();
+                const x = (e as MouseEvent).clientX - rect.left;
+                const y = (e as MouseEvent).clientY - rect.top;
+                
+                // Update CSS custom variables for border gradient trail
+                wrapper.style.setProperty('--mouse-x', `${x}px`);
+                wrapper.style.setProperty('--mouse-y', `${y}px`);
+                
+                // Update inner spotlight position
+                if (spotlight) {
+                    const isHidden = gsap.getProperty(spotlight, "opacity") === 0;
+                    if (isHidden) {
+                        gsap.set(spotlight, { left: x, top: y });
+                    }
+                    gsap.to(spotlight, {
+                        left: x,
+                        top: y,
+                        opacity: 1,
+                        duration: isHidden ? 0.15 : 0.3,
+                        overwrite: "auto"
+                    });
+                }
+                
+                // 3D Parallax Tilt
+                if (card) {
+                    const centerX = rect.left + rect.width / 2;
+                    const centerY = rect.top + rect.height / 2;
+                    const moveX = ((e as MouseEvent).clientX - centerX) / (rect.width / 2);
+                    const moveY = ((e as MouseEvent).clientY - centerY) / (rect.height / 2);
+                    
+                    gsap.to(card, {
+                        rotateY: moveX * 8,
+                        rotateX: -moveY * 8,
+                        transformPerspective: 1000,
+                        duration: 0.5,
+                        ease: "power2.out",
+                        overwrite: "auto"
+                    });
+                }
+            });
+            
+            wrapper.addEventListener('mouseleave', () => {
+                if (spotlight) {
+                    gsap.to(spotlight, {
+                        opacity: 0,
+                        duration: 0.5,
+                        overwrite: "auto"
+                    });
+                }
+                
+                if (card) {
+                    gsap.to(card, {
+                        rotateY: 0,
+                        rotateX: 0,
+                        duration: 0.8,
+                        ease: "power3.out",
+                        overwrite: "auto"
+                    });
+                }
+            });
+        });
+    }
+</script>
+
+<style>
+    .services-card-wrapper {
+        perspective: 1000px;
+        transform-style: preserve-3d;
+    }
+
+    .services-card-wrapper::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background: radial-gradient(180px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 245, 255, 0.4) 0%, rgba(124, 58, 237, 0.3) 50%, transparent 100%);
+        opacity: 0;
+        transition: opacity 0.5s;
+        z-index: 0;
+        pointer-events: none;
+    }
+
+    .services-card-wrapper:hover::before {
+        opacity: 1;
+    }
+
+    .services-card {
+        box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.03), 0 20px 45px rgba(0, 0, 0, 0.5);
+        transform-style: preserve-3d;
+        backface-visibility: hidden;
+    }
+    
+    .services-card-wrapper:hover .services-card {
+        border-color: rgba(0, 245, 255, 0.2);
+    }
+
+    @media (max-width: 1024px) {
+        .text-6xl { font-size: 3.5rem; }
+        .text-8xl { font-size: 4.5rem; }
+    }
+
+    /* EMERGENCY SCALE FOR SHORT SCREENS (Laptops) */
+    @media (max-height: 720px) {
+        #services {
+            padding-top: 1.5rem !important;
+            padding-bottom: 1.5rem !important;
+        }
+        #services .text-5xl {
+            font-size: 2.2rem !important;
+            line-height: 1 !important;
+            margin-bottom: 0.5rem !important;
+        }
+        #services .mb-8 {
+            margin-bottom: 1.5rem !important;
+        }
+        #services .services-card {
+            padding: 1.25rem !important;
+        }
+        #services .mb-12 {
+            margin-bottom: 1.5rem !important;
+        }
+        #services .grid {
+            gap: 1rem !important;
+        }
+    }
+</style>
+

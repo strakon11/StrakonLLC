@@ -1,0 +1,104 @@
+---
+// Global Floating Header component for Strakon Digital
+const pathname = new URL(Astro.request.url).pathname;
+if (pathname.includes('/invoice')) {
+  return;
+}
+const isHome = pathname === "/" || pathname === "";
+---
+
+<header class="fixed top-0 left-0 w-full z-[100] bg-transparent pointer-events-none py-6 px-6 lg:px-12 flex justify-between items-start">
+  <!-- Top Left (Brand Logo) -->
+  <a href="/" class="group flex items-center justify-center gap-2 pointer-events-auto mix-blend-difference" data-interactive>
+    <img src="/images/logo.avif" alt="Agency Logo" class="w-28 md:w-40 h-auto object-contain" fallback-src="<svg width='48' height='48' viewBox='0 0 48 48'><circle cx='24' cy='24' r='20' stroke='#00F5FF' stroke-width='4' fill='none'/></svg>" onerror="this.onerror=null; this.outerHTML=this.getAttribute('fallback-src');" />
+  </a>
+
+  <!-- Top Right Section -->
+  <div class="pointer-events-auto flex items-center gap-3 md:gap-5 text-white mix-blend-difference font-mono">
+    
+    <!-- Language Switcher Dropdown (Premium Glassmorphism) -->
+    <div class="relative group/lang pointer-events-auto">
+      <button id="lang-switcher-btn" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-[0.65rem] md:text-[0.7rem] font-bold tracking-[0.1em] hover:border-[#00F5FF]/50 transition-all cursor-pointer">
+        <svg class="w-3.5 h-3.5 text-zinc-400 group-hover/lang:text-[#00F5FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9-9c1.657 0 3 4.03 3 9s-1.343 9-3 9m0-18c-1.657 0-3 4.03-3 9s1.343 9-3 9m-9-9a9 9 0 019-9" />
+        </svg>
+        <span id="current-lang-label">EN</span>
+        <svg class="w-3 h-3 text-zinc-500 group-hover/lang:rotate-180 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+      
+      <!-- Dropdown Panel -->
+      <div class="absolute right-0 top-full mt-2 w-28 bg-[#0A0A0A]/95 border border-white/10 rounded-xl py-1.5 shadow-2xl opacity-0 invisible group-hover/lang:opacity-100 group-hover/lang:visible transition-all duration-300 backdrop-blur-md flex flex-col z-50">
+        <button class="lang-opt px-4 py-2 text-left text-[0.65rem] md:text-[0.7rem] tracking-wider hover:bg-white/10 hover:text-[#00F5FF] transition-all cursor-pointer font-bold" data-lang="en">ENGLISH</button>
+        <button class="lang-opt px-4 py-2 text-left text-[0.65rem] md:text-[0.7rem] tracking-wider hover:bg-white/10 hover:text-[#00F5FF] transition-all cursor-pointer font-bold" data-lang="es">ESPAÑOL</button>
+        <button class="lang-opt px-4 py-2 text-left text-[0.65rem] md:text-[0.7rem] tracking-wider hover:bg-white/10 hover:text-[#00F5FF] transition-all cursor-pointer font-bold" data-lang="pt">PORTUGUÊS</button>
+        <button class="lang-opt px-4 py-2 text-left text-[0.65rem] md:text-[0.7rem] tracking-wider hover:bg-white/10 hover:text-[#00F5FF] transition-all cursor-pointer font-bold" data-lang="de">DEUTSCH</button>
+      </div>
+    </div>
+
+    {isHome ? (
+      <div class="flex items-center gap-3 md:gap-5">
+        <!-- Contact Link -->
+        <a href="/contact" class="flex flex-col items-end group pointer-events-auto" data-interactive aria-label="Contact Us">
+          <span class="text-[0.5rem] md:text-[0.6rem] tracking-[0.3em] text-[#00F5FF]/70 font-bold mb-1 group-hover:text-[#00F5FF] transition-colors leading-none" data-i18n="contact.badge">GET IN TOUCH</span>
+          <span class="text-[0.7rem] md:text-[0.85rem] tracking-[0.25em] font-bold uppercase text-white group-hover:text-[#00F5FF] transition-colors leading-none" data-i18n="nav.contact">CONTACT US</span>
+        </a>
+      </div>
+    ) : (
+      <a href="/" class="text-white text-[0.65rem] md:text-sm tracking-[0.2em] uppercase font-bold hover:text-[#00F5FF] transition-colors flex items-center gap-1.5 md:gap-3 border border-white/10 px-3 py-1.5 md:px-6 md:py-3 hover:border-[#00F5FF] hover:shadow-[0_0_15px_rgba(0,245,255,0.2)] bg-white/5 backdrop-blur-sm group uppercase font-mono rounded-full whitespace-nowrap">
+        <svg class="w-3.5 h-3.5 md:w-4 md:h-4 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        <span class="hidden md:inline" data-i18n="nav.back_to_home">Back to Home</span>
+        <span class="md:hidden" data-i18n="nav.home">Home</span>
+      </a>
+    )}
+  </div>
+</header>
+
+<script>
+  const clock = document.querySelector('.local-time-clock');
+  if (clock) {
+    const renderClock = () => {
+      (clock as HTMLElement).innerText = new Date().toLocaleTimeString('en-US', { hour12: false });
+    };
+    setInterval(renderClock, 1000);
+    renderClock();
+  }
+
+  // Language Switcher Logic
+  const langLabel = document.getElementById('current-lang-label');
+  const langOpts = document.querySelectorAll('.lang-opt');
+
+  const updateLangLabel = (lang: string) => {
+    if (langLabel) langLabel.innerText = lang.toUpperCase();
+    langOpts.forEach(opt => {
+      if (opt.getAttribute('data-lang') === lang) {
+        opt.classList.add('text-[#00F5FF]');
+      } else {
+        opt.classList.remove('text-[#00F5FF]');
+      }
+    });
+  };
+
+  // Sync label initially
+  if ((window as any).getCurrentLang) {
+    updateLangLabel((window as any).getCurrentLang());
+  }
+
+  // Listen for languageChanged event
+  window.addEventListener('languageChanged', (e: any) => {
+    updateLangLabel(e.detail.lang);
+  });
+
+  // Setup options click handler
+  langOpts.forEach(opt => {
+    opt.addEventListener('click', () => {
+      const targetLang = opt.getAttribute('data-lang');
+      if (targetLang && (window as any).translateDOM) {
+        (window as any).translateDOM(targetLang);
+      }
+    });
+  });
+</script>

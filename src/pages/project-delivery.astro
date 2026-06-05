@@ -1,0 +1,106 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Project Delivery | Strakon Digital">
+  <!-- Minimalist Tech Container -->
+  <main class="relative w-full min-h-screen bg-[#0A0A0A] overflow-hidden py-32 md:py-40">
+    
+    <!-- Cinematic Glow Background -->
+    <div class="absolute inset-0 pointer-events-none fixed">
+      <div class="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-[#00F5FF]/10 rounded-full blur-[150px]"></div>
+      <div class="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-[#7C3AED]/15 rounded-full blur-[150px]"></div>
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto w-full px-6 md:px-12">
+      <div class="flex items-center gap-4 mb-8">
+        <div class="h-[1.5px] w-12 rounded-full bg-gradient-to-r from-[#7C3AED]/30 to-[#00F5FF] shadow-[0_0_8px_rgba(0,245,255,0.5)]"></div>
+        <span class="px-3 py-1.5 rounded-full text-[#00F5FF] tracking-[0.25em] font-mono text-[0.65rem] font-bold uppercase border border-[#00F5FF]/30 bg-[#00F5FF]/5 shadow-[0_0_15px_rgba(0,245,255,0.15)] animate-pulse" data-i18n="footer.delivery_title">DELIVERY</span>
+      </div>
+
+      <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-16 animate-pulse" data-i18n="footer.links.delivery">
+        Project Delivery
+      </h1>
+
+      <!-- ENGLISH SECTION -->
+      <div class="prose prose-invert max-w-none text-zinc-300 font-light leading-loose space-y-8" data-lang-section="en">
+        <p><strong class="text-white">Last Updated:</strong> April 2026</p>
+        <p>At <strong class="text-white">Strakon Digital&trade;</strong>, our web design and development projects are managed with military precision. Below are the terms outlining how our digital assets are delivered and handed over upon completion.</p>
+
+        <h3 class="text-2xl font-bold text-white mt-12 mb-4 border-b border-white/10 pb-4 font-mono">1. Project Timelines</h3>
+        <p>All timelines, milestones, and projected deployment dates are estimations based on our initial scope of work. We strive to meet and exceed these timelines. However, the pacing of any project is heavily reliant on the client providing necessary feedback, media assets, and approvals at each strategic milestone.</p>
+        
+        <h3 class="text-2xl font-bold text-white mt-12 mb-4 border-b border-white/10 pb-4 font-mono">2. Milestone Approvals</h3>
+        <p>Our projects are divided into distinct phases (e.g., Wireframing, High-Fidelity Design, Front-End Development, Backend Integration). At the end of each phase, we require direct client approval before proceeding to the next. Delays in approving these milestones will proportionately extend the final delivery date.</p>
+
+        <h3 class="text-2xl font-bold text-white mt-12 mb-4 border-b border-white/10 pb-4 font-mono">3. Final Delivery & Deployment</h3>
+        <p>Once the project reaches the final staging environment and is fully approved by the client, the project will be marked as "Ready for Deployment."</p>
+        <p>Deployment to the live production server (or transfer of source code) will **only commence once the final 60% completion payment has been remitted and cleared** in our accounts. Upon clearance, the digital assets will be fully deployed within 48 to 72 business hours.</p>
+
+        <h3 class="text-2xl font-bold text-white mt-12 mb-4 border-b border-white/10 pb-4 font-mono">4. Post-Launch Support</h3>
+        <p>Following the successful delivery and deployment of the application or website, Strakon Digital&trade; includes a standard 30-day "hypercare" window to resolve any hidden bugs or immediate technical issues at no additional cost. Any feature requests or design changes post-launch will require a new service agreement or retainer.</p>
+      </div>
+
+      <!-- SPANISH SECTION -->
+      <div class="prose prose-invert max-w-none text-zinc-300 font-light leading-loose space-y-8 hidden" data-lang-section="es">
+        <p><strong class="text-white">Última actualización:</strong> Abril de 2026</p>
+        <p>En <strong class="text-white">Strakon Digital&trade;</strong>, nuestros proyectos de diseño y desarrollo web se gestionan con precisión militar. A continuación se presentan los términos que describen cómo se entregan y transfieren nuestros activos digitales al finalizar el proyecto.</p>
+
+        <h3 class="text-2xl font-bold text-white mt-12 mb-4 border-b border-white/10 pb-4 font-mono">1. Cronogramas del Proyecto</h3>
+        <p>Todos los plazos, hitos y fechas de despliegue previstas son estimaciones basadas en nuestro alcance de trabajo inicial. Nos esforzamos por cumplir y superar estos plazos. Sin embargo, el ritmo de cualquier proyecto depende en gran medida de que el cliente proporcione comentarios oportunos, recursos multimedia y aprobaciones en cada hito estratégico.</p>
+        
+        <h3 class="text-2xl font-bold text-white mt-12 mb-4 border-b border-white/10 pb-4 font-mono">2. Aprobación de Hitos</h3>
+        <p>Nuestros proyectos se dividen en fases distintas (por ejemplo, Estructura de alambre, Diseño de alta fidelidad, Desarrollo Front-End, Integración Backend). Al final de cada fase, requerimos la aprobación directa del cliente antes de proceder a la siguiente. Los retrasos en la aprobación de estos hitos extenderán proporcionalmente la fecha de entrega final.</p>
+
+        <h3 class="text-2xl font-bold text-white mt-12 mb-4 border-b border-white/10 pb-4 font-mono">3. Entrega Final y Despliegue</h3>
+        <p>Una vez que el proyecto llega al entorno de pruebas final y es completamente aprobado por el cliente, el proyecto se marcará como "Listo para el despliegue".</p>
+        <p>El despliegue en el servidor de producción en vivo (o transferencia del código fuente) **solo comenzará una vez que se haya remitido y liquidado el pago de finalización del 60% restante** en nuestras cuentas. Tras la liquidación, los activos digitales se desplegarán por completo en un plazo de 48 a 72 horas hábiles.</p>
+
+        <h3 class="text-2xl font-bold text-white mt-12 mb-4 border-b border-white/10 pb-4 font-mono">4. Soporte Post-Lanzamiento</h3>
+        <p>Tras la entrega y despliegue exitoso de la aplicación o sitio web, Strakon Digital&trade; incluye una ventana de soporte estándar de 30 días ("hypercare") para resolver cualquier error oculto o problema técnico inmediato sin costo adicional. Cualquier solicitud de función o cambio de diseño posterior al lanzamiento requerirá un nuevo acuerdo de servicio o tarifa mensual.</p>
+      </div>
+
+      <!-- PORTUGUESE SECTION -->
+      <div class="prose prose-invert max-w-none text-zinc-300 font-light leading-loose space-y-8 hidden" data-lang-section="pt">
+        <p><strong class="text-white">Última Atualização:</strong> Abril de 2026</p>
+        <p>Na <strong class="text-white">Strakon Digital&trade;</strong>, nossos projetos de web design e desenvolvimento são gerenciados com precisão militar. Abaixo estão os termos que descrevem como nossos ativos digitais são entregues e transferidos após a conclusão.</p>
+
+        <h3 class="text-2xl font-bold text-white mt-12 mb-4 border-b border-white/10 pb-4 font-mono">1. Prazos do Projeto</h3>
+        <p>Todos os prazos, marcos e datas de implantação projetadas são estimativas baseadas em nosso escopo de trabalho inicial. Nós nos esforçamos para cumprir e superar esses prazos. No entanto, o ritmo de qualquer projeto depende muito do fornecimento de feedback, recursos de mídia e aprovações do cliente em cada marco estratégico.</p>
+        
+        <h3 class="text-2xl font-bold text-white mt-12 mb-4 border-b border-white/10 pb-4 font-mono">2. Aprovação de Marcos</h3>
+        <p>Nossos projetos são divididos em fases distintas (por exemplo, Wireframing, Design de Alta Fidelidade, Desenvolvimento Front-End, Integração de Backend). Ao final de cada fase, exigimos a aprovação direta do cliente antes de prosseguir para a próxima. Atrasos na aprovação desses marcos estenderão proporcionalmente a data final de entrega.</p>
+
+        <h3 class="text-2xl font-bold text-white mt-12 mb-4 border-b border-white/10 pb-4 font-mono">3. Entrega Final e Implantação</h3>
+        <p>Assim que o projeto atingir o ambiente de staging final e for totalmente aprovado pelo cliente, o projeto será marcado como "Pronto para Implantação".</p>
+        <p>A implantação no servidor de produção final (ou transferência do código-fonte) **só começará após o pagamento final de 60% ser compensado** em nossas contas. Após a compensação, os ativos digitais serão totalmente implantados dentro de 48 a 72 horas úteis.</p>
+
+        <h3 class="text-2xl font-bold text-white mt-12 mb-4 border-b border-white/10 pb-4 font-mono">4. Suporte Pós-Lançamento</h3>
+        <p>Após a entrega e implantação bem-sucedidas do site ou aplicativo, a Strakon Digital&trade; inclui um suporte de 30 dias ("hypercare") para resolver quaisquer bugs ou problemas técnicos imediatos, sem custo adicional. Quaisquer solicitações de novos recursos ou alterações de design pós-lançamento exigirão um novo acordo de serviço.</p>
+      </div>
+
+      <!-- GERMAN SECTION -->
+      <div class="prose prose-invert max-w-none text-zinc-300 font-light leading-loose space-y-8 hidden" data-lang-section="de">
+        <p><strong class="text-white">Zuletzt aktualisiert:</strong> April 2026</p>
+        <p>Bei <strong class="text-white">Strakon Digital&trade;</strong> werden unsere Webdesign- und Entwicklungsprojekte mit militärischer Präzision geführt. Nachfolgend finden Sie die Bedingungen für die Lieferung und Übergabe unserer digitalen Produkte nach Fertigstellung.</p>
+
+        <h3 class="text-2xl font-bold text-white mt-12 mb-4 border-b border-white/10 pb-4 font-mono">1. Projektzeitpläne</h3>
+        <p>Alle Zeitpläne, Meilensteine und geplanten Bereitstellungstermine sind Schätzungen, die auf unserer ursprünglichen Leistungsbeschreibung basieren. Wir sind bestrebt, diese Zeitpläne einzuhalten und zu übertreffen. Das Tempo eines Projekts hängt jedoch stark davon ab, dass der Kunde bei jedem strategischen Meilenstein zeitnah Feedback, Medieninhalte und Genehmigungen bereitstellt.</p>
+        
+        <h3 class="text-2xl font-bold text-white mt-12 mb-4 border-b border-white/10 pb-4 font-mono">2. Freigabe von Meilensteinen</h3>
+        <p>Unsere Projekte sind in verschiedene Phasen unterteilt (z. B. Wireframing, High-Fidelity-Design, Front-End-Entwicklung, Backend-Integration). Am Ende jeder Phase benötigen wir die direkte Freigabe des Kunden, bevor wir mit der nächsten fortfahren. Verzögerungen bei der Freigabe dieser Meilensteine verlängern das endgültige Lieferdatum entsprechend.</p>
+
+        <h3 class="text-2xl font-bold text-white mt-12 mb-4 border-b border-white/10 pb-4 font-mono">3. Endgültige Lieferung und Bereitstellung</h3>
+        <p>Sobald das Projekt die endgültige Staging-Umgebung erreicht hat und vom Kunden vollständig freigegeben wurde, wird das Projekt als „Bereit für die Live-Schaltung“ markiert.</p>
+        <p>Die Bereitstellung auf dem Live-Produktionsserver (oder die Übertragung des Quellcodes) **beginnt erst, wenn die restliche Abschlusszahlung von 60% auf unseren Konten eingegangen ist**. Nach Zahlungseingang werden die digitalen Produkte innerhalb von 48 bis 72 Werktagen vollständig bereitgestellt.</p>
+
+        <h3 class="text-2xl font-bold text-white mt-12 mb-4 border-b border-white/10 pb-4 font-mono">4. Support nach dem Relaunch</h3>
+        <p>Nach der erfolgreichen Lieferung und Bereitstellung der Anwendung oder Website gewährt Strakon Digital&trade; einen standardmäßigen 30-tägigen Support-Zeitraum („Hypercare“), um eventuell auftretende Fehler oder unmittelbare technische Probleme ohne zusätzliche Kosten zu beheben. Alle Funktionsanfragen oder Designänderungen nach dem Start erfordern eine neue Servicevereinbarung.</p>
+      </div>
+
+    </div>
+  </main>
+  
+  <Footer />
+</Layout>

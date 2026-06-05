@@ -1,0 +1,272 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Contact Us | Strakon Digital">
+  <!-- Section 1: Contact Area (Fits exactly the viewport height) -->
+  <section class="relative w-full min-h-screen lg:h-screen bg-[#0A0A0A] overflow-y-auto lg:overflow-hidden flex flex-col justify-start lg:justify-center pt-28 pb-16 lg:pt-24 lg:pb-24">
+    
+    <!-- Cinematic Glow Background -->
+    <div class="absolute inset-0 pointer-events-none fixed z-0">
+      <div class="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-[#00F5FF]/10 rounded-full blur-[150px]"></div>
+      <div class="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-[#7C3AED]/15 rounded-full blur-[150px]"></div>
+    </div>
+
+    <!-- Main Content Container (Centered inside h-screen) -->
+    <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 flex-1 flex flex-col justify-center w-full">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center lg:items-center min-h-[70vh] lg:min-h-0 w-full">
+        
+        <!-- Left Side: Text Info -->
+        <div class="max-w-xl">
+          <div class="flex items-center gap-4 mb-8">
+            <div class="h-[1.5px] w-12 rounded-full bg-gradient-to-r from-[#7C3AED]/30 to-[#00F5FF] shadow-[0_0_8px_rgba(0,245,255,0.5)]"></div>
+            <span class="px-3 py-1.5 rounded-full text-[#00F5FF] tracking-[0.25em] font-mono text-[0.65rem] font-bold uppercase border border-[#00F5FF]/30 bg-[#00F5FF]/5 shadow-[0_0_15px_rgba(0,245,255,0.15)] animate-pulse" data-i18n="contact.badge">LET'S TALK</span>
+          </div>
+
+          <div>
+            <h1 class="text-4xl sm:text-5xl lg:text-[4.5rem] font-black tracking-tight text-white mb-6 leading-none" data-i18n="contact.title">
+              Your free call is one step away.
+            </h1>
+            <h2 class="text-xl lg:text-2xl text-zinc-300 font-light mb-8 leading-relaxed" data-i18n="contact.sub">
+              Tell us about your project and we'll get back to you within the hour — ready to build something extraordinary together.
+            </h2>
+          </div>
+
+          <div>
+            <!-- Restructured Email Contact Block with Select All & Auto-Copy on Click -->
+            <div class="flex flex-wrap gap-4 items-center mb-6 relative z-20">
+              <span class="text-zinc-300 font-light text-base lg:text-lg" data-i18n="contact.prefer_email">Prefer email?</span>
+              <a href="mailto:contact@strakondigital.com" id="email-link" class="select-all px-5 py-2.5 rounded-full text-[0.7rem] font-semibold font-mono tracking-widest text-[#00F5FF] border border-[#00F5FF]/20 bg-[#00F5FF]/5 hover:bg-[#00F5FF]/15 hover:border-[#00F5FF]/60 hover:shadow-[0_0_15px_rgba(0,245,255,0.15)] transition-all duration-300 active:scale-95 cursor-pointer">
+                contact@strakondigital.com
+              </a>
+            </div>
+
+            <p class="text-xs tracking-widest text-zinc-500 uppercase font-semibold font-mono mt-12 border-l-2 border-[#00F5FF] pl-4" data-i18n="contact.disclaimer">
+              At Strakon Digital, your success is the only outcome we work toward.
+            </p>
+          </div>
+        </div>
+
+        <!-- Right Side: Form Container (Refined Glass Panel with Mouse Spotlight) -->
+        <div id="contact-card" class="w-full bg-white/[0.03] backdrop-blur-sm border border-white/10 rounded-2xl p-8 shadow-2xl relative z-10 flex flex-col justify-center overflow-hidden">
+          
+          <!-- Card Inner Spotlight Glow -->
+          <div id="contact-card-spotlight" class="absolute w-80 h-80 bg-gradient-to-tr from-[#00F5FF]/10 to-[#7C3AED]/10 rounded-full blur-3xl opacity-0 pointer-events-none -translate-x-1/2 -translate-y-1/2 z-0"></div>
+
+          <!-- Success State -->
+          <div id="contact-success" class="hidden flex flex-col items-center justify-center p-8 border border-[#00F5FF]/30 bg-[#00F5FF]/5 rounded-3xl text-center space-y-4 relative z-10">
+            <div class="w-16 h-16 bg-[#00F5FF] rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(0,245,255,0.4)]">
+              <svg class="w-8 h-8 text-[#0A0A0A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+            </div>
+            <h3 class="text-xl font-bold text-white uppercase tracking-widest" data-i18n="contact.success_title">Message Sent.</h3>
+            <p class="text-xs text-neutral-400 font-light max-w-xs" data-i18n="contact.success_desc">Our team has received your priority inquiry. We will contact you within 24 hours.</p>
+            <button onclick="window.location.reload()" class="text-[#00F5FF] text-xs font-bold tracking-[0.3em] uppercase underline hover:no-underline" data-i18n="contact.send_another">Send another message</button>
+          </div>
+
+          <!-- The Form (Inputs stacked with space-y-4) -->
+          <form id="contact-form" class="strakon-form space-y-4 w-full relative z-20" action="https://formspree.io/f/xkoperkg" method="POST">
+            <!-- Name Input -->
+            <div>
+              <input type="text" id="name" name="name" placeholder="Name" data-i18n-placeholder="contact.placeholder.name" autocomplete="name" class="w-full h-14 bg-white/[0.05] border border-white/10 rounded-xl px-6 text-white placeholder:text-zinc-600 focus:border-[#00F5FF] focus:outline-none transition-all text-xs font-light uppercase tracking-widest" required />
+            </div>
+
+            <!-- Email Input -->
+            <div>
+              <input type="email" id="email" name="email" placeholder="Email *" data-i18n-placeholder="contact.placeholder.email" autocomplete="email" class="w-full bg-white/[0.05] border border-white/10 rounded-xl p-4 text-white placeholder:text-zinc-600 focus:border-[#00F5FF] focus:outline-none transition-all text-xs font-light uppercase tracking-widest" required />
+            </div>
+            
+            <!-- Phone Number Input -->
+            <div>
+              <input type="tel" id="phone" name="phone" placeholder="Phone number" data-i18n-placeholder="contact.placeholder.phone" autocomplete="tel" class="w-full bg-white/[0.05] border border-white/10 rounded-xl p-4 text-white placeholder:text-zinc-600 focus:border-[#00F5FF] focus:outline-none transition-all text-xs font-light uppercase tracking-widest" />
+            </div>
+
+            <!-- Comment Input -->
+            <div>
+              <textarea id="comment" name="comment" rows="3" placeholder="Tell us about your project" data-i18n-placeholder="contact.placeholder.comment" class="w-full bg-white/[0.05] border border-white/10 rounded-xl p-4 text-white placeholder:text-zinc-600 focus:border-[#00F5FF] focus:outline-none transition-all text-xs font-light tracking-wide resize-none" required></textarea>
+            </div>
+
+            <!-- Submit Button (Full width, MT-6, solid glow hover) -->
+            <button type="submit" id="submit-btn" class="group w-full block relative bg-[#00F5FF] text-[#0A0A0A] font-bold tracking-widest uppercase rounded-full h-14 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(0,245,255,0.4)] transition-all duration-300 flex items-center justify-center gap-3 mt-6">
+              <span id="btn-text" data-i18n="contact.submit">BOOK MY FREE CALL →</span>
+            </button>
+          </form>
+
+          <script is:inline>
+            const form = document.getElementById('contact-form');
+            const successDiv = document.getElementById('contact-success');
+            const submitBtn = document.getElementById('submit-btn');
+            const btnText = document.getElementById('btn-text');
+
+            form.addEventListener('submit', async (e) => {
+              e.preventDefault();
+              
+              submitBtn.disabled = true;
+              
+              // Dynamic translated text from window object
+              const currentLang = window.getCurrentLang ? window.getCurrentLang() : 'en';
+              const sendingTxt = (window.translations && window.translations[currentLang]) 
+                ? window.translations[currentLang]["contact.sending"] 
+                : "SENDING...";
+              
+              btnText.innerText = sendingTxt;
+              submitBtn.classList.add('opacity-50');
+
+              const formData = new FormData(form);
+              
+              try {
+                const response = await fetch(form.action, {
+                  method: 'POST',
+                  body: formData,
+                  headers: {
+                    'Accept': 'application/json'
+                  }
+                });
+
+                if (response.ok) {
+                  form.classList.add('hidden');
+                  successDiv.classList.remove('hidden');
+                } else {
+                  throw new Error('Submission failed');
+                }
+              } catch (error) {
+                const errorTxt = (window.translations && window.translations[currentLang]) 
+                  ? window.translations[currentLang]["contact.error"] 
+                  : "Oops! There was a problem. Please try again or email us directly.";
+                alert(errorTxt);
+                submitBtn.disabled = false;
+                
+                const submitTxt = (window.translations && window.translations[currentLang]) 
+                  ? window.translations[currentLang]["contact.submit"] 
+                  : "BOOK MY FREE CALL →";
+                
+                btnText.innerText = submitTxt;
+                submitBtn.classList.remove('opacity-50');
+              }
+            });
+          </script>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: Restored Agency Footer (Rendered cleanly below the screen fold) -->
+  <Footer />
+</Layout>
+
+<script>
+  import gsap from 'gsap';
+
+  // 1. Interactive Spotlight on Contact Card Container
+  const contactCard = document.querySelector('#contact-card');
+  const spotlight = document.querySelector('#contact-card-spotlight');
+
+  if (contactCard && spotlight) {
+    contactCard.addEventListener('mousemove', (e) => {
+      const rect = contactCard.getBoundingClientRect();
+      const x = (e as MouseEvent).clientX - rect.left;
+      const y = (e as MouseEvent).clientY - rect.top;
+
+      const isHidden = gsap.getProperty(spotlight, "opacity") === 0;
+      if (isHidden) {
+        gsap.set(spotlight, { left: x, top: y });
+      }
+
+      gsap.to(spotlight, {
+        left: x,
+        top: y,
+        opacity: 1,
+        duration: isHidden ? 0.2 : 0.4,
+        ease: "power2.out",
+        overwrite: "auto"
+      });
+    });
+
+    contactCard.addEventListener('mouseleave', () => {
+      gsap.to(spotlight, {
+        opacity: 0,
+        duration: 0.5,
+        overwrite: "auto"
+      });
+    });
+  }
+
+  // 2. Email Auto-Copy Logic
+  const emailLink = document.getElementById('email-link');
+  if (emailLink) {
+    emailLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      const email = 'contact@strakondigital.com';
+      navigator.clipboard.writeText(email).then(() => {
+        const originalText = emailLink.innerText;
+        
+        // Translate copied alert message based on current language
+        const currentLang = (window as any).getCurrentLang ? (window as any).getCurrentLang() : 'en';
+        let copiedMsg = 'COPIED TO CLIPBOARD!';
+        if (currentLang === 'es') copiedMsg = '¡COPIADO AL PORTAPAPELES!';
+        if (currentLang === 'pt') copiedMsg = 'COPIADO!';
+        if (currentLang === 'de') copiedMsg = 'IN ZWISCHENABLAGE KOPIERT!';
+
+        emailLink.innerText = copiedMsg;
+        emailLink.style.color = '#FFFFFF';
+        emailLink.style.borderColor = '#00F5FF';
+        emailLink.style.backgroundColor = 'rgba(0, 245, 255, 0.15)';
+        
+        setTimeout(() => {
+          emailLink.innerText = originalText;
+          emailLink.style.color = '';
+          emailLink.style.borderColor = '';
+          emailLink.style.backgroundColor = '';
+        }, 1500);
+      }).catch(err => {
+        console.error('Failed to copy: ', err);
+      });
+    });
+  }
+</script>
+
+<style is:global>
+  /* Legible, high-contrast placeholders matching the cyber-luxury theme */
+  .strakon-form input::placeholder,
+  .strakon-form textarea::placeholder {
+    color: rgba(255, 255, 255, 0.35) !important;
+    opacity: 1 !important;
+  }
+  
+  /* Modern premium inputs with elegant transitions */
+  .strakon-form input,
+  .strakon-form textarea {
+    color: #FFFFFF !important;
+    background-color: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+  
+  .strakon-form input:hover,
+  .strakon-form textarea:hover {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+  }
+  
+  .strakon-form input:focus,
+  .strakon-form textarea:focus {
+    background-color: rgba(255, 255, 255, 0.06) !important;
+    border-color: #00F5FF !important;
+    outline: none !important;
+    box-shadow: 0 0 20px rgba(0, 245, 255, 0.15) !important;
+  }
+
+  /* Prevent default browser autofill background/text color hijacking */
+  .strakon-form input:-webkit-autofill,
+  .strakon-form input:-webkit-autofill:hover, 
+  .strakon-form input:-webkit-autofill:focus, 
+  .strakon-form input:-webkit-autofill:active,
+  .strakon-form textarea:-webkit-autofill,
+  .strakon-form textarea:-webkit-autofill:hover,
+  .strakon-form textarea:-webkit-autofill:focus {
+    -webkit-text-fill-color: #FFFFFF !important;
+    -webkit-box-shadow: 0 0 0px 1000px #131315 inset !important;
+    box-shadow: 0 0 0px 1000px #131315 inset !important;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+</style>

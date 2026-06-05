@@ -1,0 +1,215 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Invoice INV-2026-114 | Strakon LLC">
+  <!-- External Library for Direct PDF Generation -->
+  <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <!-- Main Container -->
+  <main class="relative w-full min-h-screen bg-[#0A0A0A] overflow-x-hidden py-16 md:py-24 print:py-0" style="color-scheme: light;">
+    
+    <!-- Cinematic Glow Background (Hidden on Print) -->
+    <div class="absolute inset-0 pointer-events-none fixed print:hidden">
+      <div class="absolute top-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-[#00F5FF]/10 rounded-full blur-[150px]"></div>
+      <div class="absolute bottom-[10%] left-[-10%] w-[50vw] h-[50vw] bg-[#7C3AED]/10 rounded-full blur-[150px]"></div>
+    </div>
+
+    <!-- Navigation & Action Bar (Hidden on Print) -->
+    <header class="absolute top-0 left-0 w-full p-6 md:p-10 flex justify-between items-center z-50 print:hidden">
+      <a href="/" class="group flex items-center justify-center gap-2">
+        <img src="/images/logo.avif" alt="Agency Logo" class="w-32 md:w-40 h-auto object-contain fallback-gradient" />
+      </a>
+      <div class="flex items-center gap-3 md:gap-4">
+        <button onclick="downloadPDF()" class="text-white text-xs md:text-sm tracking-[0.15em] uppercase font-bold hover:text-[#0A0A0A] hover:bg-[#00F5FF] transition-all flex items-center gap-2 border border-[#00F5FF] px-5 md:px-6 py-3 shadow-[0_0_15px_rgba(0,245,255,0.2)] bg-[#00F5FF]/20 backdrop-blur-sm group font-mono rounded-full cursor-pointer">
+          <svg class="w-4 h-4 group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m0 0l-4-4m4 4l4-4M4 20h16"></path></svg>
+          Descargar PDF
+        </button>
+        <button onclick="window.print()" class="text-white text-xs md:text-sm tracking-[0.15em] uppercase font-bold hover:text-[#0A0A0A] hover:bg-white transition-all flex items-center gap-2 border border-white/40 px-5 md:px-6 py-3 bg-white/5 backdrop-blur-sm group font-mono rounded-full cursor-pointer">
+          <svg class="w-4 h-4 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+          Imprimir Nativo
+        </button>
+        <a href="/" class="text-white text-xs md:text-sm tracking-[0.15em] uppercase font-bold hover:text-[#00F5FF] transition-colors flex items-center gap-2 border border-white/10 px-5 md:px-6 py-3 hover:border-[#00F5FF] bg-white/5 backdrop-blur-sm group font-mono rounded-full">
+          <svg class="w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+          Volver
+        </a>
+      </div>
+    </header>
+
+    <!-- Invoice Paper Sheet -->
+    <div class="relative z-10 max-w-4xl mx-auto w-full px-6 md:px-12 print:px-0 print:max-w-none">
+      <div id="invoice-content" class="bg-white p-2 md:p-4 print:p-0">
+        <div class="rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] print:shadow-none print:rounded-none px-6 py-8 md:px-14 md:py-12 font-sans print:border-none" style="background-color: #FFFFFF; color: #0F172A; border: 1px solid #CBD5E1;">
+          
+          <!-- Header Section -->
+          <div class="flex flex-col md:flex-row justify-between items-start md:items-center pb-8 gap-6 md:gap-0" style="border-bottom: 2px solid #F1F5F9;">
+            <div>
+              <div class="flex items-center">
+                <span class="font-extrabold text-3xl md:text-4xl tracking-tight" style="color: #0F172A;">Strakon&nbsp;</span>
+                <span class="font-extrabold text-3xl md:text-4xl tracking-tight" style="color: #0088FF; margin-left: 8px;">LLC</span>
+              </div>
+              <p class="text-xs mt-1 font-medium tracking-wide" style="color: #475569;">Architecting Digital Dominance</p>
+              <div class="mt-6 text-xs space-y-1 font-normal leading-relaxed" style="color: #475569;">
+                <div>EIN: 93-4161092</div>
+                <div>450 Main Street, Park City, UT 84060</div>
+                <div>contact@strakondigital.com</div>
+              </div>
+            </div>
+
+            <div class="md:text-right flex flex-col md:items-end w-full md:w-auto pt-6 md:pt-0">
+              <h1 class="text-3xl md:text-4xl font-extrabold tracking-widest uppercase" style="color: #64748B;">INVOICE</h1>
+              <div class="mt-4 text-xs space-y-1.5 font-medium" style="color: #475569;">
+                <div><span class="font-bold" style="color: #0F172A;">Invoice #:</span> INV-2026-114</div>
+                <div><span class="font-bold" style="color: #0F172A;">Date:</span> May 16, 2026</div>
+                <div><span class="font-bold" style="color: #0F172A;">Status:</span> <span style="color: #059669; font-weight: 700;">PAID IN FULL</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bill To & Project Details Section -->
+          <div class="py-8 grid grid-cols-1 md:grid-cols-2 gap-8" style="border-bottom: 2px solid #F1F5F9;">
+            <div>
+              <h2 class="text-xs font-bold uppercase tracking-widest mb-3" style="color: #64748B;">BILL TO</h2>
+              <div class="text-base font-bold mb-1" style="color: #0F172A;">William Cook</div>
+              <div class="text-sm font-normal" style="color: #475569;">wcook362@gmail.com</div>
+            </div>
+
+            <div>
+              <h2 class="text-xs font-bold uppercase tracking-widest mb-3" style="color: #64748B;">PROJECT DETAILS</h2>
+              <div class="text-sm font-bold mb-1" style="color: #0F172A;">Advanced Web Development & E-Commerce Package</div>
+              <div class="text-sm font-medium" style="color: #475569;">(Final 60% Balance)</div>
+            </div>
+          </div>
+
+          <!-- Table Section (HTML Table with explicit inline styles for 100% Flawless Alignment) -->
+          <div class="mt-8 w-full overflow-x-auto print:overflow-visible">
+            <table class="w-full border-collapse table-fixed min-w-[600px]" style="table-layout: fixed; width: 100%;">
+              <thead>
+                <tr style="border-bottom: 2px solid #E2E8F0; color: #64748B;" class="text-xs font-bold uppercase tracking-widest">
+                  <th class="pb-3 font-bold align-middle" style="width: 60%; text-align: left; padding-left: 0;">DESCRIPTION</th>
+                  <th class="pb-3 font-bold align-middle" style="width: 20%; text-align: center;">PERCENTAGE</th>
+                  <th class="pb-3 font-bold align-middle pr-8" style="width: 20%; text-align: right;">AMOUNT</th>
+                </tr>
+              </thead>
+              <tbody class="text-sm divide-y divide-[#F1F5F9]">
+                <tr>
+                  <td class="py-5 align-middle" style="width: 60%; text-align: left; padding-left: 0;">
+                    <div class="font-bold text-base" style="color: #0F172A;">Advanced Web Development Package</div>
+                    <div class="text-xs mt-1 font-normal" style="color: #64748B;">(Full Project Value: $690.00)</div>
+                  </td>
+                  <td class="py-5 font-normal align-middle" style="width: 20%; text-align: center; color: #475569;">100%</td>
+                  <td class="py-5 font-normal align-middle pr-8" style="width: 20%; text-align: right; color: #475569;"></td>
+                </tr>
+                <tr>
+                  <td class="py-5 align-middle" style="width: 60%; text-align: left; padding-left: 0;">
+                    <span class="font-bold text-base" style="color: #0F172A;">Initial Project Deposit</span> <span class="text-xs font-normal ml-1" style="color: #64748B;">(Paid)</span>
+                  </td>
+                  <td class="py-5 font-normal align-middle" style="width: 20%; text-align: center; color: #475569;">40%</td>
+                  <td class="py-5 font-bold text-base align-middle pr-8" style="width: 20%; text-align: right; color: #0F172A;">$276.00</td>
+                </tr>
+                <tr>
+                  <td class="py-5 align-middle" style="width: 60%; text-align: left; padding-left: 0; border-bottom: 2px solid #F1F5F9;">
+                    <span class="font-bold text-base" style="color: #0F172A;">Remaining Project Balance</span> <span class="text-xs font-normal ml-1" style="color: #64748B;">(Paid)</span>
+                  </td>
+                  <td class="py-5 font-normal align-middle" style="width: 20%; text-align: center; color: #0F172A; border-bottom: 2px solid #F1F5F9;">60%</td>
+                  <td class="py-5 font-bold text-base align-middle pr-8" style="width: 20%; text-align: right; color: #0F172A; border-bottom: 2px solid #F1F5F9;">$414.00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Totals Section -->
+          <div class="mt-6 flex flex-col items-end space-y-3 pt-4 pb-8 mb-8" style="border-bottom: 2px solid #F1F5F9;">
+            <div class="flex justify-between w-full md:w-80 text-sm pr-8">
+              <span class="font-bold uppercase tracking-widest text-xs" style="color: #64748B;">SUBTOTAL</span>
+              <span class="font-bold" style="color: #0F172A;">$690.00</span>
+            </div>
+            <div class="flex justify-between w-full md:w-80 text-sm pr-8">
+              <span class="font-bold uppercase tracking-widest text-xs" style="color: #64748B;">TOTAL PAID</span>
+              <span class="font-bold" style="color: #059669;">$690.00</span>
+            </div>
+            <div class="flex justify-between w-full md:w-80 text-base pr-8 mt-1 pt-1">
+              <span class="font-extrabold uppercase tracking-wider text-sm flex items-center" style="color: #0F172A;">BALANCE DUE</span>
+              <span class="font-extrabold text-lg" style="color: #0F172A;">$0.00</span>
+            </div>
+          </div>
+
+          <!-- Payment Schedule Section -->
+          <div class="mb-8">
+            <h3 class="text-xs font-bold uppercase tracking-widest mb-4" style="color: #64748B;">PAYMENT SCHEDULE</h3>
+            <div class="space-y-2 text-xs md:text-sm font-normal" style="color: #475569;">
+              <div>
+                <strong class="font-semibold" style="color: #0F172A;">Deposit:</strong> $276.00 (40%) required to initiate the project. <span style="color: #059669; font-weight: 600;">(Paid)</span>
+              </div>
+              <div>
+                <strong class="font-semibold" style="color: #0F172A;">Final Payment:</strong> $414.00 (60%) due upon project completion and website launch. <span style="color: #059669; font-weight: 600;">(Paid)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Payment Instructions Box -->
+          <div class="flex flex-col md:flex-row justify-between items-start md:items-center shadow-sm gap-6 md:gap-0" style="background-color: #F8FAFC; border-left: 4px solid #0088FF; border-top: 1px solid #E2E8F0; border-right: 1px solid #E2E8F0; border-bottom: 1px solid #E2E8F0; padding: 24px 32px; border-top-right-radius: 0.75rem; border-bottom-right-radius: 0.75rem; margin-top: 32px; margin-bottom: 32px;">
+            <div class="space-y-3">
+              <h4 class="text-base font-bold tracking-tight" style="color: #0F172A;">Payment Instructions</h4>
+              <p class="text-xs md:text-sm" style="color: #475569;">Important: Please include the Invoice Number <span class="font-bold" style="color: #0F172A;">INV-2026-114</span> as a reference.</p>
+              
+              <div class="pt-3 space-y-1.5" style="border-top: 1px solid #E2E8F0;">
+                <div class="text-xs md:text-sm font-bold flex items-center gap-2" style="color: #0F172A;">
+                  Zelle:
+                </div>
+                <div class="text-xs md:text-sm pl-2" style="color: #475569;"><span class="font-semibold" style="color: #0F172A;">Recipient:</span> Gabriel Espinoza</div>
+                <div class="text-xs md:text-sm pl-2" style="color: #475569;"><span class="font-semibold" style="color: #0F172A;">Phone:</span> 385-415-4447</div>
+              </div>
+            </div>
+            
+            <div class="pr-0 md:pr-6 self-center md:self-auto" style="color: #CBD5E1;">
+              <svg class="w-16 h-16 md:w-20 md:h-20 drop-shadow-sm" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L1 7v2h22V7L12 2zm-9 7v9h2v-9H3zm4 0v9h2v-9H7zm4 0v9h2v-9h-2zm4 0v9h2v-9h-2zm4 0v9h2v-9h-2zM1 20v2h22v-2H1z"/></svg>
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <div class="mt-16 pt-8 text-center space-y-2" style="border-top: 1px solid #E2E8F0;">
+            <p class="text-xs font-medium" style="color: #64748B;">Thank you for your business! We look forward to working with you again.</p>
+            <p class="text-xs font-bold tracking-wider uppercase" style="color: #0F172A;">Strakon Digital</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <div class="print:hidden">
+    <Footer />
+  </div>
+
+  <script is:inline>
+    function downloadPDF() {
+      const element = document.getElementById('invoice-content');
+      const filename = 'Invoice_INV-2026-114_Gabriel_Espinoza_PAID.pdf';
+      
+      // Get exact bounding rect to prevent html2canvas right-side clipping
+      const rect = element.getBoundingClientRect();
+      
+      const opt = {
+        margin:       0.3, // 0.3 inch margin on all sides for perfect framing
+        filename:     filename,
+        image:        { type: 'jpeg', quality: 1.0 },
+        pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] },
+        html2canvas:  { 
+          scale: 2, 
+          useCORS: true, 
+          logging: false,
+          scrollX: 0,
+          scrollY: 0,
+          windowWidth: document.documentElement.scrollWidth,
+          width: rect.width
+        },
+        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+      };
+
+      // Use the official, native html2pdf save() API to guarantee correct filename and avoid ERR_FILE_NOT_FOUND
+      html2pdf().set(opt).from(element).save();
+    }
+  </script>
+</Layout>

@@ -1,0 +1,707 @@
+---
+const slides = [
+  {
+    bg: '/images/Background/1.avif',
+    subject: '/images/11.avif',
+    extraLayer: '/images/capa/1.avif',
+    subjectScale: 1.1,
+    title: 'Lead the<br/>market.',
+    sub: "We don't just build websites. We build the reason people choose you over everyone else."
+  },
+  {
+    bg: '/images/Background/3.avif',
+    subject: '/images/3.avif',
+    rightObject: '/images/33.avif',
+    subjectScale: 1.1,
+    subjectStyle: 'transform: translate(-10%, 5%);',
+    rightObjectStyle: 'transform: translate(-35%, 0);',
+    title: 'Be more than<br/>just a brand.',
+    sub: "In a sea of average, we make sure you're the one they remember — and choose."
+  },
+  {
+    bg: '/images/Background/5.avif',
+    subject: '/images/5.avif',
+    leftObject: '/images/55.avif',
+    subjectScale: 1.1,
+    extraLayer: '/images/capa/5.avif',
+    title: 'The future<br/>is yours.',
+    sub: "We don't follow digital trends. We build the businesses that set them."
+  }
+];
+---
+
+<div id="hero-slider" class="relative w-full h-screen overflow-hidden bg-[#0A0A0A] select-none touch-none" data-slides={JSON.stringify(slides.map(s => s.bg))}>
+  <!-- BACKGROUND ARCHITECTURE (WebGL 3D Canvas) -->
+  <canvas id="hero-gl-canvas" class="absolute inset-0 z-0 pointer-events-none"></canvas>
+
+  <!-- CINEMATIC HUD & HEADER BRANDING (z-index 50) -->
+  <div class="hud hero-hud-item absolute inset-0 z-50 pointer-events-none p-6 md:p-10 flex flex-col justify-between transition-all duration-500">
+    
+    <!-- Top Bar Placeholder (Handled globally by Header.astro) -->
+    <div></div>
+
+
+
+    <!-- BOTTOM LEFT HUD SCROLL COUNTER -->
+    <div class="hero-hud-item absolute bottom-8 left-6 md:bottom-10 md:left-10 z-[60] flex items-center justify-start gap-3 md:gap-4 text-white pointer-events-none mix-blend-difference transition-all duration-500">
+      
+      <!-- Logo Masked Progress -->
+      <div class="relative w-10 h-10 md:w-12 md:h-12" style="-webkit-mask-image: url('/images/favicon-strakon.png'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('/images/favicon-strakon.png'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;">
+        <div class="absolute inset-0 bg-white"></div>
+        <div id="logo-fill" class="absolute bottom-0 left-0 w-full bg-[#00F5FF]" style="height: 0%;"></div>
+      </div>
+
+      <!-- Left Column: Phase & Huge Counter -->
+      <div class="flex flex-col items-start leading-none relative opacity-100">
+        <span class="text-[0.6rem] tracking-[0.25em] font-mono mb-2 text-white font-bold uppercase" data-i18n="slider.project">Project</span>
+        
+        <!-- Contenedor relativo -->
+        <div class="relative overflow-visible">
+          <!-- El texto que GSAP actualizará -->
+          <span class="current-slide-num block text-[0.85rem] font-bold font-mono tracking-[0.15em] ml-1 text-white">01</span>
+        </div>
+      </div>
+
+      <!-- Decorator Vertical Line & Glowing Diamond -->
+      <div class="relative flex flex-col items-center justify-center h-10 md:h-14 mx-2 md:mx-4">
+        <!-- Línea vertical divisoria -->
+        <div class="w-[1px] h-full bg-white/40 absolute"></div>
+        <!-- Diamante con resplandor (Glow) -->
+        <div class="w-2 h-2 bg-white rotate-45 z-10 shadow-[0_0_8px_2px_rgba(255,255,255,0.5)]"></div>
+      </div>
+
+      <!-- Right Column: Secondary Data -->
+      <div class="flex flex-col items-start leading-none opacity-100">
+        <span class="text-[0.6rem] tracking-[0.25em] font-mono mb-2 text-white font-bold uppercase" data-i18n="slider.series">Series</span>
+        <span class="text-[0.85rem] font-mono tracking-[0.15em] ml-1 text-white font-bold">03</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 3-LAYER FOREGROUND SYSTEM (z-index 10) -->
+  <div class="absolute inset-0 z-10 w-full h-full pointer-events-none" id="dom-layers">
+    {slides.map((slide, index) => (
+      <div class="slide-wrapper absolute inset-0 w-full h-full opacity-0 invisible overflow-hidden" data-index={index}>
+        
+        <!-- Subject Layer -->
+        <div class="slide-subject absolute inset-0 w-full h-full flex items-center justify-center pointer-events-none">
+          <div class="proxy-levitate w-full flex justify-center" style={slide.subjectStyle || 'transform: translateY(20%)'}>
+            <div class="relative max-w-[90vw] md:max-w-5xl w-full aspect-square md:aspect-video proxy-mouse">
+              <img src={slide.subject} alt={`Subject ${index + 1}`} class="w-full h-full object-contain subject-image" onerror="this.style.display='none'" />
+            </div>
+          </div>
+        </div>
+
+        <!-- NEW LEFT-PINNED OBJECT LAYER (Slides 3 & 5) -->
+        {slide.leftObject && (
+          <div class="slide-left-obj absolute inset-y-0 left-0 h-full flex items-center z-5 pointer-events-none">
+            <div class="proxy-offset" style={slide.leftObjectStyle}>
+              <div class="relative max-w-[40vw] md:max-w-lg h-[51vh] flex items-center proxy-mouse">
+                  <img src={slide.leftObject} alt="Left Detail" class="w-full h-full object-contain object-left" onerror="this.style.display='none'" />
+              </div>
+            </div>
+          </div>
+        )}
+
+        <!-- NEW RIGHT-PINNED OBJECT LAYER (Slide 1) -->
+        {slide.rightObject && (
+          <div class="slide-right-obj absolute inset-y-0 right-0 h-full flex items-center z-5 pointer-events-none">
+            <div class="proxy-offset" style={slide.rightObjectStyle}>
+              <div class="relative max-w-[40vw] md:max-w-lg h-[51vh] flex items-center proxy-mouse">
+                  <img src={slide.rightObject} alt="Right Detail" class="w-full h-full object-contain object-right" onerror="this.style.display='none'" />
+              </div>
+            </div>
+          </div>
+        )}
+
+        <!-- Extra Foreground Layer -->
+        {slide.extraLayer && (
+          <div class="slide-extra absolute inset-x-0 bottom-0 w-full h-full pointer-events-none flex items-end justify-center">
+            <div class="w-full proxy-scale origin-bottom">
+               <img src={slide.extraLayer} alt={`Extra ${index + 1}`} class="w-full h-auto min-h-[25vh] object-cover object-bottom" onerror="this.style.display='none'" />
+            </div>
+          </div>
+        )}
+
+        <!-- Content Layer -->
+        <div class="slide-content absolute inset-0 w-full h-full flex items-center p-8 md:p-20 md:pt-32 z-20 mix-blend-difference">
+          <div class="max-w-3xl text-white origin-left">
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tighter text-white uppercase drop-shadow-[0_10px_30px_rgba(0,0,0,0.6)] mb-6" data-i18n={`slide.${index}.title`} set:html={slide.title}></h1>
+            <p class="text-lg md:text-2xl font-normal text-zinc-100 drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)] max-w-2xl leading-relaxed" data-i18n={`slide.${index}.sub`}>{slide.sub}</p>
+          </div>
+        </div>
+        
+      </div>
+    ))}
+  </div>
+
+  <!-- Bottom Accent Line -->
+  <div class="absolute bottom-0 left-0 w-full h-[2px] bg-[#00F5FF] z-30 shadow-[0_0_15px_rgba(0,245,255,0.5)]"></div>
+</div>
+
+<script>
+  import * as THREE from 'three';
+  import gsap from 'gsap';
+
+  const container = document.getElementById('hero-slider');
+  const domSlides = document.querySelectorAll('.slide-wrapper');
+  const counter = document.querySelector('.current-slide-num');
+  const clock = document.querySelector('.local-time-clock');
+  const hackerText = document.querySelector('.sig-status');
+  
+  if (container) {
+    let currentIndex = 0;
+    let isAnimating = false;
+    let autoplayTween;
+    const totalSlides = domSlides.length;
+
+    const bgMapStr = container.getAttribute('data-slides');
+    const bgUrls = JSON.parse(bgMapStr || "[]");
+
+    // ==========================================
+    // 1. WEBGL ARCHITECTURE Setup
+    // ==========================================
+    const canvas = document.getElementById('hero-gl-canvas') as HTMLCanvasElement;
+    const scene = new THREE.Scene();
+    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
+    camera.position.z = 1;
+    
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    const uniforms = {
+        tex1: { value: null as THREE.Texture | null },
+        tex2: { value: null as THREE.Texture | null },
+        progress: { value: -0.5 }, 
+        direction: { value: 1.0 },
+        aspectRatio: { value: window.innerWidth / window.innerHeight },
+        zoom1: { value: 1.15 },
+        zoom2: { value: 1.15 }
+    };
+
+    // ==========================================
+    // INITIAL INTRO ANIMATION
+    // ==========================================
+    const runIntro = () => {
+        const firstSlide = domSlides[0];
+        const subject = firstSlide.querySelector('.slide-subject');
+        const content = firstSlide.querySelector('.slide-content');
+        const extra = firstSlide.querySelector('.slide-extra');
+        
+        gsap.set([subject, content], { yPercent: 100 });
+        if(extra) gsap.set(extra, { yPercent: 100 });
+        gsap.set(uniforms.progress, { value: -0.7 });
+
+        gsap.set(firstSlide, { autoAlpha: 1 });
+
+        // Speed synchronization: Both end at 1.4s, but subject moves faster (shorter duration)
+        gsap.to(uniforms.progress, {
+            value: 0.0,
+            duration: 1.8, 
+            ease: "power3.out",
+            onComplete: () => {
+                isAnimating = false;
+                startAutoplay();
+            }
+        });
+
+        // Subject & Content: Enter faster (1.1s duration) with a slight delay so they finish at 1.4s
+        gsap.to([subject, content], {
+            yPercent: 0,
+            duration: 1.1,
+            delay: 0.3,
+            ease: "power2.out"
+        });
+
+        if(extra) {
+            // Extra: Enters slower (1.4s duration) starting from 0s
+            gsap.to(extra, { yPercent: 0, duration: 1.4, ease: "power2.inOut" });
+        }
+
+        const startZoom = window.innerWidth < 768 ? 1.3 : 1.15;
+        gsap.fromTo(uniforms.zoom1, { value: startZoom }, { value: 1.0, duration: 7, ease: "none" });
+        initSlide(firstSlide);
+    };
+
+    const vertexShader = `
+      varying vec2 vUv;
+      void main() {
+        vUv = uv;
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+      }
+    `;
+
+    const fragmentShader = `
+      uniform sampler2D tex1;
+      uniform sampler2D tex2;
+      uniform float progress;
+      uniform float direction;
+      uniform float aspectRatio;
+      uniform float zoom1;
+      uniform float zoom2;
+      varying vec2 vUv;
+
+      vec2 mirrorWrap(vec2 uv) {
+        vec2 m = mod(uv, 2.0);
+        return mix(m, 2.0 - m, step(1.0, m));
+      }
+
+      void main() {
+        vec2 center = vec2(0.5, 0.5);
+        vec2 baseUv1 = (vUv - center) / zoom1 + center;
+        vec2 baseUv2 = (vUv - center) / zoom2 + center;
+
+        float panAmt = progress * direction * 3.0; // Increased travel
+        
+        vec2 uv1 = mirrorWrap(vec2(baseUv1.x, baseUv1.y + panAmt));
+        vec2 uv2 = mirrorWrap(vec2(baseUv2.x, baseUv2.y - (3.0 * direction) + panAmt));
+
+        vec4 color1 = texture2D(tex1, uv1);
+        vec4 color2 = texture2D(tex2, uv2);
+
+        float mixProgress = clamp(progress, 0.0, 1.0);
+        gl_FragColor = mix(color1, color2, mixProgress);
+      }
+    `;
+
+    const material = new THREE.ShaderMaterial({
+      uniforms,
+      vertexShader,
+      fragmentShader,
+      transparent: true
+    });
+
+    const plane = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material);
+    scene.add(plane);
+
+    const textureLoader = new THREE.TextureLoader();
+    const textures = bgUrls.map((url, i) => {
+      const t = textureLoader.load(url, () => {
+          if(i === 0) {
+              isAnimating = true;
+              runIntro();
+          }
+      });
+      t.wrapS = THREE.MirroredRepeatWrapping;
+      t.wrapT = THREE.MirroredRepeatWrapping;
+      return t;
+    });
+
+    uniforms.tex1.value = textures[0];
+    
+    function resizeGL() {
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      uniforms.aspectRatio.value = window.innerWidth / window.innerHeight;
+    }
+    resizeGL();
+    window.addEventListener('resize', resizeGL);
+
+    renderer.render(scene, camera);
+    gsap.ticker.add(() => { renderer.render(scene, camera); });
+
+    // ==========================================
+    // 2. PARALLAX & HUD
+    // ==========================================
+    let mouseX = 0; let mouseY = 0;
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    
+    // Rule 7: Disable mouse-tracking GSAP on mobile
+    if (!isTouchDevice) {
+        document.addEventListener("mousemove", (e) => {
+          mouseX = (e.clientX / window.innerWidth) - 0.5;
+          mouseY = (e.clientY / window.innerHeight) - 0.5;
+        });
+    }
+
+    const parallaxSetters = Array.from(domSlides).map(slide => {
+        const els = Array.from(slide.querySelectorAll('.proxy-mouse'));
+        return els.map(el => ({
+            xTo: gsap.quickTo(el, "x", { duration: 0.05, ease: "none" }),
+            yTo: gsap.quickTo(el, "y", { duration: 0.05, ease: "none" })
+        }));
+    });
+
+    // Multi-Slide Parallax Support
+    let nextMovingIndex = -1;
+    gsap.ticker.add(() => {
+        // Current Active Slide
+        if(parallaxSetters[currentIndex]) {
+            parallaxSetters[currentIndex].forEach(setter => {
+                setter.xTo(mouseX * 27);
+                setter.yTo(mouseY * 27);
+            });
+        }
+        // Next Entering Slide (Animate them into position immediately)
+        if(nextMovingIndex !== -1 && parallaxSetters[nextMovingIndex]) {
+            parallaxSetters[nextMovingIndex].forEach(setter => {
+                setter.xTo(mouseX * 27);
+                setter.yTo(mouseY * 27);
+            });
+        }
+    });
+
+    const initSlide = (slideEl) => {
+        const index = parseInt(slideEl.getAttribute('data-index') || '0');
+        const img = slideEl.querySelector('.subject-image');
+        const levitate = slideEl.querySelector('.proxy-levitate');
+        const extra = slideEl.querySelector('.slide-extra .proxy-scale');
+        const leftImg = slideEl.querySelector('.slide-left-obj img');
+        const rightImg = slideEl.querySelector('.slide-right-obj img');
+        
+        const isMobile = window.innerWidth < 768;
+        
+        const imgTargetScale = isMobile ? 1.3 : 1.15;
+        if (img) gsap.fromTo(img, { scale: 1.0 }, { scale: imgTargetScale, duration: 7, ease: "none" });
+        const lateralTargetScale = isMobile ? 1.3 : 1.25;
+        if (leftImg) gsap.fromTo(leftImg, { scale: 1.0 }, { scale: lateralTargetScale, duration: 8, ease: "none" });
+        if (rightImg) gsap.fromTo(rightImg, { scale: 1.0 }, { scale: lateralTargetScale, duration: 8, ease: "none" });
+        
+        // Floating effect specifically for Slide 1 & 2's main subject and Slide 2 lateral object
+        if (levitate) {
+            gsap.killTweensOf(levitate);
+            const floatAmp = 15;
+            
+            if (index === 0) {
+                gsap.fromTo(levitate, { y: -15 }, { y: 15, duration: 2.2, ease: "sine.inOut", yoyo: true, repeat: -1 });
+            } else if (index === 1) {
+                // Slide 2 Main Object (Astronaut)
+                // If mobile, move down significantly to clear text
+                const mobileY = isMobile ? window.innerHeight * 0.25 : 0; 
+                gsap.fromTo(levitate, { y: mobileY - 15 }, { y: mobileY + 15, duration: 2.2, ease: "sine.inOut", yoyo: true, repeat: -1 });
+            } else {
+                gsap.set(levitate, { y: 0 }); 
+            }
+        }
+        
+        // Lateral Object floating for Slide 2 & 3
+        if (index === 1 && rightImg) {
+            const rightContainer = slideEl.querySelector('.slide-right-obj');
+            if (rightContainer) {
+                gsap.killTweensOf(rightContainer);
+                // If mobile, move up to top
+                const mobileYOffset = isMobile ? -window.innerHeight * 0.25 : 0;
+                gsap.fromTo(rightContainer, 
+                    { y: mobileYOffset - 15 }, 
+                    { y: mobileYOffset + 15, duration: 2.2, ease: "sine.inOut", yoyo: true, repeat: -1 }
+                );
+            }
+        }
+        
+        if (index === 2 && leftImg) {
+            const leftContainer = slideEl.querySelector('.slide-left-obj');
+            if (leftContainer) {
+                gsap.killTweensOf(leftContainer);
+                const mobileYOffset = isMobile ? window.innerHeight * 0.15 : 0;
+                gsap.fromTo(leftContainer, 
+                    { y: mobileYOffset - 10 }, 
+                    { y: mobileYOffset + 10, duration: 3, ease: "sine.inOut", yoyo: true, repeat: -1 }
+                );
+            }
+        }
+        
+        if (extra) {
+            gsap.killTweensOf(extra);
+            const startScale = isMobile ? 1.2 : 1.0;
+            const targetScale = isMobile ? 1.7 : 1.15;
+            gsap.fromTo(extra, { scale: startScale }, { scale: targetScale, duration: 7, ease: "none" });
+        }
+    };
+
+    const renderClock = () => {
+        if(clock) (clock as HTMLElement).innerText = new Date().toLocaleTimeString('en-US', { hour12: false });
+    };
+    setInterval(renderClock, 1000);
+    renderClock();
+
+    const updateCounter = (newIndex) => {
+        if(!counter) return;
+        gsap.to(counter, { y: -15, opacity: 0, duration: 0.2, onComplete: () => {
+            (counter as HTMLElement).innerText = (newIndex + 1).toString().padStart(2, '0');
+            gsap.fromTo(counter, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.2 });
+        }});
+    }
+
+    const triggerHackerText = () => {
+        if(!hackerText) return;
+        const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*";
+        const finalStr = "DR. COKO WEBS";
+        let iter = 0;
+        const interval = setInterval(() => {
+            (hackerText as HTMLElement).innerText = finalStr.split("").map((letter, i) => {
+                if(i < iter) return letter;
+                return chars[Math.floor(Math.random() * chars.length)];
+            }).join("");
+            if(iter >= finalStr.length) clearInterval(interval);
+            iter += 1/3;
+        }, 30);
+    };
+    triggerHackerText();
+
+    const logoFill = document.getElementById('logo-fill');
+    const startAutoplay = () => {
+        if (autoplayTween) autoplayTween.kill();
+        if (logoFill) gsap.set(logoFill, { height: "0%" });
+        autoplayTween = gsap.timeline({ onComplete: () => nextSlide() });
+        autoplayTween.to({}, { duration: 5 }, 0);
+        if (logoFill) autoplayTween.to(logoFill, { height: "100%", duration: 5, ease: "none" }, 0);
+    };
+
+    // ==========================================
+    // 3. MASTER SCROLL & NAVIGATION LOGIC
+    // ==========================================
+    // Management of Scroll Lock (Desktop & Mobile)
+    const updateScrollLock = (index) => {
+        const isAtLastSlide = index === totalSlides - 1;
+        const lenis = (window as any).lenis;
+        const isScrolledDown = window.scrollY > 20;
+
+        // If user is at footer, allow background loop WITHOUT pausing or force-scrolling
+        if (isScrolledDown) {
+            if (lenis) lenis.start();
+            document.body.style.overflowY = 'auto';
+            document.documentElement.style.overflowY = 'auto';
+            return; 
+        }
+        
+        if (lenis) {
+            if (isAtLastSlide) lenis.start();
+            else lenis.stop();
+        }
+
+        if (isAtLastSlide) {
+            document.body.style.overflowY = 'auto';
+            document.documentElement.style.overflowY = 'auto';
+        } else {
+            document.body.style.overflowY = 'hidden';
+            document.documentElement.style.overflowY = 'hidden';
+            window.scrollTo(0, 0); 
+        }
+    };
+
+    const gotoSlide = (nextIndex, dir) => {
+        if (isAnimating) return;
+        
+        // Infinite Loop wrapping
+        if (nextIndex < 0) nextIndex = totalSlides - 1;
+        if (nextIndex >= totalSlides) nextIndex = 0;
+
+        isAnimating = true;
+        nextMovingIndex = nextIndex; // Start parallax for next slide immediately
+
+        const currentSlide = domSlides[currentIndex];
+        const nextContent = domSlides[nextIndex];
+        gsap.set(nextContent, { autoAlpha: 1 });
+        
+        triggerHackerText();
+        updateCounter(nextIndex);
+        startAutoplay(); 
+
+        uniforms.tex2.value = textures[nextIndex];
+        uniforms.direction.value = dir;
+        uniforms.progress.value = 0.0;
+        gsap.killTweensOf(uniforms.zoom2);
+        const nextStartZoom = window.innerWidth < 768 ? 1.3 : 1.15;
+        gsap.fromTo(uniforms.zoom2, { value: nextStartZoom }, { value: 1.0, duration: 7, ease: "none" });
+        
+        gsap.to(uniforms.progress, { value: 1.0, duration: 1.6, ease: "power3.inOut" });
+
+        const travelDist = window.innerWidth * 1.5;
+        const curSubject = currentSlide.querySelector('.slide-subject');
+        const nextSubj = nextContent.querySelector('.slide-subject');
+        const curH1 = currentSlide.querySelector('.slide-content');
+        const nextH1 = nextContent.querySelector('.slide-content');
+        const curExtra = currentSlide.querySelector('.slide-extra');
+        const nextExtra = nextContent.querySelector('.slide-extra');
+        const curLeft = currentSlide.querySelector('.slide-left-obj');
+        const nextLeft = nextContent.querySelector('.slide-left-obj');
+        const curRight = currentSlide.querySelector('.slide-right-obj');
+        const nextRight = nextContent.querySelector('.slide-right-obj');
+
+        // CRITICAL: Hide all lateral objects globally EXCEPT the ones we are about to animate
+        const allLat = document.querySelectorAll('.slide-left-obj, .slide-right-obj');
+        allLat.forEach(el => {
+            if (el !== curLeft && el !== curRight && el !== nextLeft && el !== nextRight) {
+                gsap.set(el, { autoAlpha: 0 });
+            }
+        });
+
+        const percentDist = dir === 1 ? 100 : -100;
+        gsap.set([nextSubj, nextH1], { yPercent: percentDist });
+        if(nextExtra) gsap.set(nextExtra, { yPercent: 100, autoAlpha: 1 });
+        if(nextLeft) gsap.set(nextLeft, { x: -travelDist });
+        if(nextRight) gsap.set(nextRight, { x: travelDist });
+
+        if(curExtra) gsap.to(curExtra, { yPercent: 100, duration: 0.6, ease: "power3.in" });
+        initSlide(nextContent);
+
+        const tl = gsap.timeline({
+            onComplete: () => {
+                gsap.set(currentSlide, { autoAlpha: 0 });
+                uniforms.tex1.value = textures[nextIndex];
+                uniforms.progress.value = 0.0;
+                gsap.fromTo(uniforms.zoom1, { value: uniforms.zoom2.value }, { value: 1.0, duration: 5.4, ease: "none" });
+                currentIndex = nextIndex;
+                nextMovingIndex = -1; // Reset parallax target
+                isAnimating = false;
+                updateScrollLock(currentIndex);
+            }
+        });
+
+        tl.to(curSubject, { yPercent: -percentDist, duration: 1.6, ease: "power3.inOut" }, 0);
+        tl.to(nextSubj, { yPercent: 0, duration: 1.6, ease: "power3.inOut" }, 0);
+        tl.to(curH1, { yPercent: -percentDist, duration: 1.6, ease: "power3.inOut" }, 0.1);
+        tl.to(nextH1, { yPercent: 0, duration: 1.6, ease: "power3.inOut" }, 0.1);
+        if(nextExtra) tl.to(nextExtra, { yPercent: 0, duration: 1.8, ease: "power3.out" }, 0.6);
+        if(curLeft) tl.to(curLeft, { x: -travelDist, duration: 1.1, ease: "power3.inOut", onComplete: () => gsap.set(curLeft, { autoAlpha: 0 }) }, 0);
+        if(nextLeft) {
+            tl.set(nextLeft, { autoAlpha: 1 }, 0.5);
+            tl.to(nextLeft, { x: 0, duration: 2.0, ease: "power3.out" }, 0.5);
+        }
+        if(curRight) tl.to(curRight, { x: travelDist, duration: 1.1, ease: "power3.inOut", onComplete: () => gsap.set(curRight, { autoAlpha: 0 }) }, 0);
+        if(nextRight) {
+            tl.set(nextRight, { autoAlpha: 1 }, 0.5);
+            tl.to(nextRight, { x: 0, duration: 2.0, ease: "power3.out" }, 0.5);
+        }
+        
+        // Final sanity check on complete: hide currentSlide's HUD elements if they exist
+        const curHUD = [curLeft, curRight].filter(Boolean);
+        if (curHUD.length > 0) tl.set(curHUD, { autoAlpha: 0 });
+    };
+
+    const nextSlide = () => gotoSlide(currentIndex + 1, 1);
+    const prevSlide = () => gotoSlide(currentIndex - 1, -1);
+
+    document.getElementById('slider-next')?.addEventListener('click', nextSlide);
+    document.getElementById('slider-prev')?.addEventListener('click', prevSlide);
+
+    window.addEventListener("wheel", (e) => {
+        const isAtLastSlide = currentIndex === totalSlides - 1;
+        // Scroll DOWN Threshold
+        if (Math.abs(e.deltaY) > 30 && window.scrollY <= 10) {
+            if (e.deltaY > 0) {
+                // If at last slide, allow natural scroll to footer
+                if (isAtLastSlide) return; 
+                e.preventDefault();
+                if (!isAnimating) nextSlide();
+            } else {
+                // Scrolling UP: Always go to prev (even from Slide 1 -> 5)
+                e.preventDefault();
+                if (!isAnimating) prevSlide();
+            }
+        }
+    }, { passive: false });
+
+    // Magnetic Snap-to-Hero Effect
+    let lastScrollY = window.scrollY;
+    window.addEventListener("scroll", () => {
+        const currentScrollY = window.scrollY;
+        const lenis = (window as any).lenis;
+        
+        // If scrolling UP and close to the Hero (450px), snap to top with power
+        if (currentScrollY < 450 && currentScrollY > 0 && currentScrollY < lastScrollY) {
+            if (lenis && !isAnimating) {
+                lenis.scrollTo(0, { duration: 0.5, ease: (t) => 1 - Math.pow(1 - t, 4) });
+            }
+        }
+        lastScrollY = currentScrollY;
+        
+        // Also ensure scroll lock reflects current position
+        updateScrollLock(currentIndex);
+    }, { passive: true });
+
+    // HUD is now absolute, no need for complex hide logic as it scrolls with the Hero
+    const hudItems = document.querySelectorAll('.hero-hud-item');
+    gsap.set(hudItems, { autoAlpha: 1, y: 0 });
+
+    // Touch navigation for mobile devices
+    let touchStartY = 0;
+    window.addEventListener("touchstart", (e) => {
+        touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    window.addEventListener("touchend", (e) => {
+        const deltaY = touchStartY - e.changedTouches[0].clientY;
+        const isAtLastSlide = currentIndex === totalSlides - 1;
+        const isScrolledAtTop = window.scrollY <= 10;
+
+        if (Math.abs(deltaY) > 50 && isScrolledAtTop) {
+            if (deltaY > 0) {
+                // Swipe UP = Scroll DOWN
+                if (isAtLastSlide) return; 
+                if (!isAnimating) nextSlide();
+            } else {
+                // Swipe DOWN = Scroll UP
+                if (!isAnimating) prevSlide();
+            }
+        }
+    }, { passive: true });
+
+    setTimeout(() => updateScrollLock(0), 100);
+  }
+</script>
+<style>
+  /* Mobile-Specific Structural Refinements (MD Lock Protected) */
+  @media (max-width: 767px) {
+    /* Layout Polish removed !important transforms to allow GSAP control */
+
+    /* Refine Extra Layers (Capa Inferior Extra) for Slides 1, 2, 4, 5 */
+    .slide-wrapper:not([data-index="2"]) .slide-extra .proxy-scale {
+      transform-origin: bottom center;
+    }
+
+    /* iOS Safari: Use dynamic viewport height */
+    #hero-slider {
+      height: 100dvh;
+    }
+
+    /* Safe area insets for iPhone notch/dynamic island */
+    .hud {
+      padding-top: max(1.5rem, env(safe-area-inset-top));
+      padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+      padding-left: max(1.5rem, env(safe-area-inset-left));
+      padding-right: max(1.5rem, env(safe-area-inset-right));
+    }
+
+    /* Prevent accidental touch interactions */
+    #hero-slider {
+      touch-action: pan-y;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    /* General HUD safety for very small screens */
+    @media (max-height: 700px) {
+      .slide-content h1 {
+        font-size: 2.5rem !important;
+        line-height: 1.1;
+      }
+    }
+  }
+
+  /* Tablet-specific adjustments (768px - 1024px) */
+  @media (min-width: 768px) and (max-width: 1024px) {
+    #hero-slider {
+      height: 100dvh;
+    }
+  }
+
+  .sphere-anim {
+    will-change: transform;
+  }
+
+  /* HUD Toggle Classes */
+  .hud-hidden {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    visibility: hidden;
+    transform: translateY(10px);
+  }
+
+  /* Special case: top items move up */
+  .hero-hud-item.hud-hidden.top-6, 
+  .hero-hud-item.hud-hidden.top-12,
+  .hero-hud-item.hud-hidden.hud {
+    transform: translateY(-10px);
+  }
+</style>

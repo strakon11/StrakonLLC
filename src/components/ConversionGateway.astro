@@ -1,0 +1,269 @@
+---
+---
+
+<section id="conversion-gateway" class="relative bg-[#0A0A0A] py-32 md:py-48 flex flex-col items-center text-center px-6 overflow-hidden isolate">
+    <!-- Futuristic engineering grid overlay for spotlight reflection -->
+    <div class="absolute inset-0 opacity-[0.08] pointer-events-none -z-20" 
+         style="background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px); background-size: 60px 60px; [mask-image:radial-gradient(ellipse_at_center,black,transparent_80%)]">
+    </div>
+
+    <!-- Ambient Base Glow (Cyan & Violet) -->
+    <div class="absolute top-[30%] left-[20%] w-[350px] h-[350px] bg-[#00F5FF]/5 rounded-full blur-[130px] pointer-events-none -z-20"></div>
+    <div class="absolute bottom-[30%] right-[20%] w-[350px] h-[350px] bg-[#7C3AED]/5 rounded-full blur-[130px] pointer-events-none -z-20"></div>
+    
+    <!-- Mobile Central Backlight Aura (Visible on mobile only, adds beautiful glow behind text) -->
+    <div class="md:hidden absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] bg-gradient-to-tr from-[#00F5FF]/10 to-[#7C3AED]/10 rounded-full blur-[80px] pointer-events-none -z-10"></div>
+
+    <!-- 1. Interactive Backlight (Desktop only, mouse tracking) -->
+    <div id="gateway-spotlight" class="hidden md:block absolute w-[800px] h-[800px] bg-gradient-to-tr from-[#00F5FF]/20 to-[#7C3AED]/20 rounded-full blur-[150px] -translate-x-1/2 -translate-y-1/2 opacity-0 pointer-events-none -z-15"></div>
+
+    <!-- 2. Refined Glass Shards (Desktop version remains completely identical) -->
+    <div class="glass-shard hidden md:block absolute top-[15%] left-[15%] w-28 h-28 rounded-2xl bg-gradient-to-br from-white/12 to-white/0 border border-white/20 backdrop-blur-md pointer-events-none rotate-[15deg] -z-10 shadow-[inset_0_0_12px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.3)]"></div>
+    <div class="glass-shard hidden md:block absolute bottom-[15%] right-[15%] w-36 h-16 rounded-xl bg-gradient-to-br from-white/12 to-white/0 border border-white/20 backdrop-blur-md pointer-events-none rotate-[-12deg] -z-10 shadow-[inset_0_0_12px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.3)]"></div>
+    <div class="glass-shard hidden md:block absolute top-[40%] right-[22%] w-20 h-20 rounded-full bg-gradient-to-br from-white/12 to-white/0 border border-white/20 backdrop-blur-md pointer-events-none -z-10 shadow-[inset_0_0_12px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.3)]"></div>
+    <div class="glass-shard hidden md:block absolute bottom-[35%] left-[20%] w-16 h-16 rounded-lg bg-gradient-to-br from-white/12 to-white/0 border border-white/20 backdrop-blur-md pointer-events-none rotate-[45deg] -z-10 shadow-[inset_0_0_12px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.3)]"></div>
+
+    <!-- 3. Mobile Shards (Aesthetic additions for small viewports, floating animations) -->
+    <div class="md:hidden absolute top-[10%] left-[8%] w-14 h-14 rounded-xl bg-gradient-to-br from-white/10 to-white/0 border border-white/20 backdrop-blur-sm pointer-events-none rotate-[15deg] -z-10 shadow-[inset_0_0_8px_rgba(255,255,255,0.05)] animate-float-slow"></div>
+    <div class="md:hidden absolute bottom-[10%] right-[8%] w-18 h-10 rounded-lg bg-gradient-to-br from-white/10 to-white/0 border border-white/20 backdrop-blur-sm pointer-events-none rotate-[-12deg] -z-10 shadow-[inset_0_0_8px_rgba(255,255,255,0.05)] animate-float-slower"></div>
+
+    <div class="max-w-4xl mx-auto flex flex-col items-center gateway-reveal-container">
+        <!-- Headline with Liquid Chrome Shimmer -->
+        <h2 class="text-5xl md:text-7xl font-extrabold tracking-tight max-w-3xl leading-tight gateway-reveal-item will-change-[transform,opacity] opacity-0 bg-clip-text text-transparent bg-gradient-to-r from-white via-[#00F5FF] via-[#7C3AED] to-white animate-shimmer select-none" data-i18n="gateway.title">
+            This is where it begins.
+        </h2>
+        
+        <!-- Subheadline -->
+        <p class="text-xl md:text-2xl text-zinc-400 mt-6 font-light max-w-2xl gateway-reveal-item will-change-[transform,opacity] opacity-0 select-none" data-i18n="gateway.sub">
+            One conversation. One decision. A digital presence that works for you every single day.
+        </p>
+        
+        <!-- The Magnetic CTA Button Wrapper with Neon Aura Ring inside -->
+        <div class="mt-12 py-4">
+            <a href="/contact" class="magnetic-btn relative inline-block bg-[#00F5FF] text-[#0A0A0A] px-12 py-5 rounded-full uppercase tracking-widest font-bold text-sm transition-all duration-300 ease-out hover:scale-105 group select-none">
+                <!-- Pulsing Glow Ring (Móvil tiene animación CSS simple, Desktop tiene interactividad GSAP) -->
+                <div class="btn-glow absolute -inset-3 bg-[#00F5FF]/20 rounded-full blur-md opacity-60 group-hover:opacity-100 group-hover:blur-xl transition-all duration-500 pointer-events-none -z-10 animate-pulse-glow"></div>
+                <span data-i18n="gateway.cta">BOOK YOUR FREE CALL</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<script>
+    import gsap from 'gsap';
+    import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    let ctx = gsap.context(() => {
+        // 1. ANIMACIÓN GLOBAL: Scroll Trigger Reveal con Blur & Fade-In-Up (Aparece cobrando vida)
+        const container = document.querySelector('.gateway-reveal-container');
+        const items = document.querySelectorAll('.gateway-reveal-item');
+        
+        if (container && items.length > 0) {
+            gsap.fromTo(items, 
+                { opacity: 0, y: 60, filter: "blur(15px)" },
+                {
+                    opacity: 1,
+                    y: 0,
+                    filter: "blur(0px)",
+                    duration: 1.4,
+                    ease: "power4.out",
+                    stagger: 0.3,
+                    scrollTrigger: {
+                        trigger: container,
+                        start: "top 80%",
+                        toggleActions: "play none none none"
+                    }
+                }
+            );
+        }
+
+        // GUARDIA DE RENDIMIENTO: Detectar si el dispositivo es táctil o no soporta hover
+        const isHoverDevice = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+        if (!isHoverDevice) return; // Si es móvil, detenemos la ejecución de scripts costosos
+
+        // 2. SOLO ESCRITORIO: Flotación lenta e infinita de cristales
+        const shards = document.querySelectorAll('.glass-shard');
+        shards.forEach((shard, idx) => {
+            gsap.to(shard, {
+                y: "random(-20, 20)",
+                rotation: "random(-25, 25)",
+                x: "random(-10, 10)",
+                duration: 6 + idx * 2,
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut"
+            });
+        });
+
+        // 3. SOLO ESCRITORIO: Seguidor de Cursor & Parallax Interactivo (Spotlight + Shards)
+        const gatewaySection = document.querySelector('#conversion-gateway');
+        const spotlight = document.querySelector('#gateway-spotlight');
+        
+        if (gatewaySection) {
+            gatewaySection.addEventListener('mousemove', (e) => {
+                const rect = gatewaySection.getBoundingClientRect();
+                const x = (e as MouseEvent).clientX - rect.left;
+                const y = (e as MouseEvent).clientY - rect.top;
+                
+                // Mover Spotlight
+                if (spotlight) {
+                    const isHidden = gsap.getProperty(spotlight, "opacity") === 0;
+                    if (isHidden) {
+                        gsap.set(spotlight, { left: x, top: y });
+                    }
+                    
+                    gsap.to(spotlight, {
+                        left: x,
+                        top: y,
+                        opacity: 1,
+                        duration: isHidden ? 0.35 : 0.8,
+                        ease: "power2.out",
+                        overwrite: "auto"
+                    });
+                }
+
+                // 3D Parallax de Shards sensible al Mouse
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const moveX = (x - centerX) / centerX;
+                const moveY = (y - centerY) / centerY;
+
+                shards.forEach((shard, idx) => {
+                    const factor = (idx + 1) * 15; // Velocidades distintas por profundidad
+                    gsap.to(shard, {
+                        x: moveX * factor,
+                        y: moveY * factor,
+                        duration: 1.5,
+                        ease: "power2.out",
+                        overwrite: "auto"
+                    });
+                });
+            });
+            
+            gatewaySection.addEventListener('mouseleave', () => {
+                // Reset spotlight
+                if (spotlight) {
+                    gsap.to(spotlight, {
+                        opacity: 0,
+                        duration: 0.8,
+                        overwrite: "auto"
+                    });
+                }
+
+                // Reset shards coordinates to their original floating orbits
+                shards.forEach((shard) => {
+                    gsap.to(shard, {
+                        x: 0,
+                        y: 0,
+                        duration: 2,
+                        ease: "power2.out",
+                        overwrite: "auto"
+                    });
+                });
+            });
+        }
+
+        // 4. SOLO ESCRITORIO: Scroll Parallax para cristales
+        gsap.to(shards, {
+            yPercent: (i) => (i % 2 === 0 ? -45 : 45),
+            ease: "none",
+            scrollTrigger: {
+                trigger: "#conversion-gateway",
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 1
+            }
+        });
+
+        // 5. SOLO ESCRITORIO: Botón magnético interactivo con aumento de brillo
+        const button = document.querySelector('.magnetic-btn');
+        const glow = document.querySelector('.btn-glow');
+        if (button) {
+            window.addEventListener('mousemove', (e) => {
+                const rect = button.getBoundingClientRect();
+                const btnX = rect.left + rect.width / 2;
+                const btnY = rect.top + rect.height / 2;
+                
+                const dist = Math.hypot(e.clientX - btnX, e.clientY - btnY);
+                
+                if (dist < 100) {
+                    const pullX = (e.clientX - btnX) * 0.18;
+                    const pullY = (e.clientY - btnY) * 0.18;
+                    
+                    gsap.to(button, {
+                        x: pullX,
+                        y: pullY,
+                        duration: 0.5,
+                        ease: "power3.out"
+                    });
+
+                    if (glow) {
+                        gsap.to(glow, {
+                            scale: 1.1,
+                            opacity: 0.8,
+                            duration: 0.4
+                        });
+                    }
+                } else {
+                    gsap.to(button, {
+                        x: 0,
+                        y: 0,
+                        duration: 0.8,
+                        ease: "elastic.out(1, 0.5)"
+                    });
+
+                    if (glow) {
+                        gsap.to(glow, {
+                            scale: 1,
+                            opacity: 0.6,
+                            duration: 0.6
+                        });
+                    }
+                }
+            });
+        }
+    });
+
+    window.addEventListener('beforeunload', () => {
+        ctx.revert();
+    });
+</script>
+
+<style>
+    @keyframes shimmer {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+    
+    @keyframes pulse-glow {
+        0%, 100% { transform: scale(1); opacity: 0.5; }
+        50% { transform: scale(1.06); opacity: 0.75; }
+    }
+
+    @keyframes float-shard-1 {
+        0%, 100% { transform: translateY(0) rotate(15deg); }
+        50% { transform: translateY(-10px) rotate(18deg); }
+    }
+    @keyframes float-shard-2 {
+        0%, 100% { transform: translateY(0) rotate(-12deg); }
+        50% { transform: translateY(10px) rotate(-9deg); }
+    }
+    .animate-float-slow {
+        animation: float-shard-1 5s ease-in-out infinite;
+    }
+    .animate-float-slower {
+        animation: float-shard-2 7s ease-in-out infinite;
+    }
+
+    .animate-shimmer {
+        background-size: 200% auto;
+        animation: shimmer 10s linear infinite;
+    }
+
+    .animate-pulse-glow {
+        animation: pulse-glow 3s ease-in-out infinite;
+    }
+</style>

@@ -1,0 +1,656 @@
+---
+const pillars = [
+    {
+        id: "p1",
+        title: "Obsessed with detail.",
+        desc: "Most agencies deliver. We obsess. Every element of your site is intentional, precise, and built to make your brand impossible to ignore.",
+        pos: "top-[20%] left-[12%]"
+    },
+    {
+        id: "p2",
+        title: "Beauty that converts.",
+        desc: "A stunning site that doesn't sell is just expensive art. We design experiences that look world-class and turn visitors into clients.",
+        pos: "bottom-[20%] left-[12%]"
+    },
+    {
+        id: "p3",
+        title: "Built for tomorrow.",
+        desc: "We build with the tools and standards your competitors haven't discovered yet. Your site won't need a rebuild in 12 months.",
+        pos: "top-[20%] right-[12%]"
+    },
+    {
+        id: "p4",
+        title: "Engineered to grow with you.",
+        desc: "From your first 100 visitors to your first 100,000 — your digital platform scales as fast as your ambition does.",
+        pos: "bottom-[20%] right-[12%]"
+    }
+];
+---
+
+<section id="vision" class="relative min-h-screen lg:h-screen flex flex-col justify-between items-center py-12 lg:py-16 px-6 overflow-hidden bg-[#0A0A0A]">
+    <!-- Perspective Architecture -->
+    <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden" id="vision-bg">
+        <!-- Vertical Grid Lines with more depth -->
+        <div class="absolute inset-0 opacity-[0.15]" 
+             style="background-image: linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px); background-size: 80px 80px; [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]">
+        </div>
+        
+        <!-- Cyber Engineering Radar Scope Overlay -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] h-[320px] md:w-[600px] md:h-[600px] border border-[#00F5FF]/5 rounded-full pointer-events-none z-0"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[420px] h-[420px] md:w-[800px] md:h-[800px] border border-dashed border-[#7C3AED]/3 rounded-full pointer-events-none z-0 animate-[spin_150s_linear_infinite]"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[220px] h-[220px] md:w-[400px] md:h-[400px] border border-dotted border-[#00F5FF]/10 rounded-full pointer-events-none z-0 animate-[spin_80s_linear_infinite]"></div>
+        
+        <!-- Mouse Spotlight -->
+        <div id="vision-spotlight" class="absolute w-[800px] h-[800px] bg-[#00F5FF]/10 rounded-full blur-[150px] -translate-x-1/2 -translate-y-1/2 opacity-0 pointer-events-none"></div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto w-full relative z-10 flex flex-col items-center justify-start lg:justify-between lg:h-full gap-8 lg:gap-0">
+        <!-- Title Block - Scaled for Viewport -->
+        <div class="text-center">
+            <h2 class="text-[clamp(2.5rem,8vh,5rem)] font-medium text-white tracking-tighter leading-none gsap-reveal-text will-change-[transform,opacity] opacity-0">
+                <span data-i18n="vision.section_title_1">Built different.</span> <br class="md:hidden" />
+                <span class="italic font-light text-white/40" data-i18n="vision.section_title_2">By design.</span>
+            </h2>
+        </div>
+
+        <!-- Main Interactive Scene (Desktop & Mobile - Core Only on Mobile) -->
+        <div class="relative w-full h-[240px] lg:flex-1 max-w-5xl flex items-center justify-center my-4" id="interactive-scene">
+            <!-- Energy Lines Container -->
+            <svg class="absolute inset-0 w-full h-full pointer-events-none z-0" id="energy-lines-svg">
+                <defs>
+                    <linearGradient id="energy-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="transparent" />
+                        <stop offset="50%" stop-color="#00F5FF" />
+                        <stop offset="100%" stop-color="transparent" />
+                    </linearGradient>
+                    <filter id="glow" x="-300%" y="-300%" width="700%" height="700%">
+                        <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur1" />
+                        <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur2" />
+                        <feMerge>
+                            <feMergeNode in="blur2" />
+                            <feMergeNode in="blur1" />
+                            <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                    </filter>
+                </defs>
+            </svg>
+ 
+            <!-- Central Magnetic Core - Dynamic 3D Reactor -->
+            <div id="magnetic-core" class="relative w-40 h-40 lg:w-[28rem] lg:h-[28rem] transition-transform duration-200 ease-out z-10 orbit-container">
+                <!-- 1. 3D Orbital Rings in different planes -->
+                <div class="absolute inset-0 border-[1.5px] border-[#00F5FF]/20 rounded-full orbit-ring-1 pointer-events-none shadow-[0_0_30px_rgba(0,245,255,0.15)] transition-all duration-300"></div>
+                <div class="absolute inset-4 border-[1px] border-[#7C3AED]/20 rounded-full orbit-ring-2 pointer-events-none shadow-[0_0_30px_rgba(124,58,237,0.15)] transition-all duration-300"></div>
+                
+                <!-- Inner Reactor Glow -->
+                <div id="core-glow" class="absolute inset-8 bg-gradient-to-tr from-[#7C3AED]/15 to-[#00F5FF]/15 rounded-full blur-[60px] animate-pulse transition-all duration-500"></div>
+ 
+                <!-- Core Sphere with Enhanced Glassmorphism & Slow Rotational Logo Wrapper -->
+                <div class="absolute inset-10 lg:inset-20 bg-gradient-to-br from-[#0C0C0E]/95 to-[#050506]/98 border border-white/10 rounded-full flex items-center justify-center shadow-[0_0_50px_rgba(255,255,255,0.05),inset_0_0_30px_rgba(255,255,255,0.05)] overflow-hidden">
+                    <div class="animate-slow-logo-spin w-full h-full flex items-center justify-center">
+                        <img src="/images/favicon-strakon.png" alt="Core" id="core-logo" class="w-[45%] h-auto brightness-0 invert opacity-90 drop-shadow-[0_0_20px_rgba(255,255,255,0.8)] transition-all duration-300" />
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#00F5FF]/10 to-transparent h-1/2 w-full animate-scan opacity-40"></div>
+                </div>
+            </div>
+ 
+            <!-- Hotspots -->
+            {pillars.map(pillar => (
+                <div id={pillar.id} class={`absolute hotspot z-20 group cursor-default ${pillar.pos}`}>
+                    <div class="relative flex items-center justify-center">
+                        <!-- Pulsing core dot with smooth breathing animation -->
+                        <div class="w-4 h-4 bg-[#00F5FF] rounded-full animate-hotspot-pulse group-hover:scale-125 transition-transform duration-300"></div>
+                        
+                        <!-- 3. Holographic HUD Tooltip Card (Always shown, dynamically positioned, fixed size, conic border glow) -->
+                        <div class={`holographic-card hidden lg:flex absolute top-1/2 -translate-y-1/2 w-48 md:w-64 h-auto min-h-[120px] md:min-h-[165px] p-[1.5px] rounded-xl overflow-hidden select-none shadow-[0_20px_50px_rgba(0,0,0,0.5)] pointer-events-auto flex flex-col justify-start transition-all duration-300 group-hover:scale-[1.03] ${
+                            pillar.id === 'p1' || pillar.id === 'p2' 
+                                ? 'left-6 md:left-auto md:right-8' 
+                                : 'right-6 md:right-auto md:left-8'
+                        }`}>
+                            <!-- Rotating glow behind the card -->
+                            <div class="absolute inset-[-150%] bg-[conic-gradient(from_0deg,transparent_30%,#00F5FF_50%,transparent_70%)] animate-border-glow"></div>
+
+                            <!-- Inner Content Container -->
+                            <div class="relative w-full h-full p-3 md:p-6 rounded-[11px] bg-gradient-to-b from-[#0C0C0E]/75 to-[#050506]/85 border border-white/5 backdrop-blur-md flex flex-col justify-start overflow-hidden">
+                                <h4 class="text-xs md:text-sm font-bold text-white mb-1.5 md:mb-2 uppercase tracking-wider font-mono flex items-center gap-1.5">
+                                    <span class="w-1.5 h-1.5 bg-[#00F5FF] rounded-full animate-ping"></span>
+                                    <span data-i18n={`vision.${pillar.id}_title`}>{pillar.title}</span>
+                                </h4>
+                                <p class="text-[0.65rem] md:text-xs text-zinc-400 font-light leading-relaxed font-mono" data-i18n={`vision.${pillar.id}_desc`}>
+                                    {pillar.desc}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </div>
+
+        <!-- Mobile Infinite Marquee Slider (Visible on < 1024px) -->
+        <div class="lg:hidden w-[calc(100%+3rem)] -mx-6 overflow-hidden relative py-4 z-20 select-none my-2">
+            <!-- Scrolling Track -->
+            <div class="flex gap-6 animate-mobile-marquee w-max py-2">
+                {/* First set of cards */}
+                {pillars.map(pillar => (
+                    <div class="relative w-64 shrink-0 p-[1.5px] rounded-xl overflow-hidden" style="isolation: isolate; transform: translate3d(0,0,0); -webkit-transform: translate3d(0,0,0);">
+                        <div class="absolute inset-[-60%] bg-[conic-gradient(from_0deg,transparent_30%,#00F5FF_50%,transparent_70%)] animate-border-glow"></div>
+                        <div class="relative w-full h-[155px] p-5 rounded-[11px] bg-gradient-to-b from-[#0C0C0E] to-[#050506] border border-white/5 flex flex-col justify-start">
+                            <h4 class="text-xs font-bold text-white mb-2 uppercase tracking-wider font-mono flex items-center gap-1.5">
+                                <span class="w-1.5 h-1.5 bg-[#00F5FF] rounded-full animate-ping"></span>
+                                <span data-i18n={`vision.${pillar.id}_title`}>{pillar.title}</span>
+                            </h4>
+                            <p class="text-[0.7rem] text-zinc-400 font-light leading-relaxed font-mono whitespace-normal" data-i18n={`vision.${pillar.id}_desc`}>
+                                {pillar.desc}
+                            </p>
+                        </div>
+                    </div>
+                ))}
+                {/* Duplicate set of cards for infinite loop effect */}
+                {pillars.map(pillar => (
+                    <div class="relative w-64 shrink-0 p-[1.5px] rounded-xl overflow-hidden" style="isolation: isolate; transform: translate3d(0,0,0); -webkit-transform: translate3d(0,0,0);">
+                        <div class="absolute inset-[-60%] bg-[conic-gradient(from_0deg,transparent_30%,#00F5FF_50%,transparent_70%)] animate-border-glow"></div>
+                        <div class="relative w-full h-[155px] p-5 rounded-[11px] bg-gradient-to-b from-[#0C0C0E] to-[#050506] border border-white/5 flex flex-col justify-start">
+                            <h4 class="text-xs font-bold text-white mb-2 uppercase tracking-wider font-mono flex items-center gap-1.5">
+                                <span class="w-1.5 h-1.5 bg-[#00F5FF] rounded-full animate-ping"></span>
+                                <span data-i18n={`vision.${pillar.id}_title`}>{pillar.title}</span>
+                            </h4>
+                            <p class="text-[0.7rem] text-zinc-400 font-light leading-relaxed font-mono whitespace-normal" data-i18n={`vision.${pillar.id}_desc`}>
+                                {pillar.desc}
+                            </p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    import { gsap } from 'gsap';
+    import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
+    gsap.registerPlugin(MotionPathPlugin);
+
+    const scene = document.querySelector('#vision');
+    const spotlight = document.querySelector('#vision-spotlight');
+    const container = document.querySelector('#interactive-scene');
+    const core = document.querySelector('#magnetic-core');
+    const coreGlow = document.querySelector('#core-glow');
+    const coreLogo = document.querySelector('#core-logo');
+    const orbit1 = document.querySelector('.orbit-ring-1');
+    const orbit2 = document.querySelector('.orbit-ring-2');
+    const svg = document.querySelector('#energy-lines-svg');
+    const hotspots = document.querySelectorAll('.hotspot');
+
+    const isHoverDevice = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+    // 1. Mouse Spotlight Tracking (Desktop only)
+    if (isHoverDevice && scene && spotlight) {
+        scene.addEventListener('mousemove', (e) => {
+            const bounds = scene.getBoundingClientRect();
+            const x = (e as MouseEvent).clientX - bounds.left;
+            const y = (e as MouseEvent).clientY - bounds.top;
+            
+            const isHidden = gsap.getProperty(spotlight, "opacity") === 0;
+            if (isHidden) {
+                gsap.set(spotlight, { left: x, top: y });
+            }
+            
+            gsap.to(spotlight, {
+                left: x,
+                top: y,
+                opacity: 1,
+                duration: isHidden ? 0.3 : 1,
+                ease: 'power2.out'
+            });
+        });
+    }
+
+    // 2. Magnetic 3D Core Tilt (Desktop only)
+    if (isHoverDevice && container && core) {
+        container.addEventListener('mousemove', (e) => {
+            const bounds = container.getBoundingClientRect();
+            const centerX = bounds.left + bounds.width / 2;
+            const centerY = bounds.top + bounds.height / 2;
+            
+            const moveX = ((e as MouseEvent).clientX - centerX) / (bounds.width / 2);
+            const moveY = ((e as MouseEvent).clientY - centerY) / (bounds.height / 2);
+            
+            gsap.to(core, {
+                rotateY: moveX * 18,
+                rotateX: -moveY * 18,
+                x: moveX * 12,
+                y: moveY * 12,
+                duration: 1.2,
+                ease: 'power3.out',
+                overwrite: 'auto'
+            });
+        });
+
+        container.addEventListener('mouseleave', () => {
+            gsap.to(core, {
+                rotateY: 0,
+                rotateX: 0,
+                x: 0,
+                y: 0,
+                duration: 2,
+                ease: 'elastic.out(1, 0.5)'
+            });
+        });
+    }
+
+    // 3. Staggered Scroll Entrance for Tooltip Cards
+    const holographicCards = document.querySelectorAll('#interactive-scene .holographic-card');
+    if (holographicCards.length > 0) {
+        holographicCards.forEach((card, i) => {
+            const isLeftSide = card.classList.contains('md:right-8') || card.classList.contains('left-6');
+            const startX = isLeftSide ? -80 : 80;
+            
+            gsap.fromTo(card, 
+                { opacity: 0, x: startX, scale: 0.9, yPercent: -50 },
+                {
+                    opacity: 1,
+                    x: 0,
+                    scale: 1,
+                    yPercent: -50,
+                    duration: 1.6,
+                    ease: "expo.out",
+                    delay: i * 0.2,
+                    scrollTrigger: {
+                        trigger: '#vision',
+                        start: "top 75%",
+                        toggleActions: "play none none none"
+                    }
+                }
+            );
+        });
+    }
+
+    let activeHotspotId = 'p1';
+
+    const pillarsData = [
+        { id: "p1", title: "Obsessed with detail.", desc: "Most agencies deliver. We obsess. Every element of your site is intentional, precise, and built to make your brand impossible to ignore." },
+        { id: "p2", title: "Beauty that converts.", desc: "A stunning site that doesn't sell is just expensive art. We design experiences that look world-class and turn visitors into clients." },
+        { id: "p3", title: "Built for tomorrow.", desc: "We build with the tools and standards your competitors haven't discovered yet. Your site won't need a rebuild in 12 months." },
+        { id: "p4", title: "Engineered to grow with you.", desc: "From your first 100 visitors to your first 100,000 — your digital platform scales as fast as your ambition does." }
+    ];
+
+    let mobileAutoplayInterval;
+
+    function selectPillar(id) {
+        activeHotspotId = id;
+        
+        // Update dots opacity/scale
+        hotspots.forEach(hs => {
+            const dot = hs.querySelector('.w-4');
+            if (hs.id === id) {
+                dot?.classList.remove('opacity-40');
+                dot?.classList.add('scale-125', 'bg-[#00F5FF]');
+            } else {
+                dot?.classList.add('opacity-40');
+                dot?.classList.remove('scale-125');
+            }
+        });
+
+        // Re-draw energy lines with new stroke styles
+        updateLines();
+    }
+
+    // 4. Dynamic Connecting Energy Lines & Pulse Setup
+    function updateLines() {
+        if (!svg || !core || !container) return;
+        
+        const coreBounds = core.getBoundingClientRect();
+        const svgBounds = svg.getBoundingClientRect();
+        
+        const cX = coreBounds.left + coreBounds.width / 2 - svgBounds.left;
+        const cY = coreBounds.top + coreBounds.height / 2 - svgBounds.top;
+
+        // Keep defs layer intact
+        const defs = svg.querySelector('defs');
+        svg.innerHTML = '';
+        if (defs) svg.appendChild(defs);
+
+        hotspots.forEach(hotspot => {
+            const hBounds = hotspot.getBoundingClientRect();
+            const hX = hBounds.left + hBounds.width / 2 - svgBounds.left;
+            const hY = hBounds.top + hBounds.height / 2 - svgBounds.top;
+
+            const pathId = `path-${hotspot.id}`;
+            const pulseId = `pulse-${hotspot.id}`;
+
+            const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            const d = `M ${hX} ${hY} Q ${(hX + cX) / 2} ${(hY + cY) / 2 - 50} ${cX} ${cY}`;
+            
+            path.setAttribute("id", pathId);
+            path.setAttribute("d", d);
+            
+            // Highlight path if selected on mobile
+            const isThisActive = activeHotspotId === hotspot.id;
+            path.setAttribute("stroke", isThisActive ? "rgba(0, 245, 255, 0.8)" : "rgba(0, 245, 255, 0.12)");
+            path.setAttribute("stroke-width", isThisActive ? "2" : "1");
+            path.setAttribute("fill", "transparent");
+            path.classList.add("energy-path");
+            
+            svg.appendChild(path);
+
+            // Animated Energy Particle Pulse (Glow added using SVG filter)
+            const pulse = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            pulse.setAttribute("id", pulseId);
+            pulse.setAttribute("r", isThisActive ? "3.5" : "2.5");
+            pulse.setAttribute("fill", "#00F5FF");
+            pulse.setAttribute("filter", "url(#glow)");
+            pulse.setAttribute("opacity", "0"); // Hide before animation starts
+            pulse.classList.add("energy-pulse");
+            svg.appendChild(pulse);
+
+            // Infinite trajectory along path
+            gsap.to(pulse, {
+                duration: 2.2 + Math.random() * 2,
+                repeat: -1,
+                ease: "none",
+                motionPath: {
+                    path: path
+                },
+                delay: Math.random() * 2,
+                onStart: () => {
+                    gsap.set(pulse, { opacity: 1 });
+                }
+            });
+
+            // Tap select handler (for both mobile and desktop click)
+            hotspot.addEventListener('click', () => {
+                selectPillar(hotspot.id);
+            });
+
+            // 5. Reactive Interaction Events (Desktop only)
+            if (isHoverDevice) {
+                hotspot.addEventListener('mouseenter', () => {
+                    // Charge line
+                    gsap.to(path, {
+                        stroke: "rgba(0, 245, 255, 0.8)",
+                        strokeWidth: 2,
+                        duration: 0.3
+                    });
+                    
+                    // Charge particle
+                    gsap.to(pulse, {
+                        r: 5,
+                        fill: "#FFFFFF",
+                        duration: 0.3
+                    });
+
+                    // Speed up data stream particles on connection
+                    const tween = gsap.getTweensOf(pulse)[0];
+                    if (tween) {
+                        gsap.to(tween, { timeScale: 2.5, duration: 0.5 });
+                    }
+
+                    // Charge reactor core
+                    if (coreGlow) {
+                        gsap.to(coreGlow, {
+                            scale: 1.15,
+                            opacity: 1,
+                            filter: 'blur(45px)',
+                            backgroundColor: 'rgba(0, 245, 255, 0.3)',
+                            duration: 0.4
+                        });
+                    }
+                    if (coreLogo) {
+                        gsap.to(coreLogo, {
+                            scale: 1.1,
+                            filter: 'drop-shadow(0 0 25px rgba(0, 245, 255, 0.9))',
+                            duration: 0.4
+                        });
+                    }
+                    if (orbit1) {
+                        gsap.to(orbit1, {
+                            borderColor: 'rgba(0, 245, 255, 0.6)',
+                            scale: 1.04,
+                            duration: 0.4
+                        });
+                    }
+                    if (orbit2) {
+                        gsap.to(orbit2, {
+                            borderColor: 'rgba(124, 58, 237, 0.6)',
+                            scale: 1.04,
+                            duration: 0.4
+                        });
+                    }
+                });
+
+                hotspot.addEventListener('mouseleave', () => {
+                    // Reset line (to selected active state or inactive state)
+                    const isCurrentlyActive = activeHotspotId === hotspot.id;
+                    gsap.to(path, {
+                        stroke: isCurrentlyActive ? "rgba(0, 245, 255, 0.8)" : "rgba(0, 245, 255, 0.12)",
+                        strokeWidth: isCurrentlyActive ? 2 : 1,
+                        duration: 0.5
+                    });
+                    
+                    // Reset particle
+                    gsap.to(pulse, {
+                        r: 2.5,
+                        fill: "#00F5FF",
+                        duration: 0.5
+                    });
+
+                    // Restore idle particle speed
+                    const tween = gsap.getTweensOf(pulse)[0];
+                    if (tween) {
+                        gsap.to(tween, { timeScale: 1.0, duration: 0.5 });
+                    }
+
+                    // Reset reactor core
+                    if (coreGlow) {
+                        gsap.to(coreGlow, {
+                            scale: 1.0,
+                            opacity: 0.7,
+                            filter: 'blur(60px)',
+                            backgroundColor: 'transparent',
+                            duration: 0.6
+                        });
+                    }
+                    if (coreLogo) {
+                        gsap.to(coreLogo, {
+                            scale: 1.0,
+                            filter: 'drop-shadow(0 0 20px rgba(255, 255, 255, 0.8))',
+                            duration: 0.6
+                        });
+                    }
+                    if (orbit1) {
+                        gsap.to(orbit1, {
+                            borderColor: 'rgba(0, 245, 255, 0.2)',
+                            scale: 1.0,
+                            duration: 0.6
+                        });
+                    }
+                    if (orbit2) {
+                        gsap.to(orbit2, {
+                            borderColor: 'rgba(124, 58, 237, 0.2)',
+                            scale: 1.0,
+                            duration: 0.6
+                        });
+                    }
+                });
+            }
+        });
+    }
+
+    // Mobile-specific reactive reactor core autoplay cycle (3D Core tilt, line flares, particle velocity reactions)
+    const isMobile = window.innerWidth < 1024;
+    if (isMobile) {
+        const pillarIds = ['p1', 'p2', 'p3', 'p4'];
+        let currentIndex = 0;
+
+        const cycleMobileActivePillar = () => {
+            const currentId = pillarIds[currentIndex];
+            selectPillar(currentId);
+
+            // 1. Tilt/move the core towards the active pillar position (up-left, down-left, up-right, down-right)
+            let targetRotY = 0;
+            let targetRotX = 0;
+            let targetX = 0;
+            let targetY = 0;
+
+            if (currentId === 'p1') { targetRotY = -12; targetRotX = 12; targetX = -8; targetY = -8; }
+            else if (currentId === 'p2') { targetRotY = -12; targetRotX = -12; targetX = -8; targetY = 8; }
+            else if (currentId === 'p3') { targetRotY = 12; targetRotX = 12; targetX = 8; targetY = -8; }
+            else if (currentId === 'p4') { targetRotY = 12; targetRotX = -12; targetX = 8; targetY = 8; }
+
+            gsap.to(core, {
+                rotateY: targetRotY,
+                rotateX: targetRotX,
+                x: targetX,
+                y: targetY,
+                duration: 1.5,
+                ease: 'power2.out',
+                overwrite: 'auto'
+            });
+
+            // 2. Flare the core colors and active glow matching desktop connection intensity
+            gsap.to(coreGlow, {
+                scale: 1.25,
+                opacity: 1,
+                backgroundColor: 'rgba(0, 245, 255, 0.45)',
+                duration: 0.6,
+                ease: 'power1.out',
+                overwrite: 'auto'
+            });
+            gsap.to(coreLogo, {
+                scale: 1.16,
+                filter: 'drop-shadow(0 0 32px rgba(0, 245, 255, 1))',
+                duration: 0.6,
+                ease: 'power1.out',
+                overwrite: 'auto'
+            });
+            gsap.to(orbit1, {
+                scale: 1.08,
+                borderColor: 'rgba(0, 245, 255, 0.85)',
+                duration: 0.6,
+                ease: 'power1.out',
+                overwrite: 'auto'
+            });
+            gsap.to(orbit2, {
+                scale: 1.08,
+                borderColor: 'rgba(124, 58, 237, 0.85)',
+                duration: 0.6,
+                ease: 'power1.out',
+                overwrite: 'auto'
+            });
+
+            // 3. Speed up the active path particle stream, slow down inactive ones
+            hotspots.forEach(hotspot => {
+                const pulseId = `pulse-${hotspot.id}`;
+                const pulseEl = document.getElementById(pulseId);
+                if (pulseEl) {
+                    const tweens = gsap.getTweensOf(pulseEl);
+                    tweens.forEach(t => {
+                        gsap.to(t, {
+                            timeScale: hotspot.id === currentId ? 2.5 : 0.8,
+                            duration: 0.8
+                        });
+                    });
+                }
+            });
+
+            // Shift index
+            currentIndex = (currentIndex + 1) % pillarIds.length;
+        };
+
+        // Autoplay interval every 3.5 seconds
+        mobileAutoplayInterval = setInterval(cycleMobileActivePillar, 3500);
+        
+        // Trigger first transition immediately after small load delay to sync elements
+        setTimeout(cycleMobileActivePillar, 200);
+    }
+
+    // Initialize first pillar on load
+    selectPillar('p1');
+
+    setTimeout(updateLines, 500);
+    window.addEventListener('resize', updateLines);
+</script>
+
+<style>
+    @keyframes mobile-marquee {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(calc(-50% - 12px)); }
+    }
+
+    .animate-mobile-marquee {
+        animation: mobile-marquee 30s linear infinite;
+    }
+
+    @keyframes scan {
+        0% { transform: translateY(-100%); }
+        100% { transform: translateY(200%); }
+    }
+
+    @keyframes border-glow-spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    @keyframes slow-logo-spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    @keyframes hotspot-pulse {
+        0%, 100% { transform: scale(1); box-shadow: 0 0 15px rgba(0, 245, 255, 0.6); }
+        50% { transform: scale(1.2); box-shadow: 0 0 25px rgba(0, 245, 255, 1); }
+    }
+
+    .animate-scan {
+        animation: scan 3s linear infinite;
+    }
+
+    .animate-border-glow {
+        animation: border-glow-spin 4s linear infinite;
+    }
+
+    .animate-slow-logo-spin {
+        animation: slow-logo-spin 25s linear infinite;
+    }
+
+    .animate-hotspot-pulse {
+        animation: hotspot-pulse 2s ease-in-out infinite;
+    }
+
+    /* 3D Orbit Styling */
+    .orbit-container {
+        perspective: 1000px;
+        transform-style: preserve-3d;
+    }
+
+    .orbit-ring-1 {
+        transform: rotateX(65deg) rotateY(15deg) rotateZ(0deg);
+        animation: orbit-spin-1 14s linear infinite;
+    }
+
+    .orbit-ring-2 {
+        transform: rotateX(-65deg) rotateY(-15deg) rotateZ(0deg);
+        animation: orbit-spin-2 18s linear infinite;
+    }
+
+    @keyframes orbit-spin-1 {
+        100% { transform: rotateX(65deg) rotateY(15deg) rotateZ(360deg); }
+    }
+
+    @keyframes orbit-spin-2 {
+        100% { transform: rotateX(-65deg) rotateY(-15deg) rotateZ(-360deg); }
+    }
+
+    /* Holographic Card Glow Highlight on Hover */
+    .holographic-card {
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+    .hotspot:hover .holographic-card {
+        box-shadow: 0 0 35px rgba(0, 245, 255, 0.25), 0 20px 50px rgba(0, 0, 0, 0.6) !important;
+    }
+
+    /* EMERGENCY SCALE FOR SHORT SCREENS */
+    @media (max-height: 720px) {
+        #vision .w-48 { width: 8rem !important; height: 8rem !important; }
+        #vision .md\:w-80 { width: 12rem !important; height: 12rem !important; }
+    }
+</style>

@@ -1,0 +1,70 @@
+---
+// Footer Component for Strakon Digital
+---
+<footer class="relative w-full bg-[#0A0A0A] text-white overflow-hidden z-20">
+  
+  <div class="max-w-7xl mx-auto px-6 md:px-12 pt-16 pb-0">
+    <div class="flex flex-col md:flex-row justify-between items-start gap-12 md:gap-20 pb-16">
+      <!-- Brand & Mission (40% width) -->
+      <div class="w-full md:w-[40%] flex flex-col md:flex-row items-center gap-8 text-center md:text-left">
+        <a href="/" class="group pointer-events-auto block shrink-0">
+          <img src="/images/favicon-strakon.png" alt="Agency Icon" class="w-16 h-auto object-contain brightness-0 invert drop-shadow-[0_0_15px_rgba(0,245,255,0.4)] opacity-90 group-hover:opacity-100 transition-all mx-auto md:mx-0" />
+        </a>
+        <div class="h-14 w-[1px] bg-white/10 hidden md:block shrink-0"></div>
+        <p class="!text-white font-light text-[0.85rem] leading-relaxed max-w-sm" data-i18n="footer.mission">
+          We build digital products that redefine what's possible. Designed with precision and crafted for the digital era, we empower visionaries to lead their industry.
+        </p>
+      </div>
+
+      <!-- Links & Menus (60% width distributed evenly) -->
+      <div class="w-full md:flex-1 grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
+        <!-- Support Section -->
+        <div class="flex flex-col items-center md:items-start text-center md:text-left">
+          <h4 class="text-[0.6rem] tracking-[0.5em] font-mono text-[#00F5FF] mb-8 font-bold uppercase opacity-80" data-i18n="footer.support_title">Support</h4>
+          <ul class="flex flex-col gap-5">
+            <li><a href="/contact" class="!text-white hover:!text-white transition-all duration-300 ease-out hover:translate-x-1 text-xs font-light uppercase tracking-[0.12em] relative group inline-block"><span data-i18n="footer.links.contact">Contact Us</span><span class="absolute -bottom-1.5 left-0 w-full h-[1px] bg-gradient-to-r from-[#00F5FF] to-[#7C3AED]/70 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out"></span></a></li>
+          </ul>
+        </div>
+      
+        <!-- Legal Section -->
+        <div class="flex flex-col items-center md:items-start text-center md:text-left">
+          <h4 class="text-[0.6rem] tracking-[0.5em] font-mono text-[#00F5FF] mb-8 font-bold uppercase opacity-80" data-i18n="footer.legal_title">Legal</h4>
+          <ul class="flex flex-col gap-5">
+            <li><a href="/privacy-policy" class="!text-white hover:!text-white transition-all duration-300 ease-out hover:translate-x-1 text-xs font-light uppercase tracking-[0.12em] relative group inline-block"><span data-i18n="footer.links.privacy">Privacy Policy</span><span class="absolute -bottom-1.5 left-0 w-full h-[1px] bg-gradient-to-r from-[#00F5FF] to-[#7C3AED]/70 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out"></span></a></li>
+            <li><a href="/terms-of-service" class="!text-white hover:!text-white transition-all duration-300 ease-out hover:translate-x-1 text-xs font-light uppercase tracking-[0.12em] relative group inline-block"><span data-i18n="footer.links.terms">Terms of Service</span><span class="absolute -bottom-1.5 left-0 w-full h-[1px] bg-gradient-to-r from-[#00F5FF] to-[#7C3AED]/70 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out"></span></a></li>
+            <li><a href="/project-delivery" class="!text-white hover:!text-white transition-all duration-300 ease-out hover:translate-x-1 text-xs font-light uppercase tracking-[0.12em] relative group inline-block"><span data-i18n="footer.links.delivery">Project Delivery</span><span class="absolute -bottom-1.5 left-0 w-full h-[1px] bg-gradient-to-r from-[#00F5FF] to-[#7C3AED]/70 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out"></span></a></li>
+            <li><a href="/cancellation-refunds" class="!text-white hover:!text-white transition-all duration-300 ease-out hover:translate-x-1 text-xs font-light uppercase tracking-[0.12em] relative group inline-block"><span data-i18n="footer.links.refunds">Cancellations</span><span class="absolute -bottom-1.5 left-0 w-full h-[1px] bg-gradient-to-r from-[#00F5FF] to-[#7C3AED]/70 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out"></span></a></li>
+          </ul>
+        </div>
+
+        <!-- Social / Connect -->
+        <div class="flex flex-col items-center md:items-start">
+          <h4 class="text-[0.6rem] tracking-[0.5em] font-mono text-[#00F5FF] mb-6 font-bold uppercase opacity-80" data-i18n="footer.connect_title">Connect</h4>
+          <div class="flex gap-5">
+            <a href="https://www.instagram.com/strakondigital?igsh=Nnp4djV6ZG5meWVv&utm_source=qr" target="_blank" rel="noopener noreferrer" class="w-12 h-12 border !border-white/30 flex items-center justify-center hover:!shadow-[0_0_20px_rgba(255,255,255,0.8)] hover:!scale-110 hover:!bg-white/10 transition-all duration-300 group relative overflow-hidden bg-white/5 backdrop-blur-xl rounded-full">
+              <svg class="w-5 h-5 !text-white transition-colors relative z-10" fill="currentColor" viewBox="0 0 24 24"><path d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/profile.php?id=61586389712258" target="_blank" rel="noopener noreferrer" class="w-12 h-12 border !border-white/30 flex items-center justify-center hover:!shadow-[0_0_20px_rgba(255,255,255,0.8)] hover:!scale-110 hover:!bg-white/10 transition-all duration-300 group relative overflow-hidden bg-white/5 backdrop-blur-xl rounded-full">
+              <svg class="w-5 h-5 !text-white transition-colors relative z-10" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.312h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Singular Edge-to-Edge Divider -->
+  <div class="w-full border-t border-white/10"></div>
+
+  <div class="max-w-7xl mx-auto px-6 md:px-12 pt-8 pb-16">
+    <div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+      <p class="!text-zinc-300 font-mono text-[0.6rem] tracking-[0.5em] uppercase text-center md:text-left" data-i18n="footer.rights">
+        © {new Date().getFullYear()} Strakon Digital. All rights reserved.
+      </p>
+      <div class="flex items-center gap-4 group">
+        <div class="w-1.5 h-1.5 rounded-full bg-[#00F5FF] shadow-[0_0_12px_#00F5FF] animate-pulse"></div>
+        <span class="text-[#00F5FF]/60 group-hover:text-[#00F5FF] transition-all duration-500 font-mono text-[0.6rem] tracking-[0.5em] font-bold uppercase" data-i18n="footer.excellence">Digital Excellence</span>
+      </div>
+    </div>
+  </div>
+</footer>

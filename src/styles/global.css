@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+@theme {
+  --color-midnight: #0A0A0A;
+  --color-cyan: #00F5FF;
+  --color-white: #FFFFFF;
+  --color-zinc-text: #A1A1AA;
+  --color-violet: #7C3AED;
+}
+
+/* Default system cursor restored */
+
+/* Fallback gradient styling component */
+.fallback-gradient {
+  background: linear-gradient(135deg, var(--color-cyan), var(--color-violet));
+}

@@ -1,0 +1,100 @@
+---
+const steps = [
+    {
+        label: "01",
+        name: "Defining the Vision",
+        desc: "We map out every detail before the first line of code. Strategy is the heart of every project.",
+        color: "text-[#00F5FF]",
+        glow: "shadow-[#00F5FF]/20"
+    },
+    {
+        label: "02",
+        name: "Building the Core",
+        desc: "High-fidelity engineering meets rapid iteration. We build scalable digital tools, not just sites.",
+        color: "text-[#7C3AED]",
+        glow: "shadow-[#7C3AED]/20"
+    },
+    {
+        label: "03",
+        name: "Refining the Path",
+        desc: "Data is feedback. We optimize every interaction to ensure your trajectory stays true.",
+        color: "text-white",
+        glow: "shadow-white/20"
+    },
+    {
+        label: "04",
+        name: "Expanding Influence",
+        desc: "Local success is just the start. We provide the infrastructure to dominate your market.",
+        color: "text-[#00F5FF]",
+        glow: "shadow-[#00F5FF]/20"
+    },
+    {
+        label: "05",
+        name: "Setting the Standard",
+        desc: "Continuous evolution. We ensure your brand doesn't just keep up, it sets the pace.",
+        color: "text-[#7C3AED]",
+        glow: "shadow-[#7C3AED]/20"
+    }
+];
+---
+
+<section id="process" class="relative min-h-screen flex items-center py-24 px-6 overflow-hidden bg-[#0A0A0A]">
+    <!-- Deep Space Background Elements -->
+    <div class="absolute inset-0 z-0">
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-white/5 to-transparent"></div>
+        <div class="absolute bottom-1/4 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-white/5 to-transparent"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto relative z-10 w-full flex flex-col justify-center">
+        <div class="flex flex-col md:flex-row justify-between items-center mb-20 gap-8">
+            <div class="max-w-xl text-center md:text-left">
+                <h2 class="text-[#7C3AED] text-[0.6rem] uppercase tracking-[0.5em] font-bold mb-4 gsap-reveal-text will-change-[transform,opacity] opacity-0">Methodology</h2>
+                <p class="text-5xl md:text-7xl font-medium text-white leading-none tracking-tighter gsap-reveal-text will-change-[transform,opacity] opacity-0">
+                    How we <span class="text-white/30 italic font-light">launch.</span>
+                </p>
+            </div>
+            <p class="text-sm text-zinc-400 max-w-xs font-light leading-relaxed hidden md:block gsap-reveal-text will-change-[transform,opacity] opacity-0">
+                A systematic approach to digital dominance. High-speed results through calibrated precision.
+            </p>
+        </div>
+
+        <div class="space-y-12 relative gsap-reveal-container">
+            <!-- Central Connection Line -->
+            <div class="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-[#00F5FF]/30 via-[#7C3AED]/30 to-transparent hidden md:block opacity-10"></div>
+
+            {steps.map((step, index) => (
+                <div class={`flex flex-col md:flex-row items-center gap-6 md:gap-12 gsap-reveal-card will-change-[transform,opacity] opacity-0 ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
+                    <!-- Step Label / Number (Back) -->
+                    <div class="w-full md:w-1/2 flex justify-center md:justify-end">
+                        <div class={`text-[8rem] md:text-[10rem] font-black leading-none tracking-tighter mix-blend-overlay opacity-5 select-none ${step.color}`}>
+                            {step.label}
+                        </div>
+                    </div>
+
+                    <!-- Visual Center Point -->
+                    <div class="relative flex items-center justify-center shrink-0">
+                        <div class={`w-10 h-10 rounded-full bg-[#0A0A0A] border border-white/10 flex items-center justify-center text-white font-bold text-xs z-20 shadow-[0_0_15px_rgba(255,255,255,0.05)] transition-all duration-500 hover:scale-110 hover:border-[#00F5FF]`}>
+                           {step.label}
+                        </div>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="w-full md:w-1/2 text-center md:text-left">
+                        <div class="max-w-sm mx-auto md:mx-0">
+                            <h3 class={`text-xl font-bold text-white mb-2 uppercase tracking-widest ${step.color}`}>{step.name}</h3>
+                            <p class="text-xs md:text-sm text-zinc-400 font-light leading-relaxed">
+                                {step.desc}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>
+
+<style>
+    section {
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+</style>

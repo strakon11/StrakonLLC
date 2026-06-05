@@ -1,0 +1,130 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Cancellations & Refunds | Strakon Digital">
+  <!-- Minimalist Tech Container -->
+  <main class="relative w-full min-h-screen bg-[#0A0A0A] overflow-hidden py-32 md:py-40">
+    
+    <!-- Cinematic Glow Background -->
+    <div class="absolute inset-0 pointer-events-none fixed">
+      <div class="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-[#00F5FF]/10 rounded-full blur-[150px]"></div>
+      <div class="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-[#7C3AED]/15 rounded-full blur-[150px]"></div>
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto w-full px-6 md:px-12">
+      <div class="flex items-center gap-4 mb-8">
+        <div class="h-[1.5px] w-12 rounded-full bg-gradient-to-r from-[#7C3AED]/30 to-[#00F5FF] shadow-[0_0_8px_rgba(0,245,255,0.5)]"></div>
+        <span class="px-3 py-1.5 rounded-full text-[#00F5FF] tracking-[0.25em] font-mono text-[0.65rem] font-bold uppercase border border-[#00F5FF]/30 bg-[#00F5FF]/5 shadow-[0_0_15px_rgba(0,245,255,0.15)] animate-pulse" data-i18n="footer.billing_title">BILLING</span>
+      </div>
+
+      <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-16 animate-pulse" data-i18n="footer.links.refunds">
+        Cancellation & Refunds
+      </h1>
+
+      <!-- ENGLISH SECTION -->
+      <div class="prose prose-invert max-w-none text-zinc-300 font-light leading-loose space-y-8" data-lang-section="en">
+        <p><strong class="text-white">Last Updated:</strong> April 2026</p>
+        <p>Because <strong class="text-white">Strakon Digital&trade;</strong> provides non-tangible, irrevocable digital goods and highly customized web architecture services, our billing and refund policies are structured to protect the time and intellectual property invested by our engineering teams.</p>
+
+        <h3 class="text-2xl font-bold text-white mt-12 mb-4 border-b border-white/10 pb-4 font-mono">1. Payment Structure (40/60 Split)</h3>
+        <p>We pride ourselves on transparency. All web development projects adhere to a strict two-part billing framework:</p>
+        <ul class="list-disc pl-6 space-y-4">
+          <li><strong class="text-[#00F5FF]">40% Initial Retainer:</strong> To commence any work, including wireframing, architecture planning, and allocating development resources, a 40% upfront deposit is required.</li>
+          <li><strong class="text-[#00F5FF]">60% Final Payment:</strong> The remaining 60% balance is invoiced once the project has been fully developed, has passed client quality assurance matching the initial scope, and is placed in staging. This payment must be cleared prior to final live deployment or code transfer.</li>
+        </ul>
+
+        <h3 class="text-2xl font-bold text-white mt-12 mb-4 border-b border-white/10 pb-4 font-mono">2. Non-Refundable Initial Retainer</h3>
+        <p>We do not issue refunds for the initial 40% deposit under any circumstances after the project has officially kicked off. This non-refundable retainer reserves our agency's time and compensates us for the immediate strategy, research, and design mockups produced at the earliest stages of the build.</p>
+
+        <h3 class="text-2xl font-bold text-white mt-12 mb-4 border-b border-white/10 pb-4 font-mono">3. Mid-Project Cancellations</h3>
+        <p>If the client chooses to cancel or abort the project while it is in active development (after the 40% deposit but before the final 60% invoice is paid), the client will not receive a refund of the initial deposit. If the amount of billable hours already executed by Strakon Digital exceeds the 40% deposit, the client will be invoiced for the difference corresponding to the work completed up to the date of cancellation.</p>
+        <p>Upon cancellation and subsequent clearing of any outstanding invoices for completed work, all assets designed up to that point will be handed over to the client.</p>
+
+        <h3 class="text-2xl font-bold text-white mt-12 mb-4 border-b border-white/10 pb-4 font-mono">4. Post-Deployment Refunds</h3>
+        <p>Once a project has been approved, paid in full (the final 60%), and deployed to a live environment, the project is considered complete and successfully delivered. <strong>No refunds will be granted after the live deployment</strong> of digital services.</p>
+
+        <p class="mt-12 font-light">If you have any questions regarding our operational billing milestones, please connect with us at <a href="mailto:contact@strakondigital.com" class="text-[#00F5FF] hover:text-white transition-colors">contact@strakondigital.com</a> before initiating a project.</p>
+      </div>
+
+      <!-- SPANISH SECTION -->
+      <div class="prose prose-invert max-w-none text-zinc-300 font-light leading-loose space-y-8 hidden" data-lang-section="es">
+        <p><strong class="text-white">Última actualización:</strong> Abril de 2026</p>
+        <p>Debido a que <strong class="text-white">Strakon Digital&trade;</strong> proporciona bienes digitales intangibles e irrevocables y servicios de arquitectura web altamente personalizados, nuestras políticas de facturación y reembolso están estructuradas para proteger el tiempo y la propiedad intelectual invertidos por nuestros equipos de ingeniería.</p>
+
+        <h3 class="text-2xl font-bold text-white mt-12 mb-4 border-b border-white/10 pb-4 font-mono">1. Estructura de Pago (División 40/60)</h3>
+        <p>Nos enorgullecemos de la transparencia. Todos los proyectos de desarrollo web se adhieren a un estricto marco de facturación de dos partes:</p>
+        <ul class="list-disc pl-6 space-y-4">
+          <li><strong class="text-[#00F5FF]">40% Anticipo Inicial:</strong> Para comenzar cualquier trabajo, incluyendo la creación de wireframes, la planificación de la arquitectura y la asignación de recursos de desarrollo, se requiere un depósito inicial del 40%.</li>
+          <li><strong class="text-[#00F5FF]">60% Pago Final:</strong> El 60% restante se factura una vez que el proyecto se ha desarrollado por completo, ha pasado el control de calidad del cliente coincidiendo con el alcance inicial, y se coloca en el entorno de pruebas. Este pago debe liquidarse antes del despliegue final o la transferencia del código.</li>
+        </ul>
+
+        <h3 class="text-2xl font-bold text-white mt-12 mb-4 border-b border-white/10 pb-4 font-mono">2. Anticipo Inicial No Reembolsable</h3>
+        <p>No emitimos reembolsos por el depósito inicial del 40% bajo ninguna circunstancia después de que el proyecto haya comenzado oficialmente. Este anticipo no reembolsable reserva el tiempo de nuestra agencia y nos compensa por la estrategia, investigación y prototipos de diseño inmediatos producidos en las etapas iniciales de la construcción.</p>
+
+        <h3 class="text-2xl font-bold text-white mt-12 mb-4 border-b border-white/10 pb-4 font-mono">3. Cancelaciones a Mitad del Proyecto</h3>
+        <p>Si el cliente decide cancelar o abortar el proyecto mientras está en desarrollo activo (después del depósito del 40% pero antes de pagar la factura final del 60%), el cliente no recibirá un reembolso del depósito inicial. Si el importe de las horas facturables ya ejecutadas por Strakon Digital supera el depósito del 40%, se facturará al cliente la diferencia correspondiente al trabajo realizado hasta la fecha de cancelación.</p>
+        <p>Tras la cancelación y posterior liquidación de las facturas pendientes por el trabajo completado, todos los activos diseñados hasta ese momento se entregarán al cliente.</p>
+
+        <h3 class="text-2xl font-bold text-white mt-12 mb-4 border-b border-white/10 pb-4 font-mono">4. Reembolsos Posteriores al Despliegue</h3>
+        <p>Una vez que un proyecto ha sido aprobado, pagado en su totalidad (el 60% final) y desplegado en un entorno en vivo, el proyecto se considera completo y entregado con éxito. <strong>No se otorgarán reembolsos después del despliegue en producción</strong> de los servicios digitales.</p>
+
+        <p class="mt-12 font-light">Si tiene alguna pregunta sobre nuestros hitos de facturación operativa, comuníquese con nosotros en <a href="mailto:contact@strakondigital.com" class="text-[#00F5FF] hover:text-white transition-colors">contact@strakondigital.com</a> antes de iniciar un proyecto.</p>
+      </div>
+
+      <!-- PORTUGUESE SECTION -->
+      <div class="prose prose-invert max-w-none text-zinc-300 font-light leading-loose space-y-8 hidden" data-lang-section="pt">
+        <p><strong class="text-white">Última Atualização:</strong> Abril de 2026</p>
+        <p>Como a <strong class="text-white">Strakon Digital&trade;</strong> fornece bens digitais não tangíveis e irrevogáveis e serviços de arquitetura web altamente personalizados, nossas políticas de faturação e reembolso são estruturadas para proteger o tempo e a propriedade intelectual investidos por nossas equipes de engenharia.</p>
+
+        <h3 class="text-2xl font-bold text-white mt-12 mb-4 border-b border-white/10 pb-4 font-mono">1. Estrutura de Pagamento (Divisão 40/60)</h3>
+        <p>Orgulhamo-nos da transparência. Todos os projetos de desenvolvimento web seguem uma estrutura estrita de faturação em duas partes:</p>
+        <ul class="list-disc pl-6 space-y-4">
+          <li><strong class="text-[#00F5FF]">40% Depósito Inicial:</strong> Para iniciar qualquer trabalho, incluindo wireframes, planejamento de arquitetura e alocação de recursos de desenvolvimento, é necessário um depósito inicial de 40%.</li>
+          <li><strong class="text-[#00F5FF]">60% Pagamento Final:</strong> O saldo restante de 60% é faturado assim que o projeto estiver totalmente desenvolvido, tiver passado pelo controle de qualidade do cliente correspondente ao escopo inicial e for colocado em staging. Este pagamento deve ser liberado antes da implantação final ou transferência de código.</li>
+        </ul>
+
+        <h3 class="text-2xl font-bold text-white mt-12 mb-4 border-b border-white/10 pb-4 font-mono">2. Depósito Inicial Não Reembolsável</h3>
+        <p>Não emitimos reembolsos para o depósito inicial de 40% sob nenhuma circunstância após o início oficial do projeto. Este depósito não reembolsável reserva o tempo da nossa agência e nos compensa pela estratégia, pesquisa e mockups de design imediatos produzidos nas fases iniciais do projeto.</p>
+
+        <h3 class="text-2xl font-bold text-white mt-12 mb-4 border-b border-white/10 pb-4 font-mono">3. Cancelamentos no Meio do Projeto</h3>
+        <p>Se o cliente optar por cancelar ou abortar o projeto enquanto ele estiver em desenvolvimento ativo (após o depósito de 40%, mas antes do pagamento da fatura final de 60%), o cliente não receberá o reembolso do depósito inicial. Se o valor das horas faturáveis já executadas pela Strakon Digital exceder o depósito de 40%, o cliente será faturado pela diferença correspondente ao trabalho concluído até a data do cancelamento.</p>
+        <p>Após o cancelamento e posterior liquidação de quaisquer faturas pendentes por trabalho concluído, todos os ativos projetados até esse ponto serão entregues ao cliente.</p>
+
+        <h3 class="text-2xl font-bold text-white mt-12 mb-4 border-b border-white/10 pb-4 font-mono">4. Reembolsos Pós-Implantação</h3>
+        <p>Depois que um projeto foi aprovado, pago integralmente (os 60% finais) e implantado em um ambiente de produção, o projeto é considerado concluído e entregue com sucesso. <strong>Nenhum reembolso será concedido após a implantação final</strong> de serviços digitais.</p>
+
+        <p class="mt-12 font-light">Se você tiver alguma dúvida sobre nossos marcos de faturação operacional, entre em contato conosco em <a href="mailto:contact@strakondigital.com" class="text-[#00F5FF] hover:text-white transition-colors">contact@strakondigital.com</a> antes de iniciar um projeto.</p>
+      </div>
+
+      <!-- GERMAN SECTION -->
+      <div class="prose prose-invert max-w-none text-zinc-300 font-light leading-loose space-y-8 hidden" data-lang-section="de">
+        <p><strong class="text-white">Zuletzt aktualisiert:</strong> April 2026</p>
+        <p>Da <strong class="text-white">Strakon Digital&trade;</strong> immaterielle, unwiderrufliche digitale Güter und hochgradig maßgeschneiderte Webarchitektur-Dienstleistungen anbietet, sind unsere Abrechnungs- und Rückerstattungsrichtlinien so strukturiert, dass sie die Zeit und das geistige Eigentum unserer Engineering-Teams schützen.</p>
+
+        <h3 class="text-2xl font-bold text-white mt-12 mb-4 border-b border-white/10 pb-4 font-mono">1. Zahlungsstruktur (40/60 Split)</h3>
+        <p>Wir legen großen Wert auf Transparenz. Alle Webentwicklungsprojekte unterliegen einem strengen zweiteiligen Abrechnungsrahmen:</p>
+        <ul class="list-disc pl-6 space-y-4">
+          <li><strong class="text-[#00F5FF]">40% Anzahlung:</strong> Um mit der Arbeit zu beginnen, einschließlich Wireframing, Architekturplanung und Zuweisung von Entwicklungsressourcen, ist eine Anzahlung von 40% erforderlich.</li>
+          <li><strong class="text-[#00F5FF]">60% Abschlusszahlung:</strong> Die verbleibenden 60% werden in Rechnung gestellt, wenn das Projekt vollständig entwickelt ist, die Qualitätssicherung des Kunden gemäß dem ursprünglichen Umfang bestanden hat und auf dem Staging-Server liegt. Diese Zahlung muss vor der endgültigen Live-Bereitstellung oder Code-Übertragung beglichen werden.</li>
+        </ul>
+
+        <h3 class="text-2xl font-bold text-white mt-12 mb-4 border-b border-white/10 pb-4 font-mono">2. Nicht erstattungsfähige Anzahlung</h3>
+        <p>Wir erstatten die anfängliche Anzahlung von 40% unter keinen Umständen zurück, nachdem das Projekt offiziell gestartet wurde. Diese nicht erstattungsfähige Anzahlung reserviert die Arbeitszeit unserer Agentur und entschädigt uns für die unmittelbare Strategie, Recherche und Design-Entwürfe, die in den frühesten Phasen des Projekts erstellt wurden.</p>
+
+        <h3 class="text-2xl font-bold text-white mt-12 mb-4 border-b border-white/10 pb-4 font-mono">3. Stornierungen während des Projekts</h3>
+        <p>Wenn der Kunde beschließt, das Projekt während der aktiven Entwicklung zu stornieren oder abzubrechen (nach der Anzahlung von 40%, aber vor der Zahlung der Abschlussrechnung von 60%), erhält der Kunde keine Rückerstattung der Anzahlung. Wenn die von Strakon Digital bereits erbrachten abrechenbaren Stunden die Anzahlung von 40% übersteigen, wird dem Kunden die Differenz für die bis zum Stornierungsdatum geleistete Arbeit in Rechnung gestellt.</p>
+        <p>Nach der Stornierung und dem Ausgleich ausstehender Rechnungen für abgeschlossene Arbeiten werden alle bis zu diesem Zeitpunkt entworfenen Assets an den Kunden übergeben.</p>
+
+        <h3 class="text-2xl font-bold text-white mt-12 mb-4 border-b border-white/10 pb-4 font-mono">4. Rückerstattungen nach der Bereitstellung</h3>
+        <p>Sobald ein Projekt genehmigt, vollständig bezahlt (die restlichen 60%) und in einer Live-Umgebung bereitgestellt wurde, gilt das Projekt als abgeschlossen und erfolgreich geliefert. <strong>Nach der Live-Schaltung werden keine Rückerstattungen mehr gewährt</strong>.</p>
+
+        <p class="mt-12 font-light">Wenn Sie Fragen zu unseren Abrechnungsmeilensteinen haben, wenden Sie sich bitte an uns unter <a href="mailto:contact@strakondigital.com" class="text-[#00F5FF] hover:text-white transition-colors">contact@strakondigital.com</a>, bevor Sie ein Projekt starten.</p>
+      </div>
+
+    </div>
+  </main>
+  
+  <Footer />
+</Layout>

@@ -1,0 +1,69 @@
+---
+const technologies = [
+    { name: "Awwwards", slug: "awwwards" },
+    { name: "Stripe", slug: "stripe" },
+    { name: "Shopify", slug: "shopify" },
+    { name: "Astro", slug: "astro" },
+    { name: "React", slug: "react" },
+    { name: "Tailwind CSS", slug: "tailwindcss" },
+    { name: "GSAP", slug: "greensock" },
+    { name: "TypeScript", slug: "typescript" },
+    { name: "Vercel", slug: "vercel" },
+    { name: "AWS", slug: "amazonwebservices" },
+    { name: "Figma", slug: "figma" },
+    { name: "Adobe", slug: "adobe" }
+];
+---
+
+<section class="relative min-h-screen flex items-center overflow-hidden bg-[#0A0A0A]">
+    <!-- Background Glow -->
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#7C3AED]/5 to-transparent"></div>
+    
+    <div class="relative z-10">
+        <div class="flex overflow-hidden group">
+            <div class="flex animate-scroll whitespace-nowrap py-4 items-center">
+                {technologies.map(tech => (
+                    <div class="mx-12 transition-all duration-500 cursor-default flex items-center gap-4 group/item">
+                        <img 
+                            src={`https://cdn.simpleicons.org/${tech.slug}/ffffff`} 
+                            alt={tech.name} 
+                            class="h-8 md:h-10 w-auto opacity-30 group-hover/item:opacity-100 group-hover/item:scale-110 transition-all duration-500 filter drop-shadow-[0_0_8px_rgba(255,255,255,0.2)]"
+                        />
+                    </div>
+                ))}
+            </div>
+            <!-- Duplicate for infinite scroll -->
+            <div class="flex animate-scroll whitespace-nowrap py-4 items-center" aria-hidden="true">
+                {technologies.map(tech => (
+                    <div class="mx-12 transition-all duration-500 cursor-default flex items-center gap-4 group/item">
+                        <img 
+                            src={`https://cdn.simpleicons.org/${tech.slug}/ffffff`} 
+                            alt={tech.name} 
+                            class="h-8 md:h-10 w-auto opacity-30 group-hover/item:opacity-100 group-hover/item:scale-110 transition-all duration-500 filter drop-shadow-[0_0_8px_rgba(255,255,255,0.2)]"
+                        />
+                    </div>
+                ))}
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    @keyframes scroll {
+        from { transform: translateX(0); }
+        to { transform: translateX(-100%); }
+    }
+    
+    .animate-scroll {
+        animation: scroll 40s linear infinite;
+    }
+
+    .group:hover .animate-scroll {
+        animation-play-state: paused;
+    }
+    
+    section {
+        border-top: 1px solid rgba(93, 109, 126, 0.1);
+        border-bottom: 1px solid rgba(93, 109, 126, 0.1);
+    }
+</style>
