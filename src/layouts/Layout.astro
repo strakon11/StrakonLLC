@@ -162,48 +162,50 @@ const { title = "Strakon Digital | Digital Architects" } = Astro.props;
 					ease: "sine.inOut"
 				});
 
-				// Typography Fade-In-Up Animations
-				const texts = document.querySelectorAll('.gsap-reveal-text');
-				texts.forEach((text) => {
-					gsap.fromTo(text,
-						{ opacity: 0, y: 40 },
-						{
-							opacity: 1,
-							y: 0,
-							duration: 1.2,
-							ease: "power3.out",
-							scrollTrigger: {
-								trigger: text,
-								start: "top 85%",
-								toggleActions: "play none none none"
-							}
-						}
-					);
-				});
-
-				// Card Staggered Glassmorphism Reveals
-				const containers = document.querySelectorAll('.gsap-reveal-container');
-				containers.forEach((container) => {
-					const cards = container.querySelectorAll('.gsap-reveal-card');
-					if (cards.length > 0) {
-						gsap.fromTo(cards,
-							{ opacity: 0, y: 60, scale: 0.95 },
+				// Typography Fade-In-Up Animations (Desktop Only)
+				if (!isTouchDevice) {
+					const texts = document.querySelectorAll('.gsap-reveal-text');
+					texts.forEach((text) => {
+						gsap.fromTo(text,
+							{ opacity: 0, y: 40 },
 							{
 								opacity: 1,
 								y: 0,
-								scale: 1,
-								duration: 1.5,
-								ease: "expo.out",
-								stagger: 0.2,
+								duration: 1.2,
+								ease: "power3.out",
 								scrollTrigger: {
-									trigger: container,
+									trigger: text,
 									start: "top 85%",
 									toggleActions: "play none none none"
 								}
 							}
 						);
-					}
-				});
+					});
+
+					// Card Staggered Glassmorphism Reveals
+					const containers = document.querySelectorAll('.gsap-reveal-container');
+					containers.forEach((container) => {
+						const cards = container.querySelectorAll('.gsap-reveal-card');
+						if (cards.length > 0) {
+							gsap.fromTo(cards,
+								{ opacity: 0, y: 60, scale: 0.95 },
+								{
+									opacity: 1,
+									y: 0,
+									scale: 1,
+									duration: 1.5,
+									ease: "expo.out",
+									stagger: 0.2,
+									scrollTrigger: {
+										trigger: container,
+										start: "top 85%",
+										toggleActions: "play none none none"
+									}
+								}
+							);
+						}
+					});
+				}
 			});
 
 			// Revert animations context to prevent memory leaks
