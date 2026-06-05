@@ -36,17 +36,7 @@ const { title = "Strakon Digital | Digital Architects" } = Astro.props;
 		<Header />
 		<slot />
 
-		<!-- i18n Diagnostics Panel -->
-		<div id="i18n-debug-panel" class="fixed bottom-4 left-4 z-[9999] bg-[#0A0A0A]/95 border border-white/10 rounded-2xl p-4 text-[0.65rem] font-mono backdrop-blur-md shadow-2xl flex flex-col gap-1.5 w-72 pointer-events-auto transition-all duration-300">
-			<div class="flex justify-between items-center border-b border-white/10 pb-2 mb-1.5">
-				<span class="text-[#00F5FF] font-bold tracking-wider">i18n DIAGNOSTICS</span>
-				<button onclick="document.getElementById('i18n-debug-panel').style.display='none'" class="text-zinc-500 hover:text-white font-bold cursor-pointer">✕</button>
-			</div>
-			<div>Active Language: <span id="debug-lang" class="text-white font-bold uppercase">EN</span></div>
-			<div>DOM Elements Found: <span id="debug-count" class="text-white font-bold">0</span></div>
-			<div class="text-zinc-500 border-t border-white/10 pt-2 mt-1 font-bold">Activity Log:</div>
-			<div id="debug-logs" class="text-zinc-400 max-h-24 overflow-y-auto space-y-1 scrollbar-thin"></div>
-		</div>
+		<!-- i18n Diagnostics Panel Disabled for Production -->
 
 		<script>
 			import gsap from 'gsap';
@@ -77,17 +67,6 @@ const { title = "Strakon Digital | Digital Architects" } = Astro.props;
 				// 1. Standard text translations
 				const elements = document.querySelectorAll('[data-i18n]');
 				console.log(`[i18n] Translating to ${lang}. Found ${elements.length} data-i18n elements.`);
-				
-				// Update debug diagnostics
-				const debugLang = document.getElementById('debug-lang');
-				const debugCount = document.getElementById('debug-count');
-				const debugLogs = document.getElementById('debug-logs');
-				if (debugLang) debugLang.innerText = lang.toUpperCase();
-				if (debugCount) debugCount.innerText = elements.length.toString();
-				if (debugLogs) {
-					const time = new Date().toLocaleTimeString();
-					debugLogs.innerHTML = `<div>[${time}] Switched: <b>${lang.toUpperCase()}</b> (${elements.length} elements found)</div>` + debugLogs.innerHTML;
-				}
 
 				elements.forEach(el => {
 					try {
@@ -101,15 +80,9 @@ const { title = "Strakon Digital | Digital Architects" } = Astro.props;
 							}
 						} else {
 							console.warn(`[i18n] Missing translation for key: "${key}" in language: "${lang}"`);
-							if (debugLogs) {
-								debugLogs.innerHTML = `<div class="text-yellow-500">⚠ Missing key: "${key}"</div>` + debugLogs.innerHTML;
-							}
 						}
 					} catch (err) {
 						console.error(`[i18n] Error translating element:`, el, err);
-						if (debugLogs) {
-							debugLogs.innerHTML = `<div class="text-red-500">❌ Err translating: ${el.tagName}</div>` + debugLogs.innerHTML;
-						}
 					}
 				});
 
