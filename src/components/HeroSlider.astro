@@ -167,7 +167,7 @@ const slides = [
     camera.position.z = 1;
 
     const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
-    renderer.setPixelRatio(isTouchDevice ? 1.0 : Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
     const uniforms = {
         tex1: { value: null as THREE.Texture | null },

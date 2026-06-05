@@ -300,6 +300,11 @@ const pillars = [
     function updateLines() {
         if (!svg || !core || !container) return;
         
+        if (isMobile) {
+            svg.innerHTML = '';
+            return;
+        }
+        
         const coreBounds = core.getBoundingClientRect();
         const svgBounds = svg.getBoundingClientRect();
         
