@@ -19,9 +19,12 @@
 @media (max-width: 1023px) {
   .gsap-reveal-text,
   .gsap-reveal-card,
-  .gsap-reveal-container {
+  .gsap-reveal-container,
+  .gateway-reveal-item,
+  .gateway-reveal-container {
     opacity: 1 !important;
     transform: none !important;
     visibility: visible !important;
+    filter: none !important;
   }
 }
