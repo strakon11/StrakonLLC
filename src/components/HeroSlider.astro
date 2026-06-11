@@ -296,18 +296,27 @@ const slides = [
     resizeGL();
     window.addEventListener('resize', resizeGL);
 
-    // Pause WebGL rendering loop when off-screen to save battery and boost mobile performance
-    gsap.registerPlugin(ScrollTrigger);
-
     let isSliderVisible = true;
-    ScrollTrigger.create({
-      trigger: container,
-      start: "top bottom",
-      end: "bottom top",
-      onToggle: (self) => {
-        isSliderVisible = self.isActive;
-      }
-    });
+
+    // High-performance native IntersectionObserver to stop WebGL rendering loop immediately when offscreen
+    if (typeof window !== 'undefined' && 'IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          isSliderVisible = entry.isIntersecting;
+        });
+      }, { threshold: 0.0 });
+      observer.observe(container);
+    } else {
+      gsap.registerPlugin(ScrollTrigger);
+      ScrollTrigger.create({
+        trigger: container,
+        start: "top bottom",
+        end: "bottom top",
+        onToggle: (self) => {
+          isSliderVisible = self.isActive;
+        }
+      });
+    }
 
     renderer.render(scene, camera);
     gsap.ticker.add(() => {

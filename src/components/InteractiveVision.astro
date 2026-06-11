@@ -585,25 +585,45 @@ const pillars = [
         }
     }
 
-    // ScrollTrigger to pause/play Vision JS loops when offscreen
-    ScrollTrigger.create({
-        trigger: '#vision',
-        start: "top bottom",
-        end: "bottom top",
-        onToggle: (self) => {
-            isVisionVisible = self.isActive;
-            pulseTweens.forEach(t => {
-                if (self.isActive) t.play();
-                else t.pause();
-            });
+    // Native IntersectionObserver to pause/play Vision JS loops when offscreen
+    if (typeof window !== 'undefined' && 'IntersectionObserver' in window) {
+        const visionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                isVisionVisible = entry.isIntersecting;
+                pulseTweens.forEach(t => {
+                    if (entry.isIntersecting) t.play();
+                    else t.pause();
+                });
 
-            if (self.isActive) {
-                startMobileAutoplay();
-            } else {
-                stopMobileAutoplay();
+                if (entry.isIntersecting) {
+                    startMobileAutoplay();
+                } else {
+                    stopMobileAutoplay();
+                }
+            });
+        }, { threshold: 0.0 });
+        const visionEl = document.querySelector('#vision');
+        if (visionEl) visionObserver.observe(visionEl);
+    } else {
+        ScrollTrigger.create({
+            trigger: '#vision',
+            start: "top bottom",
+            end: "bottom top",
+            onToggle: (self) => {
+                isVisionVisible = self.isActive;
+                pulseTweens.forEach(t => {
+                    if (self.isActive) t.play();
+                    else t.pause();
+                });
+
+                if (self.isActive) {
+                    startMobileAutoplay();
+                } else {
+                    stopMobileAutoplay();
+                }
             }
-        }
-    });
+        });
+    }
 
     // Initialize first pillar on load
     selectPillar('p1');
