@@ -27,4 +27,20 @@
     visibility: visible !important;
     filter: none !important;
   }
+
+  /* Disable heavy animated background blur spheres and blobs for 60fps mobile scrolling */
+  .sphere-anim-1,
+  .sphere-anim-2,
+  .blob {
+    display: none !important;
+  }
+
+  /* Remove backdrop-filters on mobile to eliminate paint lag and GPU throttling */
+  .services-card,
+  .holographic-card,
+  [class*="backdrop-blur"] {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background-color: rgba(10, 10, 10, 0.98) !important;
+  }
 }
