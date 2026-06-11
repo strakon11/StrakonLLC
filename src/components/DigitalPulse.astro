@@ -23,17 +23,17 @@ const metrics = [
     <div class="max-w-7xl mx-auto w-full relative z-10 flex flex-col h-full justify-center">
         <!-- Section Header -->
         <div class="mb-16 md:mb-24 text-center">
-            <h2 class="text-3xl md:text-5xl lg:text-6xl font-black text-white tracking-tighter mb-4 gsap-reveal-text will-change-[transform,opacity] opacity-0">
+            <h2 class="text-3xl md:text-5xl lg:text-6xl font-black text-white tracking-tighter mb-4 gsap-reveal-text">
                 <span data-i18n="pulse.section_title_1">Built on trust.</span> <span class="text-[#00F5FF]" data-i18n="pulse.section_title_2">Proven by results.</span>
             </h2>
-            <p class="text-zinc-400 max-w-2xl mx-auto text-[0.9rem] md:text-base lg:text-lg font-light leading-relaxed gsap-reveal-text will-change-[transform,opacity] opacity-0" data-i18n="pulse.section_desc">
+            <p class="text-zinc-400 max-w-2xl mx-auto text-[0.9rem] md:text-base lg:text-lg font-light leading-relaxed gsap-reveal-text" data-i18n="pulse.section_desc">
                 Every number here has a story behind it.
             </p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 items-start justify-center gap-y-12 md:gap-y-0 gsap-reveal-container">
             {metrics.map((metric, index) => (
-                <div class={`flex flex-col justify-start items-center w-full h-full py-8 md:py-12 gsap-reveal-card will-change-[transform,opacity] opacity-0 ${index > 0 ? 'md:border-l md:border-white/5' : ''}`}>
+                <div class={`flex flex-col justify-start items-center w-full h-full py-8 md:py-12 gsap-reveal-card ${index > 0 ? 'md:border-l md:border-white/5' : ''}`}>
                     <div class="group cursor-default flex flex-col items-center transition-transform duration-300 hover:-translate-y-1">
                         <span class="text-zinc-500 text-[10px] tracking-[0.2em] uppercase font-bold mb-4 block" data-i18n={`pulse.metric_${index + 1}_label`}>
                             {metric.label}
@@ -60,24 +60,30 @@ const metrics = [
     // GSAP Context to avoid memory leaks
     let ctx = gsap.context(() => {
         const counts = document.querySelectorAll('.stat-count');
+        const isHoverDevice = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
         
         counts.forEach(count => {
             const targetVal = parseInt(count.getAttribute('data-target') || '0', 10);
-            const obj = { value: 0 };
             
-            gsap.to(obj, {
-                value: targetVal,
-                duration: 2,
-                ease: "power3.out",
-                scrollTrigger: {
-                    trigger: count,
-                    start: "top 85%",
-                    toggleActions: "play none none none"
-                },
-                onUpdate: () => {
-                    count.textContent = Math.floor(obj.value).toString();
-                }
-            });
+            if (isHoverDevice) {
+                const obj = { value: 0 };
+                gsap.to(obj, {
+                    value: targetVal,
+                    duration: 2,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: count,
+                        start: "top 85%",
+                        toggleActions: "play none none none"
+                    },
+                    onUpdate: () => {
+                        count.textContent = Math.floor(obj.value).toString();
+                    }
+                });
+            } else {
+                // On mobile, set final values instantly for immediate response
+                count.textContent = targetVal.toString();
+            }
         });
     });
 

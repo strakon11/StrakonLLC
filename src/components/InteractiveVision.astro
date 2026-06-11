@@ -47,7 +47,7 @@ const pillars = [
     <div class="max-w-7xl mx-auto w-full relative z-10 flex flex-col items-center justify-start lg:justify-between lg:h-full gap-8 lg:gap-0">
         <!-- Title Block - Scaled for Viewport -->
         <div class="text-center">
-            <h2 class="text-[clamp(2.5rem,8vh,5rem)] font-medium text-white tracking-tighter leading-none gsap-reveal-text will-change-[transform,opacity] opacity-0">
+            <h2 class="text-[clamp(2.5rem,8vh,5rem)] font-medium text-white tracking-tighter leading-none gsap-reveal-text">
                 <span data-i18n="vision.section_title_1">Built different.</span> <br class="md:hidden" />
                 <span class="italic font-light text-white/40" data-i18n="vision.section_title_2">By design.</span>
             </h2>
@@ -238,9 +238,9 @@ const pillars = [
         });
     }
 
-    // 3. Staggered Scroll Entrance for Tooltip Cards
+    // 3. Staggered Scroll Entrance for Tooltip Cards (Desktop only)
     const holographicCards = document.querySelectorAll('#interactive-scene .holographic-card');
-    if (holographicCards.length > 0) {
+    if (isHoverDevice && holographicCards.length > 0) {
         holographicCards.forEach((card, i) => {
             const isLeftSide = card.classList.contains('md:right-8') || card.classList.contains('left-6');
             const startX = isLeftSide ? -80 : 80;

@@ -29,12 +29,12 @@
 
     <div class="max-w-4xl mx-auto flex flex-col items-center gateway-reveal-container">
         <!-- Headline with Liquid Chrome Shimmer -->
-        <h2 class="text-5xl md:text-7xl font-extrabold tracking-tight max-w-3xl leading-tight gateway-reveal-item will-change-[transform,opacity] opacity-0 bg-clip-text text-transparent bg-gradient-to-r from-white via-[#00F5FF] via-[#7C3AED] to-white animate-shimmer select-none" data-i18n="gateway.title">
+        <h2 class="text-5xl md:text-7xl font-extrabold tracking-tight max-w-3xl leading-tight gateway-reveal-item bg-clip-text text-transparent bg-gradient-to-r from-white via-[#00F5FF] via-[#7C3AED] to-white animate-shimmer select-none" data-i18n="gateway.title">
             This is where it begins.
         </h2>
         
         <!-- Subheadline -->
-        <p class="text-xl md:text-2xl text-zinc-400 mt-6 font-light max-w-2xl gateway-reveal-item will-change-[transform,opacity] opacity-0 select-none" data-i18n="gateway.sub">
+        <p class="text-xl md:text-2xl text-zinc-400 mt-6 font-light max-w-2xl gateway-reveal-item select-none" data-i18n="gateway.sub">
             One conversation. One decision. A digital presence that works for you every single day.
         </p>
         
@@ -59,28 +59,33 @@
         // 1. ANIMACIÓN GLOBAL: Scroll Trigger Reveal con Blur & Fade-In-Up (Aparece cobrando vida)
         const container = document.querySelector('.gateway-reveal-container');
         const items = document.querySelectorAll('.gateway-reveal-item');
+        const isHoverDevice = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
         
         if (container && items.length > 0) {
-            gsap.fromTo(items, 
-                { opacity: 0, y: 60, filter: "blur(15px)" },
-                {
-                    opacity: 1,
-                    y: 0,
-                    filter: "blur(0px)",
-                    duration: 1.4,
-                    ease: "power4.out",
-                    stagger: 0.3,
-                    scrollTrigger: {
-                        trigger: container,
-                        start: "top 80%",
-                        toggleActions: "play none none none"
+            if (isHoverDevice) {
+                gsap.fromTo(items, 
+                    { opacity: 0, y: 60, filter: "blur(15px)" },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        filter: "blur(0px)",
+                        duration: 1.4,
+                        ease: "power4.out",
+                        stagger: 0.3,
+                        scrollTrigger: {
+                            trigger: container,
+                            start: "top 80%",
+                            toggleActions: "play none none none"
+                        }
                     }
-                }
-            );
+                );
+            } else {
+                // Instantly visible on mobile
+                gsap.set(items, { opacity: 1, y: 0, filter: "blur(0px)" });
+            }
         }
 
         // GUARDIA DE RENDIMIENTO: Detectar si el dispositivo es táctil o no soporta hover
-        const isHoverDevice = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
         if (!isHoverDevice) return; // Si es móvil, detenemos la ejecución de scripts costosos
 
         // 2. SOLO ESCRITORIO: Flotación lenta e infinita de cristales
