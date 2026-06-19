@@ -35,11 +35,6 @@ const pillars = [
              style="background-image: linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px); background-size: 80px 80px; [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]">
         </div>
         
-        <!-- Cyber Engineering Radar Scope Overlay -->
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] h-[320px] md:w-[600px] md:h-[600px] border border-[#00F5FF]/5 rounded-full pointer-events-none z-0"></div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[420px] h-[420px] md:w-[800px] md:h-[800px] border border-dashed border-[#7C3AED]/3 rounded-full pointer-events-none z-0 animate-[spin_150s_linear_infinite]"></div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[220px] h-[220px] md:w-[400px] md:h-[400px] border border-dotted border-[#00F5FF]/10 rounded-full pointer-events-none z-0 animate-[spin_80s_linear_infinite]"></div>
-        
         <!-- Mouse Spotlight -->
         <div id="vision-spotlight" class="absolute w-[800px] h-[800px] bg-[#00F5FF]/10 rounded-full blur-[150px] -translate-x-1/2 -translate-y-1/2 opacity-0 pointer-events-none"></div>
     </div>
@@ -55,6 +50,10 @@ const pillars = [
 
         <!-- Main Interactive Scene (Desktop & Mobile - Core Only on Mobile) -->
         <div class="relative w-full h-[240px] lg:flex-1 max-w-5xl flex items-center justify-center my-4" id="interactive-scene">
+            <!-- Cyber Engineering Radar Scope Overlay (Centered perfectly with the Core) -->
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] h-[320px] md:w-[600px] md:h-[600px] border border-[#00F5FF]/5 rounded-full pointer-events-none z-0"></div>
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[420px] h-[420px] md:w-[800px] md:h-[800px] border border-dashed border-[#7C3AED]/3 rounded-full pointer-events-none z-0 animate-[spin_150s_linear_infinite]"></div>
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[220px] h-[220px] md:w-[400px] md:h-[400px] border border-dotted border-[#00F5FF]/10 rounded-full pointer-events-none z-0 animate-[spin_80s_linear_infinite]"></div>
             <!-- Energy Lines Container -->
             <svg class="absolute inset-0 w-full h-full pointer-events-none z-0" id="energy-lines-svg">
                 <defs>
