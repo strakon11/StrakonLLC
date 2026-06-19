@@ -206,6 +206,13 @@ const services = [
         .services-card-wrapper::before {
             display: none !important;
         }
+        /* Immediately show card wrappers and section texts on mobile to avoid black screens and delay */
+        .gsap-reveal-card,
+        #services .gsap-reveal-text {
+            opacity: 1 !important;
+            transform: none !important;
+            will-change: auto !important;
+        }
     }
 
     /* EMERGENCY SCALE FOR SHORT SCREENS (Laptops) */

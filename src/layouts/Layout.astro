@@ -24,7 +24,16 @@ const { title = "Strakon Digital | Digital Architects" } = Astro.props;
 		<link rel="preload" href="/images/11.avif" as="image" />
 		<link rel="preload" href="/images/capa/1.avif" as="image" />
 		<link rel="preload" href="/images/Background/2.avif" as="image" crossorigin="anonymous" />
-		<link rel="preload" href="/images/22.avif" as="image" />
+		<style>
+			@media (max-width: 768px) {
+				.gsap-reveal-card,
+				.gsap-reveal-text {
+					opacity: 1 !important;
+					transform: none !important;
+					will-change: auto !important;
+				}
+			}
+		</style>
 	</head>
 	<body class="bg-[#0A0A0A] text-white antialiased overflow-x-hidden min-h-screen">
 		<!-- Slow-moving blurred spheres -->
@@ -162,48 +171,51 @@ const { title = "Strakon Digital | Digital Architects" } = Astro.props;
 					ease: "sine.inOut"
 				});
 
-				// Typography Fade-In-Up Animations
-				const texts = document.querySelectorAll('.gsap-reveal-text');
-				texts.forEach((text) => {
-					gsap.fromTo(text,
-						{ opacity: 0, y: 40 },
-						{
-							opacity: 1,
-							y: 0,
-							duration: 1.2,
-							ease: "power3.out",
-							scrollTrigger: {
-								trigger: text,
-								start: "top 85%",
-								toggleActions: "play none none none"
-							}
-						}
-					);
-				});
-
-				// Card Staggered Glassmorphism Reveals
-				const containers = document.querySelectorAll('.gsap-reveal-container');
-				containers.forEach((container) => {
-					const cards = container.querySelectorAll('.gsap-reveal-card');
-					if (cards.length > 0) {
-						gsap.fromTo(cards,
-							{ opacity: 0, y: 60, scale: 0.95 },
+				// Typography and Card Reveals (Only register triggers on desktop devices)
+				if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+					// Typography Fade-In-Up Animations
+					const texts = document.querySelectorAll('.gsap-reveal-text');
+					texts.forEach((text) => {
+						gsap.fromTo(text,
+							{ opacity: 0, y: 40 },
 							{
 								opacity: 1,
 								y: 0,
-								scale: 1,
-								duration: 1.5,
-								ease: "expo.out",
-								stagger: 0.2,
+								duration: 1.2,
+								ease: "power3.out",
 								scrollTrigger: {
-									trigger: container,
+									trigger: text,
 									start: "top 85%",
 									toggleActions: "play none none none"
 								}
 							}
 						);
-					}
-				});
+					});
+
+					// Card Staggered Glassmorphism Reveals
+					const containers = document.querySelectorAll('.gsap-reveal-container');
+					containers.forEach((container) => {
+						const cards = container.querySelectorAll('.gsap-reveal-card');
+						if (cards.length > 0) {
+							gsap.fromTo(cards,
+								{ opacity: 0, y: 60, scale: 0.95 },
+								{
+									opacity: 1,
+									y: 0,
+									scale: 1,
+									duration: 1.5,
+									ease: "expo.out",
+									stagger: 0.2,
+									scrollTrigger: {
+										trigger: container,
+										start: "top 85%",
+										toggleActions: "play none none none"
+									}
+								}
+							);
+						}
+					});
+				}
 			});
 
 			// Revert animations context to prevent memory leaks
