@@ -86,6 +86,9 @@ const services = [
     </div>
 </section>
 
+<script>
+    import gsap from 'gsap';
+
     // Disable hover-effects, 3D tilt, and spotlights on touch devices to ensure high performance
     if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
         const wrappers = document.querySelectorAll('.services-card-wrapper');
