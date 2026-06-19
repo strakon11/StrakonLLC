@@ -493,13 +493,19 @@ const slides = [
             else lenis.stop();
         }
 
-        if (isAtLastSlide) {
+        if (!isTouchDevice) {
+            if (isAtLastSlide) {
+                document.body.style.overflowY = 'auto';
+                document.documentElement.style.overflowY = 'auto';
+            } else {
+                document.body.style.overflowY = 'hidden';
+                document.documentElement.style.overflowY = 'hidden';
+                window.scrollTo(0, 0); 
+            }
+        } else {
+            // Keep scroll settings untouched on touch devices to avoid massive layout reflow lag
             document.body.style.overflowY = 'auto';
             document.documentElement.style.overflowY = 'auto';
-        } else {
-            document.body.style.overflowY = 'hidden';
-            document.documentElement.style.overflowY = 'hidden';
-            window.scrollTo(0, 0); 
         }
     };
 
@@ -643,6 +649,13 @@ const slides = [
     window.addEventListener("touchstart", (e) => {
         touchStartY = e.touches[0].clientY;
     }, { passive: true });
+
+    // Prevent default scroll when dragging on the Hero slider itself (only for mobile slides before the last one)
+    container.addEventListener("touchmove", (e) => {
+        if (currentIndex < totalSlides - 1 && window.scrollY <= 10) {
+            if (e.cancelable) e.preventDefault();
+        }
+    }, { passive: false });
 
     window.addEventListener("touchend", (e) => {
         const deltaY = touchStartY - e.changedTouches[0].clientY;
