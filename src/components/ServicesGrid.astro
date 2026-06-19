@@ -89,7 +89,8 @@ const services = [
 <script>
     import gsap from 'gsap';
 
-    const wrappers = document.querySelectorAll('.services-card-wrapper');
+    const isHoverDevice = typeof window !== 'undefined' && window.matchMedia("(hover: hover) and (pointer: fine)").matches && window.innerWidth >= 1024;
+    const wrappers = isHoverDevice ? document.querySelectorAll('.services-card-wrapper') : [];
 
     if (wrappers.length > 0) {
         wrappers.forEach(wrapper => {
@@ -193,9 +194,34 @@ const services = [
         border-color: rgba(0, 245, 255, 0.2);
     }
 
-    @media (max-width: 1024px) {
+    @media (max-width: 1023px) {
         .text-6xl { font-size: 3.5rem; }
         .text-8xl { font-size: 4.5rem; }
+        
+        /* Remove GPU-heavy 3D calculations and hover effects on mobile */
+        .services-card-wrapper {
+            perspective: none !important;
+            transform-style: flat !important;
+            transform: none !important;
+        }
+        .services-card-wrapper::before {
+            display: none !important;
+            background: none !important;
+        }
+        .services-card {
+            transform-style: flat !important;
+            transform: none !important;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45) !important;
+            border-color: rgba(255, 255, 255, 0.1) !important;
+        }
+        .services-card-wrapper:hover {
+            transform: none !important;
+        }
+        .services-card-wrapper:hover .services-card {
+            transform: none !important;
+            border-color: rgba(255, 255, 255, 0.1) !important;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45) !important;
+        }
     }
 
     /* EMERGENCY SCALE FOR SHORT SCREENS (Laptops) */

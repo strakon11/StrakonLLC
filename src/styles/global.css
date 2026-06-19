@@ -33,6 +33,14 @@
   .sphere-anim-2,
   .blob {
     display: none !important;
+    animation: none !important;
+  }
+
+  /* Disable expensive spinning conic-gradient border animations on mobile marquee cards */
+  .animate-border-glow,
+  [class*="animate-border-glow"] {
+    animation: none !important;
+    background: rgba(255, 255, 255, 0.1) !important;
   }
 
   /* Remove backdrop-filters on mobile to eliminate paint lag and GPU throttling */
