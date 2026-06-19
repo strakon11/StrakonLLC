@@ -143,7 +143,6 @@ const slides = [
 <script>
   import * as THREE from 'three';
   import gsap from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
   const container = document.getElementById('hero-slider');
   const domSlides = document.querySelectorAll('.slide-wrapper');
@@ -160,12 +159,14 @@ const slides = [
     const bgMapStr = container.getAttribute('data-slides');
     const bgUrls = JSON.parse(bgMapStr || "[]");
 
-    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || window.innerWidth < 1024;
+    // ==========================================
+    // 1. WEBGL ARCHITECTURE Setup
+    // ==========================================
     const canvas = document.getElementById('hero-gl-canvas') as HTMLCanvasElement;
     const scene = new THREE.Scene();
     const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
     camera.position.z = 1;
-
+    
     const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
@@ -296,39 +297,14 @@ const slides = [
     resizeGL();
     window.addEventListener('resize', resizeGL);
 
-    let isSliderVisible = true;
-
-    // High-performance native IntersectionObserver to stop WebGL rendering loop immediately when offscreen
-    if (typeof window !== 'undefined' && 'IntersectionObserver' in window) {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          isSliderVisible = entry.isIntersecting;
-        });
-      }, { threshold: 0.0 });
-      observer.observe(container);
-    } else {
-      gsap.registerPlugin(ScrollTrigger);
-      ScrollTrigger.create({
-        trigger: container,
-        start: "top bottom",
-        end: "bottom top",
-        onToggle: (self) => {
-          isSliderVisible = self.isActive;
-        }
-      });
-    }
-
     renderer.render(scene, camera);
-    gsap.ticker.add(() => {
-      if (isSliderVisible) {
-        renderer.render(scene, camera);
-      }
-    });
+    gsap.ticker.add(() => { renderer.render(scene, camera); });
 
     // ==========================================
     // 2. PARALLAX & HUD
     // ==========================================
     let mouseX = 0; let mouseY = 0;
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     
     // Rule 7: Disable mouse-tracking GSAP on mobile
     if (!isTouchDevice) {
@@ -493,19 +469,13 @@ const slides = [
             else lenis.stop();
         }
 
-        if (!isTouchDevice) {
-            if (isAtLastSlide) {
-                document.body.style.overflowY = 'auto';
-                document.documentElement.style.overflowY = 'auto';
-            } else {
-                document.body.style.overflowY = 'hidden';
-                document.documentElement.style.overflowY = 'hidden';
-                window.scrollTo(0, 0); 
-            }
-        } else {
-            // Keep scroll settings untouched on touch devices to avoid massive layout reflow lag
+        if (isAtLastSlide) {
             document.body.style.overflowY = 'auto';
             document.documentElement.style.overflowY = 'auto';
+        } else {
+            document.body.style.overflowY = 'hidden';
+            document.documentElement.style.overflowY = 'hidden';
+            window.scrollTo(0, 0); 
         }
     };
 
@@ -649,13 +619,6 @@ const slides = [
     window.addEventListener("touchstart", (e) => {
         touchStartY = e.touches[0].clientY;
     }, { passive: true });
-
-    // Prevent default scroll when dragging on the Hero slider itself (only for mobile slides before the last one)
-    container.addEventListener("touchmove", (e) => {
-        if (currentIndex < totalSlides - 1 && window.scrollY <= 10) {
-            if (e.cancelable) e.preventDefault();
-        }
-    }, { passive: false });
 
     window.addEventListener("touchend", (e) => {
         const deltaY = touchStartY - e.changedTouches[0].clientY;
