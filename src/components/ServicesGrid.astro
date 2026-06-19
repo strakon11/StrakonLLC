@@ -86,78 +86,78 @@ const services = [
     </div>
 </section>
 
-<script>
-    import gsap from 'gsap';
+    // Disable hover-effects, 3D tilt, and spotlights on touch devices to ensure high performance
+    if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+        const wrappers = document.querySelectorAll('.services-card-wrapper');
 
-    const wrappers = document.querySelectorAll('.services-card-wrapper');
-
-    if (wrappers.length > 0) {
-        wrappers.forEach(wrapper => {
-            const card = wrapper.querySelector('.services-card') as HTMLElement;
-            const spotlight = wrapper.querySelector('.card-spotlight') as HTMLElement;
-            
-            wrapper.addEventListener('mousemove', (e) => {
-                const rect = wrapper.getBoundingClientRect();
-                const x = (e as MouseEvent).clientX - rect.left;
-                const y = (e as MouseEvent).clientY - rect.top;
+        if (wrappers.length > 0) {
+            wrappers.forEach(wrapper => {
+                const card = wrapper.querySelector('.services-card') as HTMLElement;
+                const spotlight = wrapper.querySelector('.card-spotlight') as HTMLElement;
                 
-                // Update CSS custom variables for border gradient trail
-                wrapper.style.setProperty('--mouse-x', `${x}px`);
-                wrapper.style.setProperty('--mouse-y', `${y}px`);
-                
-                // Update inner spotlight position
-                if (spotlight) {
-                    const isHidden = gsap.getProperty(spotlight, "opacity") === 0;
-                    if (isHidden) {
-                        gsap.set(spotlight, { left: x, top: y });
-                    }
-                    gsap.to(spotlight, {
-                        left: x,
-                        top: y,
-                        opacity: 1,
-                        duration: isHidden ? 0.15 : 0.3,
-                        overwrite: "auto"
-                    });
-                }
-                
-                // 3D Parallax Tilt
-                if (card) {
-                    const centerX = rect.left + rect.width / 2;
-                    const centerY = rect.top + rect.height / 2;
-                    const moveX = ((e as MouseEvent).clientX - centerX) / (rect.width / 2);
-                    const moveY = ((e as MouseEvent).clientY - centerY) / (rect.height / 2);
+                wrapper.addEventListener('mousemove', (e) => {
+                    const rect = wrapper.getBoundingClientRect();
+                    const x = (e as MouseEvent).clientX - rect.left;
+                    const y = (e as MouseEvent).clientY - rect.top;
                     
-                    gsap.to(card, {
-                        rotateY: moveX * 8,
-                        rotateX: -moveY * 8,
-                        transformPerspective: 1000,
-                        duration: 0.5,
-                        ease: "power2.out",
-                        overwrite: "auto"
-                    });
-                }
-            });
-            
-            wrapper.addEventListener('mouseleave', () => {
-                if (spotlight) {
-                    gsap.to(spotlight, {
-                        opacity: 0,
-                        duration: 0.5,
-                        overwrite: "auto"
-                    });
-                }
+                    // Update CSS custom variables for border gradient trail
+                    wrapper.style.setProperty('--mouse-x', `${x}px`);
+                    wrapper.style.setProperty('--mouse-y', `${y}px`);
+                    
+                    // Update inner spotlight position
+                    if (spotlight) {
+                        const isHidden = gsap.getProperty(spotlight, "opacity") === 0;
+                        if (isHidden) {
+                            gsap.set(spotlight, { left: x, top: y });
+                        }
+                        gsap.to(spotlight, {
+                            left: x,
+                            top: y,
+                            opacity: 1,
+                            duration: isHidden ? 0.15 : 0.3,
+                            overwrite: "auto"
+                        });
+                    }
+                    
+                    // 3D Parallax Tilt
+                    if (card) {
+                        const centerX = rect.left + rect.width / 2;
+                        const centerY = rect.top + rect.height / 2;
+                        const moveX = ((e as MouseEvent).clientX - centerX) / (rect.width / 2);
+                        const moveY = ((e as MouseEvent).clientY - centerY) / (rect.height / 2);
+                        
+                        gsap.to(card, {
+                            rotateY: moveX * 8,
+                            rotateX: -moveY * 8,
+                            transformPerspective: 1000,
+                            duration: 0.5,
+                            ease: "power2.out",
+                            overwrite: "auto"
+                        });
+                    }
+                });
                 
-                if (card) {
-                    gsap.to(card, {
-                        rotateY: 0,
-                        rotateX: 0,
-                        duration: 0.8,
-                        ease: "power3.out",
-                        overwrite: "auto"
-                    });
-                }
+                wrapper.addEventListener('mouseleave', () => {
+                    if (spotlight) {
+                        gsap.to(spotlight, {
+                            opacity: 0,
+                            duration: 0.5,
+                            overwrite: "auto"
+                        });
+                    }
+                    
+                    if (card) {
+                        gsap.to(card, {
+                            rotateY: 0,
+                            rotateX: 0,
+                            duration: 0.8,
+                            ease: "power3.out",
+                            overwrite: "auto"
+                        });
+                    }
+                });
             });
-        });
+        }
     }
 </script>
 
@@ -196,6 +196,16 @@ const services = [
     @media (max-width: 1024px) {
         .text-6xl { font-size: 3.5rem; }
         .text-8xl { font-size: 4.5rem; }
+    }
+
+    /* MOBILE PRESERVATION & OPTIMIZATION */
+    @media (max-width: 768px) {
+        .card-spotlight {
+            display: none !important;
+        }
+        .services-card-wrapper::before {
+            display: none !important;
+        }
     }
 
     /* EMERGENCY SCALE FOR SHORT SCREENS (Laptops) */
