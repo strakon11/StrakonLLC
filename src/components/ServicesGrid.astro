@@ -39,7 +39,7 @@ const services = [
 ];
 ---
 
-<section id="services" class="relative min-h-screen flex flex-col justify-center items-center py-20 md:py-28 px-6 overflow-hidden bg-[#0A0A0A]">
+<section id="services" class="relative min-h-screen flex flex-col justify-center items-center pt-36 pb-20 md:py-28 px-6 overflow-hidden bg-[#0A0A0A]">
     <!-- Ambient Light -->
     <div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-[#00F5FF]/5 rounded-full blur-[150px] pointer-events-none"></div>
     <div class="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-[#7C3AED]/5 rounded-full blur-[150px] pointer-events-none"></div>
@@ -50,10 +50,10 @@ const services = [
     <div class="max-w-7xl mx-auto w-full relative z-10 flex flex-col h-full justify-center">
         <!-- Section Header - Compacted for Mobile Balance -->
         <div class="mb-12 md:mb-16">
-            <h2 class="text-3xl md:text-5xl lg:text-6xl font-black text-white tracking-tighter mb-4 gsap-reveal-text will-change-[transform,opacity] opacity-0" data-i18n="services.section_title">
+            <h2 class="text-3xl md:text-5xl lg:text-6xl font-black text-white tracking-tighter mb-4 gsap-reveal-text will-change-[transform,opacity]" data-i18n="services.section_title">
                 What We <span class="text-[#00F5FF]">Build For You.</span>
             </h2>
-            <p class="text-zinc-400 max-w-2xl text-[0.9rem] md:text-base lg:text-lg font-light leading-relaxed gsap-reveal-text will-change-[transform,opacity] opacity-0" data-i18n="services.section_desc">
+            <p class="text-zinc-400 max-w-2xl text-[0.9rem] md:text-base lg:text-lg font-light leading-relaxed gsap-reveal-text will-change-[transform,opacity]" data-i18n="services.section_desc">
                 Every project is a growth opportunity. We engineer digital experiences that attract, convert, and retain.
             </p>
         </div>
@@ -61,7 +61,7 @@ const services = [
         <!-- Services UI Grid - Responsive 6 Cards -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 w-full gsap-reveal-container">
             {services.map((service, index) => (
-                <div class="services-card-wrapper group relative h-full rounded-2xl gsap-reveal-card will-change-[transform,opacity] opacity-0 transition-all duration-300 ease-out border border-white/10 bg-white/5 hover:-translate-y-2 hover:border-[#00F5FF]/50 hover:shadow-[0_10px_30px_rgba(0,245,255,0.15)]">
+                <div class="services-card-wrapper group relative h-full rounded-2xl gsap-reveal-card will-change-[transform,opacity] transition-all duration-300 ease-out border border-white/10 bg-white/5 hover:-translate-y-2 hover:border-[#00F5FF]/50 hover:shadow-[0_10px_30px_rgba(0,245,255,0.15)]">
                     <!-- Glass Container -->
                     <div class="services-card relative z-10 h-full p-6 md:p-8 rounded-[15px] bg-[#0A0A0A]/90 backdrop-blur-md flex flex-col items-start overflow-hidden">
                         <!-- Card Inner Spotlight -->
