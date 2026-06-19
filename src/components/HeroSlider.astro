@@ -79,10 +79,11 @@ const slides = [
     </div>
   </div>
 
-  <!-- 3-LAYER FOREGROUND SYSTEM (z-index 10) -->
   <div class="absolute inset-0 z-10 w-full h-full pointer-events-none" id="dom-layers">
     {slides.map((slide, index) => (
       <div class="slide-wrapper absolute inset-0 w-full h-full opacity-0 invisible overflow-hidden" data-index={index}>
+        <!-- Mobile Native Background Image (No WebGL performance/loading penalty) -->
+        <div class="absolute inset-0 z-0 bg-cover bg-center md:hidden" style={`background-image: url(${slide.bg})`}></div>
         
         <!-- Subject Layer -->
         <div class="slide-subject absolute inset-0 w-full h-full flex items-center justify-center pointer-events-none">
@@ -141,7 +142,6 @@ const slides = [
 </div>
 
 <script>
-  import * as THREE from 'three';
   import gsap from 'gsap';
 
   const container = document.getElementById('hero-slider');
@@ -159,26 +159,18 @@ const slides = [
     const bgMapStr = container.getAttribute('data-slides');
     const bgUrls = JSON.parse(bgMapStr || "[]");
 
-    // ==========================================
-    // 1. WEBGL ARCHITECTURE Setup
-    // ==========================================
-    const canvas = document.getElementById('hero-gl-canvas') as HTMLCanvasElement;
-    const scene = new THREE.Scene();
-    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
-    camera.position.z = 1;
-    
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
+    const isDesktop = window.innerWidth > 1024;
     const uniforms = {
-        tex1: { value: null as THREE.Texture | null },
-        tex2: { value: null as THREE.Texture | null },
+        tex1: { value: null },
+        tex2: { value: null },
         progress: { value: -0.5 }, 
         direction: { value: 1.0 },
         aspectRatio: { value: window.innerWidth / window.innerHeight },
         zoom1: { value: 1.15 },
         zoom2: { value: 1.15 }
     };
+
+    let textures = null;
 
     // ==========================================
     // INITIAL INTRO ANIMATION
@@ -224,81 +216,100 @@ const slides = [
         initSlide(firstSlide);
     };
 
-    const vertexShader = `
-      varying vec2 vUv;
-      void main() {
-        vUv = uv;
-        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-      }
-    `;
+    // Lazy load Three.js and initialize WebGL only on desktop
+    if (isDesktop) {
+        import('three').then((THREE) => {
+            const canvas = document.getElementById('hero-gl-canvas') as HTMLCanvasElement;
+            const scene = new THREE.Scene();
+            const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
+            camera.position.z = 1;
+            
+            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    const fragmentShader = `
-      uniform sampler2D tex1;
-      uniform sampler2D tex2;
-      uniform float progress;
-      uniform float direction;
-      uniform float aspectRatio;
-      uniform float zoom1;
-      uniform float zoom2;
-      varying vec2 vUv;
+            const vertexShader = `
+              varying vec2 vUv;
+              void main() {
+                vUv = uv;
+                gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+              }
+            `;
 
-      vec2 mirrorWrap(vec2 uv) {
-        vec2 m = mod(uv, 2.0);
-        return mix(m, 2.0 - m, step(1.0, m));
-      }
+            const fragmentShader = `
+              uniform sampler2D tex1;
+              uniform sampler2D tex2;
+              uniform float progress;
+              uniform float direction;
+              uniform float aspectRatio;
+              uniform float zoom1;
+              uniform float zoom2;
+              varying vec2 vUv;
 
-      void main() {
-        vec2 center = vec2(0.5, 0.5);
-        vec2 baseUv1 = (vUv - center) / zoom1 + center;
-        vec2 baseUv2 = (vUv - center) / zoom2 + center;
+              vec2 mirrorWrap(vec2 uv) {
+                vec2 m = mod(uv, 2.0);
+                return mix(m, 2.0 - m, step(1.0, m));
+              }
 
-        float panAmt = progress * direction * 3.0; // Increased travel
-        
-        vec2 uv1 = mirrorWrap(vec2(baseUv1.x, baseUv1.y + panAmt));
-        vec2 uv2 = mirrorWrap(vec2(baseUv2.x, baseUv2.y - (3.0 * direction) + panAmt));
+              void main() {
+                vec2 center = vec2(0.5, 0.5);
+                vec2 baseUv1 = (vUv - center) / zoom1 + center;
+                vec2 baseUv2 = (vUv - center) / zoom2 + center;
 
-        vec4 color1 = texture2D(tex1, uv1);
-        vec4 color2 = texture2D(tex2, uv2);
+                float panAmt = progress * direction * 3.0; // Increased travel
+                
+                vec2 uv1 = mirrorWrap(vec2(baseUv1.x, baseUv1.y + panAmt));
+                vec2 uv2 = mirrorWrap(vec2(baseUv2.x, baseUv2.y - (3.0 * direction) + panAmt));
 
-        float mixProgress = clamp(progress, 0.0, 1.0);
-        gl_FragColor = mix(color1, color2, mixProgress);
-      }
-    `;
+                vec4 color1 = texture2D(tex1, uv1);
+                vec4 color2 = texture2D(tex2, uv2);
 
-    const material = new THREE.ShaderMaterial({
-      uniforms,
-      vertexShader,
-      fragmentShader,
-      transparent: true
-    });
+                float mixProgress = clamp(progress, 0.0, 1.0);
+                gl_FragColor = mix(color1, color2, mixProgress);
+              }
+            `;
 
-    const plane = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material);
-    scene.add(plane);
+            const material = new THREE.ShaderMaterial({
+              uniforms,
+              vertexShader,
+              fragmentShader,
+              transparent: true
+            });
 
-    const textureLoader = new THREE.TextureLoader();
-    const textures = bgUrls.map((url, i) => {
-      const t = textureLoader.load(url, () => {
-          if(i === 0) {
-              isAnimating = true;
-              runIntro();
-          }
-      });
-      t.wrapS = THREE.MirroredRepeatWrapping;
-      t.wrapT = THREE.MirroredRepeatWrapping;
-      return t;
-    });
+            const plane = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material);
+            scene.add(plane);
 
-    uniforms.tex1.value = textures[0];
-    
-    function resizeGL() {
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      uniforms.aspectRatio.value = window.innerWidth / window.innerHeight;
+            const textureLoader = new THREE.TextureLoader();
+            textures = bgUrls.map((url, i) => {
+              const t = textureLoader.load(url, () => {
+                  if(i === 0) {
+                      isAnimating = true;
+                      runIntro();
+                  }
+              });
+              t.wrapS = THREE.MirroredRepeatWrapping;
+              t.wrapT = THREE.MirroredRepeatWrapping;
+              return t;
+            });
+
+            uniforms.tex1.value = textures[0];
+            
+            function resizeGL() {
+              renderer.setSize(window.innerWidth, window.innerHeight);
+              uniforms.aspectRatio.value = window.innerWidth / window.innerHeight;
+            }
+            resizeGL();
+            window.addEventListener('resize', resizeGL);
+
+            renderer.render(scene, camera);
+            gsap.ticker.add(() => { renderer.render(scene, camera); });
+        });
+    } else {
+        // Immediately run intro transition on mobile/tablet without waiting for textures
+        setTimeout(() => {
+            isAnimating = true;
+            runIntro();
+        }, 100);
     }
-    resizeGL();
-    window.addEventListener('resize', resizeGL);
-
-    renderer.render(scene, camera);
-    gsap.ticker.add(() => { renderer.render(scene, camera); });
 
     // ==========================================
     // 2. PARALLAX & HUD
@@ -506,7 +517,9 @@ const slides = [
         updateCounter(nextIndex);
         startAutoplay(); 
 
-        uniforms.tex2.value = textures[nextIndex];
+        if (textures) {
+            uniforms.tex2.value = textures[nextIndex];
+        }
         uniforms.direction.value = dir;
         uniforms.progress.value = 0.0;
         gsap.killTweensOf(uniforms.zoom2);
@@ -547,9 +560,11 @@ const slides = [
         const tl = gsap.timeline({
             onComplete: () => {
                 gsap.set(currentSlide, { autoAlpha: 0 });
-                uniforms.tex1.value = textures[nextIndex];
+                if (textures) {
+                    uniforms.tex1.value = textures[nextIndex];
+                    gsap.fromTo(uniforms.zoom1, { value: uniforms.zoom2.value }, { value: 1.0, duration: 5.4, ease: "none" });
+                }
                 uniforms.progress.value = 0.0;
-                gsap.fromTo(uniforms.zoom1, { value: uniforms.zoom2.value }, { value: 1.0, duration: 5.4, ease: "none" });
                 currentIndex = nextIndex;
                 nextMovingIndex = -1; // Reset parallax target
                 isAnimating = false;
@@ -695,6 +710,12 @@ const slides = [
   @media (min-width: 768px) and (max-width: 1024px) {
     #hero-slider {
       height: 100dvh;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    #hero-gl-canvas {
+      display: none !important;
     }
   }
 
