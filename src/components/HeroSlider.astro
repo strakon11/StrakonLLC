@@ -88,7 +88,7 @@ const slides = [
         <div class="slide-subject absolute inset-0 w-full h-full flex items-center justify-center pointer-events-none">
           <div class="proxy-levitate w-full flex justify-center" style={slide.subjectStyle || 'transform: translateY(20%)'}>
             <div class="relative max-w-[90vw] md:max-w-5xl w-full aspect-square md:aspect-video proxy-mouse">
-              <img src={slide.subject} alt={`Subject ${index + 1}`} class="w-full h-full object-contain subject-image" onerror="this.style.display='none'" />
+              <img src={slide.subject} alt={`Subject ${index + 1}`} class="w-full h-full object-contain subject-image" loading={index === 0 ? "eager" : "lazy"} onerror="this.style.display='none'" />
             </div>
           </div>
         </div>
@@ -98,7 +98,7 @@ const slides = [
           <div class="slide-left-obj absolute inset-y-0 left-0 h-full flex items-center z-5 pointer-events-none">
             <div class="proxy-offset" style={slide.leftObjectStyle}>
               <div class="relative max-w-[40vw] md:max-w-lg h-[51vh] flex items-center proxy-mouse">
-                  <img src={slide.leftObject} alt="Left Detail" class="w-full h-full object-contain object-left" onerror="this.style.display='none'" />
+                  <img src={slide.leftObject} alt="Left Detail" class="w-full h-full object-contain object-left" loading={index === 0 ? "eager" : "lazy"} onerror="this.style.display='none'" />
               </div>
             </div>
           </div>
@@ -109,7 +109,7 @@ const slides = [
           <div class="slide-right-obj absolute inset-y-0 right-0 h-full flex items-center z-5 pointer-events-none">
             <div class="proxy-offset" style={slide.rightObjectStyle}>
               <div class="relative max-w-[40vw] md:max-w-lg h-[51vh] flex items-center proxy-mouse">
-                  <img src={slide.rightObject} alt="Right Detail" class="w-full h-full object-contain object-right" onerror="this.style.display='none'" />
+                  <img src={slide.rightObject} alt="Right Detail" class="w-full h-full object-contain object-right" loading={index === 0 ? "eager" : "lazy"} onerror="this.style.display='none'" />
               </div>
             </div>
           </div>
@@ -119,7 +119,7 @@ const slides = [
         {slide.extraLayer && (
           <div class="slide-extra absolute inset-x-0 bottom-0 w-full h-full pointer-events-none flex items-end justify-center">
             <div class="w-full proxy-scale origin-bottom">
-               <img src={slide.extraLayer} alt={`Extra ${index + 1}`} class="w-full h-auto min-h-[25vh] object-cover object-bottom" onerror="this.style.display='none'" />
+               <img src={slide.extraLayer} alt={`Extra ${index + 1}`} class="w-full h-auto min-h-[25vh] object-cover object-bottom" loading={index === 0 ? "eager" : "lazy"} onerror="this.style.display='none'" />
             </div>
           </div>
         )}
