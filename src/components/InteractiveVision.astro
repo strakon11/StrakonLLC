@@ -236,31 +236,33 @@ const pillars = [
         });
     }
 
-    // 3. Staggered Scroll Entrance for Tooltip Cards
-    const holographicCards = document.querySelectorAll('#interactive-scene .holographic-card');
-    if (holographicCards.length > 0) {
-        holographicCards.forEach((card, i) => {
-            const isLeftSide = card.classList.contains('md:right-8') || card.classList.contains('left-6');
-            const startX = isLeftSide ? -80 : 80;
-            
-            gsap.fromTo(card, 
-                { opacity: 0, x: startX, scale: 0.9, yPercent: -50 },
-                {
-                    opacity: 1,
-                    x: 0,
-                    scale: 1,
-                    yPercent: -50,
-                    duration: 1.6,
-                    ease: "expo.out",
-                    delay: i * 0.2,
-                    scrollTrigger: {
-                        trigger: '#vision',
-                        start: "top 75%",
-                        toggleActions: "play none none none"
+    // 3. Staggered Scroll Entrance for Tooltip Cards (Desktop only)
+    if (isHoverDevice) {
+        const holographicCards = document.querySelectorAll('#interactive-scene .holographic-card');
+        if (holographicCards.length > 0) {
+            holographicCards.forEach((card, i) => {
+                const isLeftSide = card.classList.contains('md:right-8') || card.classList.contains('left-6');
+                const startX = isLeftSide ? -80 : 80;
+                
+                gsap.fromTo(card, 
+                    { opacity: 0, x: startX, scale: 0.9, yPercent: -50 },
+                    {
+                        opacity: 1,
+                        x: 0,
+                        scale: 1,
+                        yPercent: -50,
+                        duration: 1.6,
+                        ease: "expo.out",
+                        delay: i * 0.2,
+                        scrollTrigger: {
+                            trigger: '#vision',
+                            start: "top 75%",
+                            toggleActions: "play none none none"
+                        }
                     }
-                }
-            );
-        });
+                );
+            });
+        }
     }
 
     let activeHotspotId = 'p1';
@@ -648,8 +650,10 @@ const pillars = [
     }
 
     /* MOBILE PRESERVATION & OPTIMIZATION */
-    @media (max-width: 768px) {
-        .gsap-reveal-text {
+    @media (max-width: 1024px) {
+        .gsap-reveal-text,
+        .holographic-card,
+        .hotspot {
             opacity: 1 !important;
             transform: none !important;
             will-change: auto !important;
