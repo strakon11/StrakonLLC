@@ -220,7 +220,7 @@ const slides = [
             gsap.to(extra, { yPercent: 0, duration: 1.4, ease: "power2.inOut" });
         }
 
-        const startZoom = window.innerWidth < 768 ? 1.3 : 1.15;
+        const startZoom = window.innerWidth < 768 ? 1.02 : 1.15;
         gsap.fromTo(uniforms.zoom1, { value: startZoom }, { value: 1.0, duration: 7, ease: "none" });
         initSlide(firstSlide);
     };
@@ -250,8 +250,18 @@ const slides = [
 
       void main() {
         vec2 center = vec2(0.5, 0.5);
-        vec2 baseUv1 = (vUv - center) / zoom1 + center;
-        vec2 baseUv2 = (vUv - center) / zoom2 + center;
+        
+        // Scale UVs according to canvas aspect ratio to get standard background-size: cover
+        float textureAspect = 16.0 / 9.0;
+        vec2 scale = vec2(1.0);
+        if (aspectRatio < textureAspect) {
+          scale.x = aspectRatio / textureAspect;
+        } else {
+          scale.y = textureAspect / aspectRatio;
+        }
+
+        vec2 baseUv1 = (vUv - center) * scale / zoom1 + center;
+        vec2 baseUv2 = (vUv - center) * scale / zoom2 + center;
 
         float panAmt = progress * direction * 3.0; // Increased travel
         
@@ -522,7 +532,7 @@ const slides = [
         uniforms.direction.value = dir;
         uniforms.progress.value = 0.0;
         gsap.killTweensOf(uniforms.zoom2);
-        const nextStartZoom = window.innerWidth < 768 ? 1.3 : 1.15;
+        const nextStartZoom = window.innerWidth < 768 ? 1.02 : 1.15;
         gsap.fromTo(uniforms.zoom2, { value: nextStartZoom }, { value: 1.0, duration: 7, ease: "none" });
         
         gsap.to(uniforms.progress, { value: 1.0, duration: 1.6, ease: "power3.inOut" });
