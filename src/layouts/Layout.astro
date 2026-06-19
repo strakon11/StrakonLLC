@@ -136,14 +136,12 @@ const { title = "Strakon Digital | Digital Architects" } = Astro.props;
 			(window as any).getCurrentLang = () => currentLang;
 			(window as any).translations = translations;
 
-			// Execute translations immediately and on DOM loaded states
-			translateDOM(currentLang);
+			// Execute translations once the DOM is interactive
 			if (document.readyState === 'loading') {
 				document.addEventListener('DOMContentLoaded', () => translateDOM(currentLang));
 			} else {
 				translateDOM(currentLang);
 			}
-			window.addEventListener('load', () => translateDOM(currentLang));
 
 			// Register ScrollTrigger
 			gsap.registerPlugin(ScrollTrigger);
