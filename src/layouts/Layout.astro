@@ -32,8 +32,8 @@ const { title = "Strakon Digital | Digital Architects" } = Astro.props;
 					opacity: 0;
 				}
 			}
-			/* Mobile override: force immediate display to prevent layout gaps or delays */
-			@media (max-width: 768px) {
+			/* Mobile & Tablet override: force immediate display to prevent layout gaps or delays */
+			@media (max-width: 1024px) {
 				.gsap-reveal-card,
 				.gsap-reveal-text {
 					opacity: 1 !important;
@@ -179,8 +179,8 @@ const { title = "Strakon Digital | Digital Architects" } = Astro.props;
 					ease: "sine.inOut"
 				});
 
-				// Typography and Card Reveals (Only register triggers on desktop devices)
-				if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+				// Typography and Card Reveals (Only register triggers on desktop devices larger than 1024px)
+				if (window.innerWidth > 1024) {
 					// Typography Fade-In-Up Animations
 					const texts = document.querySelectorAll('.gsap-reveal-text');
 					texts.forEach((text) => {
