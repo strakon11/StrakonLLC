@@ -160,7 +160,7 @@ const slides = [
     const bgMapStr = container.getAttribute('data-slides');
     const bgUrls = JSON.parse(bgMapStr || "[]");
 
-    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || window.innerWidth < 1024;
     const canvas = document.getElementById('hero-gl-canvas') as HTMLCanvasElement;
     const scene = new THREE.Scene();
     const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);

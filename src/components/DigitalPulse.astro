@@ -41,7 +41,7 @@ const metrics = [
                         <h3 class={`text-7xl md:text-[5vw] lg:text-[7vw] font-black leading-[0.9] tracking-tighter mt-6 ${metric.color} ${metric.glowClass} transition-all duration-300 hover:scale-105 select-none mb-3`}>
                             <span class="stat-count" data-target={metric.target}>0</span>{metric.suffix}
                         </h3>
-                        <p class="text-zinc-400 text-sm max-w-[300px] mx-auto leading-relaxed text-center opacity-0 animate-fade-in" data-i18n={`pulse.metric_${index + 1}_desc`}>
+                        <p class="text-zinc-400 text-sm max-w-[300px] mx-auto leading-relaxed text-center" data-i18n={`pulse.metric_${index + 1}_desc`}>
                             {metric.desc}
                         </p>
                     </div>

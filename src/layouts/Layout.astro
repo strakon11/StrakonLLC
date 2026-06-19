@@ -19,12 +19,14 @@ const { title = "Strakon Digital | Digital Architects" } = Astro.props;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 
-		<!-- Preload Critical Slide 1 & 2 Assets -->
+		<!-- Preload Critical Slide Assets for Fast Initial Loading -->
 		<link rel="preload" href="/images/Background/1.avif" as="image" crossorigin="anonymous" />
 		<link rel="preload" href="/images/11.avif" as="image" />
 		<link rel="preload" href="/images/capa/1.avif" as="image" />
-		<link rel="preload" href="/images/Background/2.avif" as="image" crossorigin="anonymous" />
-		<link rel="preload" href="/images/22.avif" as="image" />
+		<link rel="preload" href="/images/Background/3.avif" as="image" crossorigin="anonymous" />
+		<link rel="preload" href="/images/3.avif" as="image" />
+		<link rel="preload" href="/images/Background/5.avif" as="image" crossorigin="anonymous" />
+		<link rel="preload" href="/images/5.avif" as="image" />
 	</head>
 	<body class="bg-[#0A0A0A] text-white antialiased overflow-x-hidden min-h-screen">
 		<!-- Slow-moving blurred spheres -->
@@ -44,7 +46,7 @@ const { title = "Strakon Digital | Digital Architects" } = Astro.props;
 			import Lenis from 'lenis';
 			import { translations } from '../utils/translations.js';
 
-			const isTouchDevice = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+			const isTouchDevice = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0 || window.innerWidth < 1024);
 
 			// ==========================================
 			// i18n TRANSLATION ENGINE
