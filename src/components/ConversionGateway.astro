@@ -56,11 +56,11 @@
     gsap.registerPlugin(ScrollTrigger);
 
     let ctx = gsap.context(() => {
-        // 1. ANIMACIÓN GLOBAL: Scroll Trigger Reveal con Blur & Fade-In-Up (Aparece cobrando vida) - Solo en Escritorio
+        // 1. ANIMACIÓN GLOBAL: Scroll Trigger Reveal con Blur & Fade-In-Up (Aparece cobrando vida)
         const container = document.querySelector('.gateway-reveal-container');
         const items = document.querySelectorAll('.gateway-reveal-item');
         
-        if (window.innerWidth > 1024 && container && items.length > 0) {
+        if (container && items.length > 0) {
             gsap.fromTo(items, 
                 { opacity: 0, y: 60, filter: "blur(15px)" },
                 {
