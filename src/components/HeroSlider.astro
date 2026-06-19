@@ -220,7 +220,7 @@ const slides = [
             gsap.to(extra, { yPercent: 0, duration: 1.4, ease: "power2.inOut" });
         }
 
-        const startZoom = window.innerWidth < 768 ? 1.02 : 1.15;
+        const startZoom = 1.15;
         gsap.fromTo(uniforms.zoom1, { value: startZoom }, { value: 1.0, duration: 7, ease: "none" });
         initSlide(firstSlide);
     };
@@ -532,7 +532,7 @@ const slides = [
         uniforms.direction.value = dir;
         uniforms.progress.value = 0.0;
         gsap.killTweensOf(uniforms.zoom2);
-        const nextStartZoom = window.innerWidth < 768 ? 1.02 : 1.15;
+        const nextStartZoom = 1.15;
         gsap.fromTo(uniforms.zoom2, { value: nextStartZoom }, { value: 1.0, duration: 7, ease: "none" });
         
         gsap.to(uniforms.progress, { value: 1.0, duration: 1.6, ease: "power3.inOut" });
