@@ -169,20 +169,22 @@ const pillars = [
     import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
     gsap.registerPlugin(MotionPathPlugin);
 
-    const scene = document.querySelector('#vision');
-    const spotlight = document.querySelector('#vision-spotlight');
-    const container = document.querySelector('#interactive-scene');
-    const core = document.querySelector('#magnetic-core');
-    const coreGlow = document.querySelector('#core-glow');
-    const coreLogo = document.querySelector('#core-logo');
-    const orbit1 = document.querySelector('.orbit-ring-1');
-    const orbit2 = document.querySelector('.orbit-ring-2');
-    const svg = document.querySelector('#energy-lines-svg');
-    const hotspots = document.querySelectorAll('.hotspot');
+    // Disable all heavy calculations, animations, and updates on touch/mobile devices to maximize scroll performance
+    if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+        const scene = document.querySelector('#vision');
+        const spotlight = document.querySelector('#vision-spotlight');
+        const container = document.querySelector('#interactive-scene');
+        const core = document.querySelector('#magnetic-core');
+        const coreGlow = document.querySelector('#core-glow');
+        const coreLogo = document.querySelector('#core-logo');
+        const orbit1 = document.querySelector('.orbit-ring-1');
+        const orbit2 = document.querySelector('.orbit-ring-2');
+        const svg = document.querySelector('#energy-lines-svg');
+        const hotspots = document.querySelectorAll('.hotspot');
 
-    const isHoverDevice = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+        const isHoverDevice = true;
 
-    // 1. Mouse Spotlight Tracking (Desktop only)
+        // 1. Mouse Spotlight Tracking (Desktop only)
     if (isHoverDevice && scene && spotlight) {
         scene.addEventListener('mousemove', (e) => {
             const bounds = scene.getBoundingClientRect();
@@ -568,6 +570,7 @@ const pillars = [
 
     setTimeout(updateLines, 500);
     window.addEventListener('resize', updateLines);
+    }
 </script>
 
 <style>
@@ -646,6 +649,16 @@ const pillars = [
     }
     .hotspot:hover .holographic-card {
         box-shadow: 0 0 35px rgba(0, 245, 255, 0.25), 0 20px 50px rgba(0, 0, 0, 0.6) !important;
+    }
+
+    /* MOBILE PRESERVATION & OPTIMIZATION */
+    @media (max-width: 768px) {
+        #energy-lines-svg {
+            display: none !important;
+        }
+        .hotspot {
+            display: none !important;
+        }
     }
 
     /* EMERGENCY SCALE FOR SHORT SCREENS */
