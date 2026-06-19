@@ -154,6 +154,7 @@ const slides = [
     let currentIndex = 0;
     let isAnimating = false;
     let autoplayTween;
+    let hasSeenAllSlides = false;
     const totalSlides = domSlides.length;
 
     const bgMapStr = container.getAttribute('data-slides');
@@ -452,16 +453,27 @@ const slides = [
     // ==========================================
     // Management of Scroll Lock (Desktop & Mobile)
     const updateScrollLock = (index) => {
-        // If mobile/tablet, do NOT lock scroll or toggle body/html overflow!
+        const isAtLastSlide = index === totalSlides - 1;
+        if (isAtLastSlide) {
+            hasSeenAllSlides = true;
+        }
+
+        // If mobile/tablet, lock scroll until all slides have been shown once
         if (window.innerWidth <= 1024) {
             const lenis = (window as any).lenis;
-            if (lenis) lenis.start();
-            document.body.style.overflowY = 'auto';
-            document.documentElement.style.overflowY = 'auto';
+            if (hasSeenAllSlides) {
+                if (lenis) lenis.start();
+                document.body.style.overflowY = 'auto';
+                document.documentElement.style.overflowY = 'auto';
+            } else {
+                if (lenis) lenis.stop();
+                document.body.style.overflowY = 'hidden';
+                document.documentElement.style.overflowY = 'hidden';
+                window.scrollTo(0, 0);
+            }
             return;
         }
 
-        const isAtLastSlide = index === totalSlides - 1;
         const lenis = (window as any).lenis;
         const isScrolledDown = window.scrollY > 20;
 
