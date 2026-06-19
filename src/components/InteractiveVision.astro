@@ -169,22 +169,20 @@ const pillars = [
     import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
     gsap.registerPlugin(MotionPathPlugin);
 
-    // Disable all heavy calculations, animations, and updates on touch/mobile devices to maximize scroll performance
-    if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
-        const scene = document.querySelector('#vision');
-        const spotlight = document.querySelector('#vision-spotlight');
-        const container = document.querySelector('#interactive-scene');
-        const core = document.querySelector('#magnetic-core');
-        const coreGlow = document.querySelector('#core-glow');
-        const coreLogo = document.querySelector('#core-logo');
-        const orbit1 = document.querySelector('.orbit-ring-1');
-        const orbit2 = document.querySelector('.orbit-ring-2');
-        const svg = document.querySelector('#energy-lines-svg');
-        const hotspots = document.querySelectorAll('.hotspot');
+    const scene = document.querySelector('#vision');
+    const spotlight = document.querySelector('#vision-spotlight');
+    const container = document.querySelector('#interactive-scene');
+    const core = document.querySelector('#magnetic-core');
+    const coreGlow = document.querySelector('#core-glow');
+    const coreLogo = document.querySelector('#core-logo');
+    const orbit1 = document.querySelector('.orbit-ring-1');
+    const orbit2 = document.querySelector('.orbit-ring-2');
+    const svg = document.querySelector('#energy-lines-svg');
+    const hotspots = document.querySelectorAll('.hotspot');
 
-        const isHoverDevice = true;
+    const isHoverDevice = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
-        // 1. Mouse Spotlight Tracking (Desktop only)
+    // 1. Mouse Spotlight Tracking (Desktop only)
     if (isHoverDevice && scene && spotlight) {
         scene.addEventListener('mousemove', (e) => {
             const bounds = scene.getBoundingClientRect();
@@ -570,7 +568,6 @@ const pillars = [
 
     setTimeout(updateLines, 500);
     window.addEventListener('resize', updateLines);
-    }
 </script>
 
 <style>
@@ -653,12 +650,6 @@ const pillars = [
 
     /* MOBILE PRESERVATION & OPTIMIZATION */
     @media (max-width: 768px) {
-        #energy-lines-svg {
-            display: none !important;
-        }
-        .hotspot {
-            display: none !important;
-        }
         .gsap-reveal-text {
             opacity: 1 !important;
             transform: none !important;
