@@ -216,6 +216,11 @@ const services = [
             transform: none !important;
             will-change: auto !important;
         }
+        /* Disable backdrop-blur on mobile to maximize scroll performance and prevent rendering lag/black screens */
+        .services-card {
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+        }
     }
 
     /* EMERGENCY SCALE FOR SHORT SCREENS (Laptops) */

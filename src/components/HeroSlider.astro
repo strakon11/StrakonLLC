@@ -456,6 +456,14 @@ const slides = [
         const lenis = (window as any).lenis;
         const isScrolledDown = window.scrollY > 20;
 
+        // If mobile/tablet, do NOT lock scroll or toggle body/html overflow!
+        if (window.innerWidth <= 1024) {
+            if (lenis) lenis.start();
+            document.body.style.overflowY = 'auto';
+            document.documentElement.style.overflowY = 'auto';
+            return;
+        }
+
         // If user is at footer, allow background loop WITHOUT pausing or force-scrolling
         if (isScrolledDown) {
             if (lenis) lenis.start();
@@ -598,8 +606,8 @@ const slides = [
         const currentScrollY = window.scrollY;
         const lenis = (window as any).lenis;
         
-        // If scrolling UP and close to the Hero (450px), snap to top with power
-        if (currentScrollY < 450 && currentScrollY > 0 && currentScrollY < lastScrollY) {
+        // Only run magnetic snap on desktop devices > 1024px
+        if (window.innerWidth > 1024 && currentScrollY < 450 && currentScrollY > 0 && currentScrollY < lastScrollY) {
             if (lenis && !isAnimating) {
                 lenis.scrollTo(0, { duration: 0.5, ease: (t) => 1 - Math.pow(1 - t, 4) });
             }
