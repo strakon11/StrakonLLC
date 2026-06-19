@@ -19,10 +19,10 @@ const { title = "Strakon Digital | Digital Architects" } = Astro.props;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 
-		<!-- Preload Critical Slide 1 & 2 Assets -->
-		<link rel="preload" href="/images/Background/1.avif" as="image" crossorigin="anonymous" />
-		<link rel="preload" href="/images/11.avif" as="image" />
-		<link rel="preload" href="/images/capa/1.avif" as="image" />
+		<!-- Preload Critical Slide 1 & 2 Assets (Desktop Only) -->
+		<link rel="preload" href="/images/Background/1.avif" as="image" crossorigin="anonymous" media="(min-width: 1025px)" />
+		<link rel="preload" href="/images/11.avif" as="image" media="(min-width: 1025px)" />
+		<link rel="preload" href="/images/capa/1.avif" as="image" media="(min-width: 1025px)" />
 		<link rel="preload" href="/images/Background/2.avif" as="image" crossorigin="anonymous" media="(min-width: 1025px)" />
 		<style is:global>
 			/* Desktop initial state: hidden so GSAP can animate them in */
