@@ -659,6 +659,16 @@ const pillars = [
         .hotspot {
             display: none !important;
         }
+        .gsap-reveal-text {
+            opacity: 1 !important;
+            transform: none !important;
+            will-change: auto !important;
+            transition: none !important;
+        }
+        /* Optimize orbital rings on mobile by removing transitions and maintaining basic glow */
+        .orbit-ring-1, .orbit-ring-2 {
+            transition: none !important;
+        }
     }
 
     /* EMERGENCY SCALE FOR SHORT SCREENS */

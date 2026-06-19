@@ -24,7 +24,7 @@ const { title = "Strakon Digital | Digital Architects" } = Astro.props;
 		<link rel="preload" href="/images/11.avif" as="image" />
 		<link rel="preload" href="/images/capa/1.avif" as="image" />
 		<link rel="preload" href="/images/Background/2.avif" as="image" crossorigin="anonymous" />
-		<style>
+		<style is:global>
 			/* Desktop initial state: hidden so GSAP can animate them in */
 			@media (min-width: 1025px) {
 				.gsap-reveal-card,
