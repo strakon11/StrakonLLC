@@ -452,6 +452,15 @@ const slides = [
     // ==========================================
     // Management of Scroll Lock (Desktop & Mobile)
     const updateScrollLock = (index) => {
+        // If mobile/tablet, do NOT lock scroll or toggle body/html overflow!
+        if (window.innerWidth <= 1024) {
+            const lenis = (window as any).lenis;
+            if (lenis) lenis.start();
+            document.body.style.overflowY = 'auto';
+            document.documentElement.style.overflowY = 'auto';
+            return;
+        }
+
         const isAtLastSlide = index === totalSlides - 1;
         const lenis = (window as any).lenis;
         const isScrolledDown = window.scrollY > 20;
@@ -595,6 +604,9 @@ const slides = [
     // Magnetic Snap-to-Hero Effect
     let lastScrollY = window.scrollY;
     window.addEventListener("scroll", () => {
+        // If mobile/tablet, do NOT run magnetic snap or scroll lock updates
+        if (window.innerWidth <= 1024) return;
+
         const currentScrollY = window.scrollY;
         const lenis = (window as any).lenis;
         
