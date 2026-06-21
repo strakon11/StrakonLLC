@@ -17,7 +17,8 @@ const isHome = pathname === "/" || pathname === "";
   <div class="pointer-events-auto flex items-center gap-3 md:gap-5 text-white mix-blend-difference font-mono">
     
     <!-- Language Switcher Dropdown (Premium Glassmorphism) -->
-    <div class="relative group/lang pointer-events-auto">
+    <!-- Language Switcher Dropdown (Premium Glassmorphism) -->
+    <div class="relative group/lang pointer-events-auto" id="lang-switcher-container">
       <button id="lang-switcher-btn" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-[0.65rem] md:text-[0.7rem] font-bold tracking-[0.1em] hover:border-[#00F5FF]/50 transition-all cursor-pointer">
         <svg class="w-3.5 h-3.5 text-zinc-400 group-hover/lang:text-[#00F5FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9-9c1.657 0 3 4.03 3 9s-1.343 9-3 9m0-18c-1.657 0-3 4.03-3 9s1.343 9-3 9m-9-9a9 9 0 019-9" />
@@ -101,4 +102,32 @@ const isHome = pathname === "/" || pathname === "";
       }
     });
   });
+
+  // Mobile Click Handler for language dropdown
+  const switcherBtn = document.getElementById('lang-switcher-btn');
+  const switcherContainer = document.getElementById('lang-switcher-container');
+  if (switcherBtn && switcherContainer) {
+    switcherBtn.addEventListener('click', (e) => {
+      if (window.innerWidth <= 768) {
+        e.stopPropagation();
+        switcherContainer.classList.toggle('is-open');
+      }
+    });
+    document.addEventListener('click', () => {
+      if (window.innerWidth <= 768) {
+        switcherContainer.classList.remove('is-open');
+      }
+    });
+  }
 </script>
+
+<style>
+  @media (max-width: 768px) {
+    #lang-switcher-container.is-open > div {
+      opacity: 1 !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
+    }
+  }
+</style>
+
