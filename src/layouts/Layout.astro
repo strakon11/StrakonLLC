@@ -149,16 +149,15 @@ const { title = "Strakon Digital | Digital Architects" } = Astro.props;
 			// Register ScrollTrigger
 			gsap.registerPlugin(ScrollTrigger);
 
-			// Initialize Lenis Smooth Scroll
-			const lenis = new Lenis({
-				autoRaf: true,
-			});
-
-			// Expose Lenis globally for slider control
-			(window as any).lenis = lenis;
-
-			// Connect ScrollTrigger to Lenis scroll event
-			lenis.on('scroll', ScrollTrigger.update);
+			// Initialize Lenis Smooth Scroll only on desktop to prevent scroll glitches on mobile
+			let lenis;
+			if (window.innerWidth > 1024) {
+				lenis = new Lenis({
+					autoRaf: true,
+				});
+				(window as any).lenis = lenis;
+				lenis.on('scroll', ScrollTrigger.update);
+			}
 
 			// Scoped GSAP Animations Context
 			let ctx = gsap.context(() => {

@@ -60,7 +60,7 @@
         const container = document.querySelector('.gateway-reveal-container');
         const items = document.querySelectorAll('.gateway-reveal-item');
         
-        if (container && items.length > 0) {
+        if (window.innerWidth > 1024 && container && items.length > 0) {
             gsap.fromTo(items, 
                 { opacity: 0, y: 60, filter: "blur(15px)" },
                 {
