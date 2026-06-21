@@ -720,6 +720,15 @@ const slides = [
     }
   }
 
+  /* Mobile/Tablet repaint fix for Safari */
+  @media (max-width: 1024px) {
+    .slide-content {
+      will-change: transform;
+      transform: translate3d(0, 0, 0);
+      backface-visibility: hidden;
+    }
+  }
+
   .sphere-anim {
     will-change: transform;
   }

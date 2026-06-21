@@ -35,11 +35,13 @@ const { title = "Strakon Digital | Digital Architects" } = Astro.props;
 			/* Mobile & Tablet override: force immediate display to prevent layout gaps or delays */
 			@media (max-width: 1024px) {
 				.gsap-reveal-card,
-				.gsap-reveal-text {
+				.gsap-reveal-text,
+				.gateway-reveal-item {
 					opacity: 1 !important;
 					transform: none !important;
 					will-change: auto !important;
 					transition: none !important;
+					visibility: visible !important;
 				}
 			}
 		</style>
