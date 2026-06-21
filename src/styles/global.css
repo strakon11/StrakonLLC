@@ -14,14 +14,3 @@
 .fallback-gradient {
   background: linear-gradient(135deg, var(--color-cyan), var(--color-violet));
 }
-
-/* Mobile-only section headings unification for symmetry and harmony */
-@media (max-width: 768px) {
-  #services h2,
-  #vision h2,
-  #pulse h2,
-  #conversion-gateway h2 {
-    font-size: 2.25rem !important;
-    line-height: 1.1 !important;
-  }
-}
