@@ -671,6 +671,13 @@ const slides = [
         }
     }, { passive: true });
 
+    // Lock page scroll on mobile Safari by preventing default touchmove until all slides are seen
+    window.addEventListener('touchmove', (e) => {
+        if (window.innerWidth <= 1024 && !hasSeenAllSlides) {
+            e.preventDefault();
+        }
+    }, { passive: false });
+
     setTimeout(() => updateScrollLock(0), 100);
   }
 </script>
