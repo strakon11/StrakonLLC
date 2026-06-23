@@ -180,8 +180,7 @@ const { title = "Strakon Digital | Digital Architects" } = Astro.props;
 				});
 
 				// Typography and Card Reveals (Only register triggers on desktop devices larger than 1024px)
-				let mm = gsap.matchMedia();
-				mm.add("(min-width: 1025px)", () => {
+				if (window.innerWidth > 1024) {
 					// Typography Fade-In-Up Animations
 					const texts = document.querySelectorAll('.gsap-reveal-text');
 					texts.forEach((text) => {
@@ -224,7 +223,7 @@ const { title = "Strakon Digital | Digital Architects" } = Astro.props;
 							);
 						}
 					});
-				});
+				}
 			});
 
 			// Revert animations context to prevent memory leaks
