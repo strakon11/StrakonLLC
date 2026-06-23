@@ -82,7 +82,7 @@ const slides = [
   <!-- 3-LAYER FOREGROUND SYSTEM (z-index 10) -->
   <div class="absolute inset-0 z-10 w-full h-full pointer-events-none" id="dom-layers">
     {slides.map((slide, index) => (
-      <div class="slide-wrapper absolute inset-0 w-full h-full opacity-0 invisible overflow-hidden" data-index={index} style={`background-image: url(${slide.bg})`}>
+      <div class="slide-wrapper absolute inset-0 w-full h-full opacity-0 invisible overflow-hidden" data-index={index}>
         
         <!-- Subject Layer -->
         <div class="slide-subject absolute inset-0 w-full h-full flex items-center justify-center pointer-events-none">
@@ -730,26 +730,12 @@ const slides = [
     }
   }
 
-  /* Mobile/Tablet optimizations: Disable WebGL, use CSS background images */
+  /* Mobile/Tablet repaint fix for Safari */
   @media (max-width: 1024px) {
-    #hero-gl-canvas {
-      display: none !important;
-    }
-    .slide-wrapper {
-      background-size: cover !important;
-      background-position: center !important;
-      background-repeat: no-repeat !important;
-    }
     .slide-content {
       will-change: transform;
       transform: translate3d(0, 0, 0);
       backface-visibility: hidden;
-    }
-  }
-
-  @media (min-width: 1025px) {
-    .slide-wrapper {
-      background-image: none !important;
     }
   }
 
