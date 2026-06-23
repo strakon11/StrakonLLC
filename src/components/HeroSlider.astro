@@ -657,7 +657,7 @@ const slides = [
     window.addEventListener("touchend", (e) => {
         const deltaY = touchStartY - e.changedTouches[0].clientY;
         const isAtLastSlide = currentIndex === totalSlides - 1;
-        const isScrolledAtTop = window.scrollY <= 10;
+        const isScrolledAtTop = window.scrollY <= 50 || document.body.style.overflowY === 'hidden';
 
         if (Math.abs(deltaY) > 50 && isScrolledAtTop) {
             if (deltaY > 0) {
