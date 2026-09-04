@@ -37,10 +37,6 @@ const { title = "Strakon Digital | Digital Architects" } = Astro.props;
 			}
 			/* Mobile & Tablet override: force immediate display to prevent layout gaps or delays */
 			@media (max-width: 1024px) {
-				* {
-					backdrop-filter: none !important;
-					-webkit-backdrop-filter: none !important;
-				}
 				.gsap-reveal-card,
 				.gsap-reveal-text,
 				.gateway-reveal-item {
@@ -49,13 +45,6 @@ const { title = "Strakon Digital | Digital Architects" } = Astro.props;
 					will-change: auto !important;
 					transition: none !important;
 					visibility: visible !important;
-				}
-				/* Pause decorative sphere animations on mobile to free up GPU */
-				.sphere-anim-1,
-				.sphere-anim-2 {
-					animation: none !important;
-					transform: none !important;
-					will-change: auto !important;
 				}
 			}
 		</style>

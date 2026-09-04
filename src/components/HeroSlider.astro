@@ -226,8 +226,7 @@ const slides = [
     camera.position.z = 1;
     
     renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
-    // Mobile: cap pixel ratio at 1.0 to halve GPU fill-rate. Desktop: allow up to 2x.
-    renderer.setPixelRatio(isMobile ? 1.0 : Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
     const vertexShader = `
       varying vec2 vUv;
@@ -321,12 +320,19 @@ const slides = [
     let mouseX = 0; let mouseY = 0;
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     
-    // Rule 7: Disable mouse-tracking GSAP on mobile
-    if (!isTouchDevice) {
-        document.addEventListener("mousemove", (e) => {
-          mouseX = (e.clientX / window.innerWidth) - 0.5;
-          mouseY = (e.clientY / window.innerHeight) - 0.5;
-        });
+    document.addEventListener("mousemove", (e) => {
+      mouseX = (e.clientX / window.innerWidth) - 0.5;
+      mouseY = (e.clientY / window.innerHeight) - 0.5;
+    });
+
+    // Touch orientation tracking for subtle parallax on mobile
+    if (isTouchDevice) {
+      window.addEventListener("deviceorientation", (e) => {
+        if (e.gamma !== null && e.beta !== null) {
+          mouseX = (e.gamma / 45) * 0.5;
+          mouseY = (e.beta / 45) * 0.5;
+        }
+      }, { passive: true });
     }
 
     const parallaxSetters = Array.from(domSlides).map(slide => {
@@ -337,26 +343,25 @@ const slides = [
         }));
     });
 
-    // Multi-Slide Parallax Support — desktop only (mouse is always 0,0 on touch)
+    // Multi-Slide Parallax Support
     let nextMovingIndex = -1;
-    if (!isTouchDevice) {
-        gsap.ticker.add(() => {
-            // Current Active Slide
-            if(parallaxSetters[currentIndex]) {
-                parallaxSetters[currentIndex].forEach(setter => {
-                    setter.xTo(mouseX * 27);
-                    setter.yTo(mouseY * 27);
-                });
-            }
-            // Next Entering Slide (Animate them into position immediately)
-            if(nextMovingIndex !== -1 && parallaxSetters[nextMovingIndex]) {
-                parallaxSetters[nextMovingIndex].forEach(setter => {
-                    setter.xTo(mouseX * 27);
-                    setter.yTo(mouseY * 27);
-                });
-            }
-        });
-    }
+    gsap.ticker.add(() => {
+        // Current Active Slide
+        if(parallaxSetters[currentIndex]) {
+            parallaxSetters[currentIndex].forEach(setter => {
+                setter.xTo(mouseX * 27);
+                setter.yTo(mouseY * 27);
+            });
+        }
+        // Next Entering Slide (Animate them into position immediately)
+        if(nextMovingIndex !== -1 && parallaxSetters[nextMovingIndex]) {
+            parallaxSetters[nextMovingIndex].forEach(setter => {
+                setter.xTo(mouseX * 27);
+                setter.yTo(mouseY * 27);
+            });
+        }
+    });
+
 
     const initSlide = (slideEl) => {
         const index = parseInt(slideEl.getAttribute('data-index') || '0');
