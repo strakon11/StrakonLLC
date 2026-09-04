@@ -659,6 +659,10 @@ const pillars = [
             will-change: auto !important;
             transition: none !important;
         }
+        /* Also force any h2 with opacity-0 to be visible immediately */
+        #vision h2 {
+            opacity: 1 !important;
+        }
         /* Optimize orbital rings on mobile by removing transitions and maintaining basic glow */
         .orbit-ring-1, .orbit-ring-2 {
             transition: none !important;

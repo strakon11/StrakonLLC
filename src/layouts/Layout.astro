@@ -24,6 +24,9 @@ const { title = "Strakon Digital | Digital Architects" } = Astro.props;
 		<link rel="preload" href="/images/11.avif" as="image" media="(min-width: 1025px)" />
 		<link rel="preload" href="/images/capa/1.avif" as="image" media="(min-width: 1025px)" />
 		<link rel="preload" href="/images/Background/2.avif" as="image" crossorigin="anonymous" media="(min-width: 1025px)" />
+		<!-- Preload Critical Slide 1 Assets (Mobile) -->
+		<link rel="preload" href="/images/Background/1.avif" as="image" crossorigin="anonymous" media="(max-width: 1024px)" />
+		<link rel="preload" href="/images/11.avif" as="image" media="(max-width: 1024px)" />
 		<style is:global>
 			/* Desktop initial state: hidden so GSAP can animate them in */
 			@media (min-width: 1025px) {
@@ -46,6 +49,13 @@ const { title = "Strakon Digital | Digital Architects" } = Astro.props;
 					will-change: auto !important;
 					transition: none !important;
 					visibility: visible !important;
+				}
+				/* Pause decorative sphere animations on mobile to free up GPU */
+				.sphere-anim-1,
+				.sphere-anim-2 {
+					animation: none !important;
+					transform: none !important;
+					will-change: auto !important;
 				}
 			}
 		</style>

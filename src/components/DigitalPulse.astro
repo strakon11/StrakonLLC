@@ -16,8 +16,8 @@ const metrics = [
         <div class="blob absolute top-[30%] left-[40%] w-[30vw] h-[30vw] bg-[#7C3AED]/3 rounded-full blur-[120px] animate-liquid-3"></div>
     </div>
 
-    <!-- FROSTED GLASS OVERLAY -->
-    <div class="absolute inset-0 z-[1] backdrop-blur-[120px] bg-white/[0.01]"></div>
+    <!-- FROSTED GLASS OVERLAY (Desktop only - backdrop-filter is a GPU killer on iOS/mobile) -->
+    <div class="hidden md:block absolute inset-0 z-[1] backdrop-blur-[120px] bg-white/[0.01]"></div>
 
     <!-- CONTENT LAYER -->
     <div class="max-w-7xl mx-auto w-full relative z-10 flex flex-col h-full justify-center">
@@ -95,6 +95,22 @@ const metrics = [
         #pulse h2 {
             font-size: 3rem !important;
             line-height: 1.1 !important;
+        }
+    }
+
+    /* MOBILE PERFORMANCE: Force immediate visibility of all initially-hidden elements */
+    @media (max-width: 1024px) {
+        #pulse .gsap-reveal-text,
+        #pulse .gsap-reveal-card {
+            opacity: 1 !important;
+            transform: none !important;
+            will-change: auto !important;
+            transition: none !important;
+            visibility: visible !important;
+        }
+        /* Disable costly blob animations on mobile - keep them as static glows */
+        .blob {
+            animation: none !important;
         }
     }
 
