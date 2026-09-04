@@ -166,7 +166,14 @@ const pillars = [
 <script>
     import { gsap } from 'gsap';
     import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
-    gsap.registerPlugin(MotionPathPlugin);
+
+    const isMobile = window.innerWidth < 1024;
+    const isHoverDevice = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+    // Only register MotionPathPlugin on desktop — particle animations don't run on mobile
+    if (!isMobile) {
+        gsap.registerPlugin(MotionPathPlugin);
+    }
 
     const scene = document.querySelector('#vision');
     const spotlight = document.querySelector('#vision-spotlight');
@@ -178,8 +185,6 @@ const pillars = [
     const orbit2 = document.querySelector('.orbit-ring-2');
     const svg = document.querySelector('#energy-lines-svg');
     const hotspots = document.querySelectorAll('.hotspot');
-
-    const isHoverDevice = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
     // 1. Mouse Spotlight Tracking (Desktop only)
     if (isHoverDevice && scene && spotlight) {
@@ -291,13 +296,13 @@ const pillars = [
             }
         });
 
-        // Re-draw energy lines with new stroke styles
-        updateLines();
+        // Re-draw energy lines — desktop only
+        if (!isMobile) updateLines();
     }
 
-    // 4. Dynamic Connecting Energy Lines & Pulse Setup
+    // 4. Dynamic Connecting Energy Lines & Pulse Setup — DESKTOP ONLY
     function updateLines() {
-        if (!svg || !core || !container) return;
+        if (!svg || !core || !container || isMobile) return;
         
         const coreBounds = core.getBoundingClientRect();
         const svgBounds = svg.getBoundingClientRect();
@@ -339,7 +344,7 @@ const pillars = [
             pulse.setAttribute("r", isThisActive ? "3.5" : "2.5");
             pulse.setAttribute("fill", "#00F5FF");
             pulse.setAttribute("filter", "url(#glow)");
-            pulse.setAttribute("opacity", "0"); // Hide before animation starts
+            pulse.setAttribute("opacity", "0");
             pulse.classList.add("energy-pulse");
             svg.appendChild(pulse);
 
@@ -357,7 +362,7 @@ const pillars = [
                 }
             });
 
-            // Tap select handler (for both mobile and desktop click)
+            // Tap select handler
             hotspot.addEventListener('click', () => {
                 selectPillar(hotspot.id);
             });
@@ -365,210 +370,63 @@ const pillars = [
             // 5. Reactive Interaction Events (Desktop only)
             if (isHoverDevice) {
                 hotspot.addEventListener('mouseenter', () => {
-                    // Charge line
-                    gsap.to(path, {
-                        stroke: "rgba(0, 245, 255, 0.8)",
-                        strokeWidth: 2,
-                        duration: 0.3
-                    });
-                    
-                    // Charge particle
-                    gsap.to(pulse, {
-                        r: 5,
-                        fill: "#FFFFFF",
-                        duration: 0.3
-                    });
+                    gsap.to(path, { stroke: "rgba(0, 245, 255, 0.8)", strokeWidth: 2, duration: 0.3 });
+                    gsap.to(pulse, { r: 5, fill: "#FFFFFF", duration: 0.3 });
 
-                    // Speed up data stream particles on connection
                     const tween = gsap.getTweensOf(pulse)[0];
-                    if (tween) {
-                        gsap.to(tween, { timeScale: 2.5, duration: 0.5 });
-                    }
+                    if (tween) { gsap.to(tween, { timeScale: 2.5, duration: 0.5 }); }
 
-                    // Charge reactor core
                     if (coreGlow) {
-                        gsap.to(coreGlow, {
-                            scale: 1.15,
-                            opacity: 1,
-                            filter: 'blur(45px)',
-                            backgroundColor: 'rgba(0, 245, 255, 0.3)',
-                            duration: 0.4
-                        });
+                        gsap.to(coreGlow, { scale: 1.15, opacity: 1, filter: 'blur(45px)', backgroundColor: 'rgba(0, 245, 255, 0.3)', duration: 0.4 });
                     }
                     if (coreLogo) {
-                        gsap.to(coreLogo, {
-                            scale: 1.1,
-                            filter: 'drop-shadow(0 0 25px rgba(0, 245, 255, 0.9))',
-                            duration: 0.4
-                        });
+                        gsap.to(coreLogo, { scale: 1.1, filter: 'drop-shadow(0 0 25px rgba(0, 245, 255, 0.9))', duration: 0.4 });
                     }
-                    if (orbit1) {
-                        gsap.to(orbit1, {
-                            borderColor: 'rgba(0, 245, 255, 0.6)',
-                            scale: 1.04,
-                            duration: 0.4
-                        });
-                    }
-                    if (orbit2) {
-                        gsap.to(orbit2, {
-                            borderColor: 'rgba(124, 58, 237, 0.6)',
-                            scale: 1.04,
-                            duration: 0.4
-                        });
-                    }
+                    if (orbit1) { gsap.to(orbit1, { borderColor: 'rgba(0, 245, 255, 0.6)', scale: 1.04, duration: 0.4 }); }
+                    if (orbit2) { gsap.to(orbit2, { borderColor: 'rgba(124, 58, 237, 0.6)', scale: 1.04, duration: 0.4 }); }
                 });
 
                 hotspot.addEventListener('mouseleave', () => {
-                    // Reset line (to selected active state or inactive state)
                     const isCurrentlyActive = activeHotspotId === hotspot.id;
                     gsap.to(path, {
                         stroke: isCurrentlyActive ? "rgba(0, 245, 255, 0.8)" : "rgba(0, 245, 255, 0.12)",
                         strokeWidth: isCurrentlyActive ? 2 : 1,
                         duration: 0.5
                     });
-                    
-                    // Reset particle
-                    gsap.to(pulse, {
-                        r: 2.5,
-                        fill: "#00F5FF",
-                        duration: 0.5
-                    });
-
-                    // Restore idle particle speed
+                    gsap.to(pulse, { r: 2.5, fill: "#00F5FF", duration: 0.5 });
                     const tween = gsap.getTweensOf(pulse)[0];
-                    if (tween) {
-                        gsap.to(tween, { timeScale: 1.0, duration: 0.5 });
-                    }
-
-                    // Reset reactor core
-                    if (coreGlow) {
-                        gsap.to(coreGlow, {
-                            scale: 1.0,
-                            opacity: 0.7,
-                            filter: 'blur(60px)',
-                            backgroundColor: 'transparent',
-                            duration: 0.6
-                        });
-                    }
-                    if (coreLogo) {
-                        gsap.to(coreLogo, {
-                            scale: 1.0,
-                            filter: 'drop-shadow(0 0 20px rgba(255, 255, 255, 0.8))',
-                            duration: 0.6
-                        });
-                    }
-                    if (orbit1) {
-                        gsap.to(orbit1, {
-                            borderColor: 'rgba(0, 245, 255, 0.2)',
-                            scale: 1.0,
-                            duration: 0.6
-                        });
-                    }
-                    if (orbit2) {
-                        gsap.to(orbit2, {
-                            borderColor: 'rgba(124, 58, 237, 0.2)',
-                            scale: 1.0,
-                            duration: 0.6
-                        });
-                    }
+                    if (tween) { gsap.to(tween, { timeScale: 1.0, duration: 0.5 }); }
+                    if (coreGlow) { gsap.to(coreGlow, { scale: 1.0, opacity: 0.7, filter: 'blur(60px)', backgroundColor: 'transparent', duration: 0.6 }); }
+                    if (coreLogo) { gsap.to(coreLogo, { scale: 1.0, filter: 'drop-shadow(0 0 20px rgba(255, 255, 255, 0.8))', duration: 0.6 }); }
+                    if (orbit1) { gsap.to(orbit1, { borderColor: 'rgba(0, 245, 255, 0.2)', scale: 1.0, duration: 0.6 }); }
+                    if (orbit2) { gsap.to(orbit2, { borderColor: 'rgba(124, 58, 237, 0.2)', scale: 1.0, duration: 0.6 }); }
                 });
             }
         });
     }
 
-    // Mobile-specific reactive reactor core autoplay cycle (3D Core tilt, line flares, particle velocity reactions)
-    const isMobile = window.innerWidth < 1024;
+    // Mobile: lightweight CSS-class-only autoplay (NO GSAP tweens, NO setInterval with JS animations)
     if (isMobile) {
         const pillarIds = ['p1', 'p2', 'p3', 'p4'];
-        let currentIndex = 0;
+        let mobileIndex = 0;
 
-        const cycleMobileActivePillar = () => {
-            const currentId = pillarIds[currentIndex];
-            selectPillar(currentId);
-
-            // 1. Tilt/move the core towards the active pillar position (up-left, down-left, up-right, down-right)
-            let targetRotY = 0;
-            let targetRotX = 0;
-            let targetX = 0;
-            let targetY = 0;
-
-            if (currentId === 'p1') { targetRotY = -12; targetRotX = 12; targetX = -8; targetY = -8; }
-            else if (currentId === 'p2') { targetRotY = -12; targetRotX = -12; targetX = -8; targetY = 8; }
-            else if (currentId === 'p3') { targetRotY = 12; targetRotX = 12; targetX = 8; targetY = -8; }
-            else if (currentId === 'p4') { targetRotY = 12; targetRotX = -12; targetX = 8; targetY = 8; }
-
-            gsap.to(core, {
-                rotateY: targetRotY,
-                rotateX: targetRotX,
-                x: targetX,
-                y: targetY,
-                duration: 1.5,
-                ease: 'power2.out',
-                overwrite: 'auto'
-            });
-
-            // 2. Flare the core colors and active glow matching desktop connection intensity
-            gsap.to(coreGlow, {
-                scale: 1.25,
-                opacity: 1,
-                backgroundColor: 'rgba(0, 245, 255, 0.45)',
-                duration: 0.6,
-                ease: 'power1.out',
-                overwrite: 'auto'
-            });
-            gsap.to(coreLogo, {
-                scale: 1.16,
-                filter: 'drop-shadow(0 0 32px rgba(0, 245, 255, 1))',
-                duration: 0.6,
-                ease: 'power1.out',
-                overwrite: 'auto'
-            });
-            gsap.to(orbit1, {
-                scale: 1.08,
-                borderColor: 'rgba(0, 245, 255, 0.85)',
-                duration: 0.6,
-                ease: 'power1.out',
-                overwrite: 'auto'
-            });
-            gsap.to(orbit2, {
-                scale: 1.08,
-                borderColor: 'rgba(124, 58, 237, 0.85)',
-                duration: 0.6,
-                ease: 'power1.out',
-                overwrite: 'auto'
-            });
-
-            // 3. Speed up the active path particle stream, slow down inactive ones
-            hotspots.forEach(hotspot => {
-                const pulseId = `pulse-${hotspot.id}`;
-                const pulseEl = document.getElementById(pulseId);
-                if (pulseEl) {
-                    const tweens = gsap.getTweensOf(pulseEl);
-                    tweens.forEach(t => {
-                        gsap.to(t, {
-                            timeScale: hotspot.id === currentId ? 2.5 : 0.8,
-                            duration: 0.8
-                        });
-                    });
-                }
-            });
-
-            // Shift index
-            currentIndex = (currentIndex + 1) % pillarIds.length;
+        const cycleMobilePillar = () => {
+            selectPillar(pillarIds[mobileIndex]);
+            mobileIndex = (mobileIndex + 1) % pillarIds.length;
         };
 
-        // Autoplay interval every 3.5 seconds
-        mobileAutoplayInterval = setInterval(cycleMobileActivePillar, 3500);
-        
-        // Trigger first transition immediately after small load delay to sync elements
-        setTimeout(cycleMobileActivePillar, 200);
+        // Simple interval just for dot selection (no GSAP, no SVG, no filter tweens)
+        mobileAutoplayInterval = setInterval(cycleMobilePillar, 3500);
+        cycleMobilePillar();
     }
 
     // Initialize first pillar on load
     selectPillar('p1');
 
-    setTimeout(updateLines, 500);
-    window.addEventListener('resize', updateLines);
+    if (!isMobile) {
+        setTimeout(updateLines, 500);
+        window.addEventListener('resize', updateLines);
+    }
 </script>
 
 <style>
